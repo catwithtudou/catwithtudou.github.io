@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>源码解析 - 标签 - </title>
+        <link>https://zhengyua.cn/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</link>
+        <description>源码解析 - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 28 Jan 2022 18:51:06 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" rel="self" type="application/rss+xml" /><item>
+    <title>netrpc源码阅读</title>
+    <link>https://zhengyua.cn/posts/golang/rpc/1.html/</link>
+    <pubDate>Fri, 28 Jan 2022 18:51:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/golang/rpc/1.html/</guid>
+    <description><![CDATA[netrpc源码阅读 [源码地址] Client.go 核心结构体： Call：主要表示调用RPC过程中的信息 Client：主要负责RPC客户端 gobClientC]]></description>
+</item></channel>
+</rss>

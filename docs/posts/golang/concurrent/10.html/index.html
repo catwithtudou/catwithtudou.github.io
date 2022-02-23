@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Go并发编程实战课笔记—RWMutex - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="Go并发编程实战课笔记—RWMutex" />
+<meta property="og:description" content="Go并发编程实战课笔记—RWMutex 以下为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo 针对读写场景，即考虑readers-writ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/golang/concurrent/10.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T02:28:06&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T02:28:06&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="Go并发编程实战课笔记—RWMutex"/>
+<meta name="twitter:description" content="Go并发编程实战课笔记—RWMutex 以下为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo 针对读写场景，即考虑readers-writ"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/golang/concurrent/10.html/" /><link rel="prev" href="https://zhengyua.cn/posts/golang/concurrent/11.html/" /><link rel="next" href="https://zhengyua.cn/posts/golang/concurrent/9.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go并发编程实战课笔记—RWMutex",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/10.html\/"
+        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  1281 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/10.html\/","datePublished": "2022-01-29T02:28:06+08:00","dateModified": "2022-01-29T02:28:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Go并发编程实战课笔记—RWMutex</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1281 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go并发编程实战课笔记rwmutex">Go并发编程实战课笔记—RWMutex</a>
+      <ul>
+        <li><a href="#rwmutex标准库">RWMutex标准库</a></li>
+        <li><a href="#rwmutex的实现原理">RWMutex的实现原理</a>
+          <ul>
+            <li><a href="#rlockrulock实现">RLock/Rulock实现</a></li>
+            <li><a href="#lockunlock实现">Lock/Unlock实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#陷阱">陷阱</a>
+          <ul>
+            <li><a href="#不可复制">不可复制</a></li>
+            <li><a href="#重入导致死锁">重入导致死锁</a></li>
+            <li><a href="#释放未加锁的rwmutex">释放未加锁的RWMutex</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="go并发编程实战课笔记rwmutex">Go并发编程实战课笔记—RWMutex</h1>
+<blockquote>
+<p>以下为鸟窝大佬的<a href="https://time.geekbang.org/column/intro/100061801" target="_blank" rel="noopener noreffer">Go 并发编程实战课</a> 中摘录的笔记</p>
+<p><a href="https://github.com/catwithtudou/golang_concurrent_examples/tree/master/rwlock" target="_blank" rel="noopener noreffer">代码repo</a></p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20210103211026.png"
+        data-srcset="https://img.zhengyua.cn/img/20210103211026.png, https://img.zhengyua.cn/img/20210103211026.png 1.5x, https://img.zhengyua.cn/img/20210103211026.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20210103211026.png"
+        title="image-20210103211026661" /></p>
+<p>针对读写场景，即考虑<code>readers-writers</code>问题，同时可能有多个读或者多个写，但只要有一个线程在执行写操作，则其他线程都不能执行写操作，即读锁为共享锁，写锁为排他锁。</p>
+<h2 id="rwmutex标准库">RWMutex标准库</h2>
+<ul>
+<li>Lock/Unlock：写操作时调用的方法。</li>
+<li>RLock/RUlock：读操作时调用的方法。</li>
+<li>RLocker：返回调用RLock/RUnlock的Lokcer接口的对象。</li>
+</ul>
+<p>当出现明确区分并发读写场景，且有大量的并发读和少量的并发写，可以考虑使用读写锁RWMutex替换Mutex。</p>
+<h2 id="rwmutex的实现原理">RWMutex的实现原理</h2>
+<blockquote>
+<p>Go标准库中的RWMutex是基于Mutex实现的。</p>
+</blockquote>
+<p>readers-writers问题一般有三类，基于对读和写操作的优先级，读写锁的设计和实现也分成三类：</p>
+<ul>
+<li>Read-preferring：读优先设计提供很高的并发型，但是会在竞争激烈的情况下导致写饥饿。</li>
+<li>Writer-preferring：写优先设计针对新来的请求优先保障writer，避免writer饥饿问题。</li>
+<li>不指定优先级。</li>
+</ul>
+<p>Go标准库中的RWMutex设计是写优先的方案，即一个正在阻塞的Lock调用会排除新的reader请求到锁。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">RWMutex</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">w</span> <span class="nx">Mutex</span> <span class="c1">// 互斥锁解决多个writer的竞争
+</span><span class="c1"></span>	<span class="nx">writerSem</span> <span class="kt">uint32</span> <span class="c1">// writer信号量
+</span><span class="c1"></span>	<span class="nx">readerSem</span> <span class="kt">uint32</span> <span class="c1">// reader信号量
+</span><span class="c1"></span>	<span class="nx">readerCount</span> <span class="kt">int32</span> <span class="c1">// reader的数量
+</span><span class="c1"></span>	<span class="nx">readerWait</span> <span class="kt">int32</span> <span class="c1">// writer等待完成的reader的数量
+</span><span class="c1"></span><span class="p">}</span>
+<span class="kd">const</span> <span class="nx">rwmutexMaxReaders</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">30</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="rlockrulock实现">RLock/Rulock实现</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">rw</span> <span class="o">*</span><span class="nx">RWMutex</span><span class="p">)</span> <span class="nf">RLock</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerCount</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">// rw.readerCount是负值的时候，意味着此时有writer等待请求锁，因为writer优先
+</span><span class="c1"></span>		<span class="nf">runtime_SemacquireMutex</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerSem</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">rw</span> <span class="o">*</span><span class="nx">RWMutex</span><span class="p">)</span> <span class="nf">RUnlock</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">r</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerCount</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span> <span class="nx">r</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">rw</span><span class="p">.</span><span class="nf">rUnlockSlow</span><span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="c1">// 有等待的writer
+</span><span class="c1"></span>	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">rw</span> <span class="o">*</span><span class="nx">RWMutex</span><span class="p">)</span> <span class="nf">rUnlockSlow</span><span class="p">(</span><span class="nx">r</span> <span class="kt">int32</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerWait</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">// 最后一个reader了，writer终于有机会获得锁了
+</span><span class="c1"></span>		<span class="nf">runtime_Semrelease</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">writerSem</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="lockunlock实现">Lock/Unlock实现</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">rw</span> <span class="o">*</span><span class="nx">RWMutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// 首先解决其他writer竞争问题
+</span><span class="c1"></span>	<span class="nx">rw</span><span class="p">.</span><span class="nx">w</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+	<span class="c1">// 反转readerCount，告诉reader有writer竞争锁
+</span><span class="c1"></span>	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerCount</span><span class="p">,</span> <span class="o">-</span><span class="nx">rwmutexMaxReaders</span><span class="p">)</span> <span class="o">+</span> <span class="nx">rwmutexMaxReaders</span>
+	<span class="c1">// 如果当前有reader持有锁，那么需要等待
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">r</span> <span class="o">!=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerWait</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nf">runtime_SemacquireMutex</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">writerSem</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">rw</span> <span class="o">*</span><span class="nx">RWMutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span>
+	<span class="c1">// 告诉reader没有活跃的writer了
+</span><span class="c1"></span>	<span class="nx">r</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerCount</span><span class="p">,</span> <span class="nx">rwmutexMaxReaders</span><span class="p">)</span>
+	<span class="c1">// 唤醒阻塞的reader们
+</span><span class="c1"></span>	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">int</span><span class="p">(</span><span class="nx">r</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nf">runtime_Semrelease</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">rw</span><span class="p">.</span><span class="nx">readerSem</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="c1">// 释放内部的互斥锁
+</span><span class="c1"></span>	<span class="nx">rw</span><span class="p">.</span><span class="nx">w</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="陷阱">陷阱</h2>
+<h3 id="不可复制">不可复制</h3>
+<p>互斥锁是不可复制的，再加上四个有状态的字段则更加不能复制使用，因为复制记录的状态与本身修改的状态不同步。</p>
+<p>解决方案与互斥锁一样，可以借助vet工具进行检查。</p>
+<h3 id="重入导致死锁">重入导致死锁</h3>
+<p>重入导致的死锁情况较多且很难确认。</p>
+<ul>
+<li>
+<p>writer重入调用Lock时会出现死锁。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">re</span><span class="p">(</span><span class="nx">l</span> <span class="o">*</span><span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span><span class="p">){</span>
+    <span class="nx">l</span><span class="p">.</span><span class="nf">Lock</span><span class="p">();</span>
+    <span class="nf">re</span><span class="p">(</span><span class="nx">l</span><span class="p">);</span>
+    <span class="nx">l</span><span class="p">.</span><span class="nf">UnLock</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p>若在reader读操作时调用writer写操作，则会形成相互依赖的死锁关系。</p>
+</li>
+<li>
+<p>环形依赖问题：writer依赖活跃的reader-&gt;活跃的reader依赖新来的reader-&gt;新来的reader依赖writer。</p>
+</li>
+</ul>
+<h3 id="释放未加锁的rwmutex">释放未加锁的RWMutex</h3>
+<p>使用读写锁的时候注意不要遗漏和多余。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/golang/concurrent/10.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-title="Go并发编程实战课笔记—RWMutex" data-hashtags="Go,并发编程,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-title="Go并发编程实战课笔记—RWMutex" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-title="Go并发编程实战课笔记—RWMutex"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-title="Go并发编程实战课笔记—RWMutex"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-title="Go并发编程实战课笔记—RWMutex" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-title="Go并发编程实战课笔记—RWMutex" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/golang/concurrent/10.html/" data-title="Go并发编程实战课笔记—RWMutex"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/golang/concurrent/11.html/" class="prev" rel="prev" title="Go并发编程实战课笔记—Semaphore"><i class="fas fa-angle-left fa-fw"></i>Go并发编程实战课笔记—Semaphore</a>
+            <a href="/posts/golang/concurrent/9.html/" class="next" rel="next" title="Go并发编程实战课笔记—Pool">Go并发编程实战课笔记—Pool<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

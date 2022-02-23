@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>程序运行原理Thinking - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="程序运行原理Thinking" />
+<meta property="og:description" content="程序运行原理 Thinking 以下是个人理解（大白话较多） 程序是如何运行起来的 首先对于程序，可以简单理解为可执行的代码，程序是静态的，即存储在磁盘上。 而如果" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/os/common/0.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-28T20:58:26&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-28T20:58:26&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="程序运行原理Thinking"/>
+<meta name="twitter:description" content="程序运行原理 Thinking 以下是个人理解（大白话较多） 程序是如何运行起来的 首先对于程序，可以简单理解为可执行的代码，程序是静态的，即存储在磁盘上。 而如果"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/os/common/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/network/socks5/0.html/" /><link rel="next" href="https://zhengyua.cn/posts/rust/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "程序运行原理Thinking",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/os\/common\/0.html\/"
+        },"genre": "posts","keywords": "os","wordcount":  1053 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/os\/common\/0.html\/","datePublished": "2022-01-28T20:58:26+08:00","dateModified": "2022-01-28T20:58:26+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">程序运行原理Thinking</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/os/"><i class="far fa-folder fa-fw"></i>os</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-28">2022-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1053 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#程序运行原理-thinking">程序运行原理 Thinking</a>
+      <ul>
+        <li><a href="#程序是如何运行起来的">程序是如何运行起来的</a></li>
+        <li><a href="#一台计算机如何同时处理多个任务">一台计算机如何同时处理多个任务</a></li>
+        <li><a href="#系统为什么会变慢或者崩溃">系统为什么会变慢或者崩溃</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="程序运行原理-thinking">程序运行原理 Thinking</h1>
+<blockquote>
+<p>以下是个人理解（大白话较多）</p>
+</blockquote>
+<h2 id="程序是如何运行起来的">程序是如何运行起来的</h2>
+<p>首先对于程序，可以简单理解为可执行的代码，程序是静态的，即存储在磁盘上。</p>
+<p>而如果想要程序处理数据，完成计算任务，就必须把程序从外部加载到内存中。加载到内存中后就会在操作系统的管理调度下交给CPU去执行，将该程序运行起来。而程序被运行起来后就可以被称作为<strong>进程</strong>。</p>
+<blockquote>
+<p>进程除了包含可执行的代码，还包括进程在运行期间使用的内存堆空间、栈空间、供操作系统管理用的数据结构等。</p>
+</blockquote>
+<p>而如果<strong>从指令角度看</strong>，那就是操作系统把可执行代码加载到内存中后生成相应的数据结构和变量，而生成这些就需要在进程的堆空间申请相应的内存空间，并把内存的首地址信息记录在进程的栈中。</p>
+<blockquote>
+<p>堆是一块无序的内存空间，任何时候进程需要申请内存，都会从堆空间中分配，分配到的内存地址则记录在栈中。而栈主要是来记录函数内部的局部变量、堆空间分配的内存空间地址等。</p>
+</blockquote>
+<p>最后在内存空间后，就可以从可执行代码的起始位置<strong>读取指令交给CPU</strong>顺序执行。指令执行过程中所遇到的跳转指令，就可能是由我们常见的循环、控制判断等导致的。且每次函数调用时，就会利用到栈帧，函数在栈顶执行，且每个栈帧都是隔离的即不发生混乱。</p>
+<h2 id="一台计算机如何同时处理多个任务">一台计算机如何同时处理多个任务</h2>
+<p>主要依靠操作系统的<strong>CPU分时共享技术</strong>，即宏观上是并行，微观上是串行的。</p>
+<p>所以进程不是总在运行，进程的生命周期中主要有三种状态：<strong>运行、就绪、阻塞</strong>。</p>
+<p>不同进程轮流在CPU上执行，就会涉及到<strong>进程之间的切换</strong>问题。线程也是同样的问题，但线程的切换代价更小。</p>
+<p>一台计算机同时处理多个任务的性能还是要看<strong>其进程调度</strong>，或者<strong>线程调度</strong>，本质就是为了保证每一个合理的任务尽可能地被处理运行。</p>
+<h2 id="系统为什么会变慢或者崩溃">系统为什么会变慢或者崩溃</h2>
+<p>这里的问题以web应用程序作为例子。</p>
+<p><strong>高并发请求</strong>，导致系统变慢或者严重至崩溃，也就是用户请求响应变慢，而这里可能导致的原因可能就是<strong>资源限制导致的线程阻塞问题</strong>，一个线程阻塞可能就会影响到其他线程的运行，被阻塞的线程越多，占据的系统资源也越多，这些被阻塞的线程既不能继续执行，也不能释 放当前已经占据的资源，在系统中一边等待一边消耗资源。</p>
+<p>而发生阻塞的原因可能就是出现了等待其他服务完成或者等待信号，最常见的就是我们平常遇见的排队等锁，而出现<strong>锁</strong>就涉及到了<strong>线程安全</strong>问题。</p>
+<p>解决的主要手段，在单机中可以通过设计更优的<strong>保证线程安全的执行调度</strong>方案，而在多机中就可以使用<strong>分布式系统架构</strong>，通过集群来共同处理用户的并发请求，减少资源限制的压力，必要时可以在入口进行限流以减少并发请求数，在于应用内进行降级以减小线程的资源消耗。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/os/common/0.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-title="程序运行原理Thinking" data-hashtags="os"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-hashtag="os"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-title="程序运行原理Thinking" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-title="程序运行原理Thinking"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-title="程序运行原理Thinking"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-title="程序运行原理Thinking" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-title="程序运行原理Thinking" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/os/common/0.html/" data-title="程序运行原理Thinking"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/os/">os</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/network/socks5/0.html/" class="prev" rel="prev" title="simple socks5 proxy &amp; the c10k problem"><i class="fas fa-angle-left fa-fw"></i>simple socks5 proxy &amp; the c10k problem</a>
+            <a href="/posts/rust/0.html/" class="next" rel="next" title="（WIP）Rust学习笔记">（WIP）Rust学习笔记<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

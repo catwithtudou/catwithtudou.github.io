@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>熔断 - 标签 - </title>
+        <link>https://zhengyua.cn/tags/%E7%86%94%E6%96%AD/</link>
+        <description>熔断 - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/%E7%86%94%E6%96%AD/" rel="self" type="application/rss+xml" /><item>
+    <title>分布式熔断方案</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/7.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/7.html/</guid>
+    <description><![CDATA[分布式熔断方案note 微服务容错机制 微服务架构中因各个服务之间的依赖和调用关系较为复杂，当下游的服务出现问题时就可能会造成上游的雪崩效应。 解]]></description>
+</item></channel>
+</rss>

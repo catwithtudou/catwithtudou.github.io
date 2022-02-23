@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>弹力设计note - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="弹力设计note" />
+<meta property="og:description" content="弹力设计note 以下为左耳听风 记录的笔记。 认识故障和弹力设计 系统可用性测量 分布式系统的容错设计，在英文中又叫Resiliency（弹力），即" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T17:00:06&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T17:00:06&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="弹力设计note"/>
+<meta name="twitter:description" content="弹力设计note 以下为左耳听风 记录的笔记。 认识故障和弹力设计 系统可用性测量 分布式系统的容错设计，在英文中又叫Resiliency（弹力），即"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" /><link rel="prev" href="https://zhengyua.cn/posts/distributed_structure/structure/2.html/" /><link rel="next" href="https://zhengyua.cn/posts/distributed_structure/structure/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "弹力设计note",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/distributed_structure\/structure\/6.html\/"
+        },"genre": "posts","keywords": "分布式架构, 弹力设计, note","wordcount":  2231 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/distributed_structure\/structure\/6.html\/","datePublished": "2022-01-29T17:00:06+08:00","dateModified": "2022-01-29T17:00:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">弹力设计note</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/"><i class="far fa-folder fa-fw"></i>分布式架构</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2231 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#弹力设计note">弹力设计note</a></li>
+    <li><a href="#认识故障和弹力设计">认识故障和弹力设计</a>
+      <ul>
+        <li><a href="#系统可用性测量">系统可用性测量</a></li>
+        <li><a href="#故障原因">故障原因</a></li>
+        <li><a href="#故障不可避免">故障不可避免</a></li>
+      </ul>
+    </li>
+    <li><a href="#隔离设计">隔离设计</a>
+      <ul>
+        <li><a href="#按服务的种类来做分离">按服务的种类来做分离</a></li>
+        <li><a href="#按用户的请求来做分离">按用户的请求来做分离</a></li>
+        <li><a href="#隔离设计的重点">隔离设计的重点</a></li>
+      </ul>
+    </li>
+    <li><a href="#异步通讯设计">异步通讯设计</a>
+      <ul>
+        <li><a href="#异步通讯的三种方式">异步通讯的三种方式</a></li>
+        <li><a href="#异步通讯的设计重点">异步通讯的设计重点</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="弹力设计note">弹力设计note</h1>
+<blockquote>
+<p>以下为<a href="https://time.geekbang.org/column/intro/48" target="_blank" rel="noopener noreffer">左耳听风</a> 记录的笔记。</p>
+</blockquote>
+<h1 id="认识故障和弹力设计">认识故障和弹力设计</h1>
+<h2 id="系统可用性测量">系统可用性测量</h2>
+<blockquote>
+<p>分布式系统的容错设计，在英文中又叫Resiliency（弹力），即系统在不健康甚至出错的情况下能够承受住或者能够恢复的能力。</p>
+</blockquote>
+<ul>
+<li>系统可用性公式：</li>
+</ul>
+<p>$$
+Avaliability = \frac{MTTF}{MTTF+MTTR}
+$$</p>
+<p><em>MTTF(Mean TIme To Failure)</em>：平均故障前的时间，即系统平均能够正常运行多长时间才发生一次故障。系统的可靠性越高，MTTF越长。</p>
+<p><em>MTTR(Mean Time To Recovery)</em>：平均修复时间，即从故障出现到故障修复的这段时间。</p>
+<p>根据公式来说，如果要提高可靠性，<strong>要么提高系统的无故障时间，要么减少系统的故障恢复时间</strong>。</p>
+<h2 id="故障原因">故障原因</h2>
+<blockquote>
+<p>工业界中会把服务不可用的因素分成两种：一种是有计划的，一种是无计划的。</p>
+</blockquote>
+<ul>
+<li>
+<p>无计划的宕机原因</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210210112026.png"
+        data-srcset="https://img.zhengyua.cn/20210210112026.png, https://img.zhengyua.cn/20210210112026.png 1.5x, https://img.zhengyua.cn/20210210112026.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210210112026.png"
+        title="image-20210210112020844" /></p>
+<ul>
+<li>系统级故障，包括主机、操作系统、中间件、数据库、网络、电源以及外围设备；</li>
+<li>数据和中介的故障，包括人员操作、硬盘故障、数据混乱；</li>
+<li>自然灾害、认为破坏、以及供电问题等；</li>
+</ul>
+</li>
+<li>
+<p>有计划的宕机原因</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210210112051.png"
+        data-srcset="https://img.zhengyua.cn/20210210112051.png, https://img.zhengyua.cn/20210210112051.png 1.5x, https://img.zhengyua.cn/20210210112051.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210210112051.png"
+        title="image-20210210112051907" /></p>
+<ul>
+<li>日常任务：备份和容量规划，用户和安全管理，后台批处理应用；</li>
+<li>运维相关：数据库维护、应用维护、中间件维护、操作系统维护、网络维护；</li>
+<li>升级相关：数据库、应用、中间件、操作系统、网络，包括硬件升级；</li>
+</ul>
+</li>
+</ul>
+<p>总结来说，一共有以下几类问题：</p>
+<ul>
+<li><strong>网络问题；</strong></li>
+<li><strong>性能问题；</strong></li>
+<li><strong>安全问题；</strong></li>
+<li><strong>运维问题；</strong></li>
+<li><strong>管理问题；</strong></li>
+<li><strong>硬件问题；</strong></li>
+</ul>
+<h2 id="故障不可避免">故障不可避免</h2>
+<p>我们需要意识到：</p>
+<ul>
+<li>故障是正常的，而且是常见的；</li>
+<li>故障是不可预测突发的，而且相当难缠；</li>
+</ul>
+<p><strong>不要尝试去避免故障，而是要把处理故障的代码当成正常的功能做在架构里写在代码里</strong>。</p>
+<p>弹力设计就是要降低MTTR即故障修复时间：</p>
+<ul>
+<li>一方面，在好的情况下，该设计对于我们的用户和内部运维来说是完全透明的，系统自动修复不需要人的干预；</li>
+<li>另一方面，若修复不了，系统能够自我保护，而不让事态变得更糟糕；</li>
+</ul>
+<h1 id="隔离设计">隔离设计</h1>
+<p>在分布式软件架构中我们需通过隔离设计来让出现的故障得到隔离，从而不让故障“蔓延“。</p>
+<p>一般来说对于系统的分离有两种方式：</p>
+<ul>
+<li>以服务的种类来做分离；</li>
+<li>以用户来做分离；</li>
+</ul>
+<h2 id="按服务的种类来做分离">按服务的种类来做分离</h2>
+<p>一般最常见的架构就是将每个服务实例包括接入层、应用层、数据层都完全隔离开来，这种隔离下在物理来说一个板块的故障就不会影响另一个板块。但是也会存在以下的问题：</p>
+<ul>
+<li>若需要调用其他实例的服务和数据，一旦同时调用或者调用过多就不可避免就会降低性能（响应时间，而不是吞吐量）；</li>
+<li>若要降数据都抽取到一个数据仓库中进行计算，也会增加数据合并的复杂度；</li>
+<li>业务逻辑若需要跨板块则故障会导致流程无法进行，严重会导致整体业务故障；</li>
+<li>跨板块交互复杂情况下就需要类似于消息队列中间件来交互各个板块的数据和信息交换；</li>
+<li>多个板块可能也会出现分布式事务的问题；</li>
+</ul>
+<h2 id="按用户的请求来做分离">按用户的请求来做分离</h2>
+<p>将用户分成不同的组，并把后端的同一个服务根据这些不同的组分成不同的实例，这样让同一个服务对于不同的用户进行冗余和隔离，即所谓的“多租户”模式。</p>
+<p>对于“多租户”架构来说，会引入系统设计的复杂度，一方面若完全隔离则资源使用就会较为浪费，若共享的话则会导致程序设计的复杂度增加。</p>
+<p>通常来说多租户的方案有以下三种：</p>
+<ul>
+<li>完全独立的设计。每个租户有自己完全独立的服务和数据；</li>
+<li>独立的数据分区，共享的服务。多租户的服务是共享的，但数据是分开隔离的；</li>
+<li>共享的服务，共享的数据分区。每个租户的数据和服务都是共享的；</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210210115858.png"
+        data-srcset="https://img.zhengyua.cn/20210210115858.png, https://img.zhengyua.cn/20210210115858.png 1.5x, https://img.zhengyua.cn/20210210115858.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210210115858.png"
+        title="image-20210210115858381" /></p>
+<h2 id="隔离设计的重点">隔离设计的重点</h2>
+<p>做好隔离设计，我们需要有如下一些设计考量：</p>
+<ul>
+<li>认真分析业务需求和系统分析，定义好隔离业务的大小和粒度；</li>
+<li>需要考虑系统的复杂度、成本、性能、资源使用的问题，找到合适的均衡方案或是分布实施的方案；</li>
+<li>隔离模式需要配置一些高可用、重试、异步、消息中间件、流控、熔断等设计模式的方式配套使用；</li>
+<li>分布式系统中运维复杂度的提升需要自动化运维工具和系统；</li>
+<li>服务的监控系统；</li>
+</ul>
+<h1 id="异步通讯设计">异步通讯设计</h1>
+<p>通讯一般来说分同步和异步两种。</p>
+<p>同步调用虽然让系统间只耦合于接口，且实施性也会比异步调用高，但也有以下问题：</p>
+<ul>
+<li>
+<p>整个同步调用链的性能会由最慢的那个服务所决定；</p>
+</li>
+<li>
+<p>同步调用会导致所有参与方拥有相同的等待时间；</p>
+</li>
+<li>
+<p>同步调用只能是一对一的情况，较难做到一对多的通讯方式；</p>
+</li>
+<li>
+<p>同步调用链只要有一个地方出现故障就会导致整条链出现故障；</p>
+</li>
+</ul>
+<h2 id="异步通讯的三种方式">异步通讯的三种方式</h2>
+<ol>
+<li>请求响应式</li>
+<li>通过订阅的方式</li>
+<li>通过broker的方式</li>
+</ol>
+<p>分布式系统的服务设计是需要向无状态服务努力的，其中第一种方式服务是有状态的，而其他方式可让服务间的依赖只有事件，即事件驱动架构。</p>
+<p>事件驱动方式的优势有如下：</p>
+<ul>
+<li>
+<p>服务间是平等的即无依赖且每个服务高度可崇勇并可被替换的；</p>
+</li>
+<li>
+<p>服务的开发测试运维以及故障处理都是高度隔离的；</p>
+</li>
+<li>
+<p>服务件通过事件关联即不会出现相互阻塞的情况；</p>
+</li>
+<li>
+<p>服务之间增加一些Adapter较为容易；</p>
+</li>
+<li>
+<p>各个服务可按自己的处理速度进行；</p>
+</li>
+</ul>
+<p>但事件驱动的架构也有一些不好的地方：</p>
+<ul>
+<li>
+<p>业务流程不再那么明显且较难管理，整个架构变得复杂；</p>
+</li>
+<li>
+<p>事件可能会乱序，需要很好地管理一个状态机的控制来解决；</p>
+</li>
+<li>
+<p>事件处理变得复杂，需要保证一致性等问题；</p>
+</li>
+</ul>
+<h2 id="异步通讯的设计重点">异步通讯的设计重点</h2>
+<p>首先我们要明白为什么要异步通讯的原因：</p>
+<ul>
+<li>
+<p>解耦服务间的依赖，比如通过Broker机制；</p>
+</li>
+<li>
+<p>解耦的目的是让各个服务的隔离性更好，如故障隔离等；</p>
+</li>
+<li>
+<p>吞吐量变得均匀即可达到削峰的目的；</p>
+</li>
+<li>
+<p>服务相对独立会在运维管理上面较为容易；</p>
+</li>
+</ul>
+<p>设计异步通信的时候需要注意以下事宜：</p>
+<ul>
+<li>
+<p>用于异步通讯的中间件需要设计成高可用且不丢消息的，也需要注意消息的顺序问题；</p>
+</li>
+<li>
+<p>异步通讯导致业务处理流程不那么直观，需要有相关的服务消息跟踪机制，否则出现问题后不容易调试；</p>
+</li>
+<li>
+<p>服务件只通过消息交互，业务状态最好由一个总控方来管理维护整个业务流程的状态变迁逻辑；</p>
+</li>
+<li>
+<p>消息传递中需要处理方有幂等的处理；</p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/distributed_structure/structure/6.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-title="弹力设计note" data-hashtags="分布式架构,弹力设计,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-hashtag="分布式架构"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-title="弹力设计note" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-title="弹力设计note"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-title="弹力设计note"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-title="弹力设计note" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-title="弹力设计note" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/distributed_structure/structure/6.html/" data-title="弹力设计note"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/">分布式架构</a>,&nbsp;<a href="/tags/%E5%BC%B9%E5%8A%9B%E8%AE%BE%E8%AE%A1/">弹力设计</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/distributed_structure/structure/2.html/" class="prev" rel="prev" title="服务限流的通用方案"><i class="fas fa-angle-left fa-fw"></i>服务限流的通用方案</a>
+            <a href="/posts/distributed_structure/structure/0.html/" class="next" rel="next" title="分布式系统架构的本质note">分布式系统架构的本质note<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

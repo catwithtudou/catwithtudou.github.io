@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>通用技术 - 分类 - </title>
+        <link>https://zhengyua.cn/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</link>
+        <description>通用技术 - 分类 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/" rel="self" type="application/rss+xml" /><item>
+    <title>Git中的工作流</title>
+    <link>https://zhengyua.cn/posts/common_tech/git/0.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/common_tech/git/0.html/</guid>
+    <description><![CDATA[Git中的工作流 中心式协同工作流 一般过程如下： 从服务器上git pull origin master同步代码； 修改完后git commit到本地仓库中； 然后git push]]></description>
+</item><item>
+    <title>程序中的错误处理note</title>
+    <link>https://zhengyua.cn/posts/common_tech/error/0.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/common_tech/error/0.html/</guid>
+    <description><![CDATA[程序中的错误处理note 错误返回和异常捕捉 错误可以分为三个大类： 资源的错误。当我们的代码去请求一些资源时导致的错误，比如打开一个没有权限的文]]></description>
+</item></channel>
+</rss>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Go并发编程实战课笔记—读写顺序 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="Go并发编程实战课笔记—读写顺序" />
+<meta property="og:description" content="Go并发编程实战课笔记—读写顺序 Go官方文档里真闷介绍了Go的内存模型，而这里的内存模型不是指Go对象的内存分配、内存回收和内存整理的规范，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/golang/concurrent/12.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T02:28:06&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T02:28:06&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="Go并发编程实战课笔记—读写顺序"/>
+<meta name="twitter:description" content="Go并发编程实战课笔记—读写顺序 Go官方文档里真闷介绍了Go的内存模型，而这里的内存模型不是指Go对象的内存分配、内存回收和内存整理的规范，"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/golang/concurrent/12.html/" /><link rel="prev" href="https://zhengyua.cn/posts/golang/pprof/0.html/" /><link rel="next" href="https://zhengyua.cn/posts/golang/concurrent/14.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go并发编程实战课笔记—读写顺序",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/12.html\/"
+        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  1500 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/12.html\/","datePublished": "2022-01-29T02:28:06+08:00","dateModified": "2022-01-29T02:28:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Go并发编程实战课笔记—读写顺序</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1500 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go并发编程实战课笔记读写顺序">Go并发编程实战课笔记—读写顺序</a>
+      <ul>
+        <li><a href="#重排和可见性的问题">重排和可见性的问题</a></li>
+        <li><a href="#happens-before">happens-before</a></li>
+        <li><a href="#go-语言中保证的-happens-before-关系">Go 语言中保证的 happens-before 关系</a>
+          <ul>
+            <li><a href="#init-函数">init 函数</a></li>
+            <li><a href="#goroutine">goroutine</a></li>
+            <li><a href="#channel">Channel</a></li>
+            <li><a href="#mutexrwmutex">Mutex/RWMutex</a></li>
+            <li><a href="#waitgroup">WaitGroup</a></li>
+            <li><a href="#once">Once</a></li>
+            <li><a href="#atomic">atomic</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="go并发编程实战课笔记读写顺序">Go并发编程实战课笔记—读写顺序</h1>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210224160420.png"
+        data-srcset="https://img.zhengyua.cn/20210224160420.png, https://img.zhengyua.cn/20210224160420.png 1.5x, https://img.zhengyua.cn/20210224160420.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210224160420.png"
+        title="image-20210224160420574" /></p>
+<p>Go官方文档里真闷介绍了Go的内存模型，而这里的内存模型不是指Go对象的内存分配、内存回收和内存整理的规范，而描述的是并发环境中多goroutine读相同变量的时候，变量的可见性条件。</p>
+<p>编程语言需要一个规范来明确多线程同时访问同一个变量的可见性和顺序，而这个规范就被叫做内存模型。而这主要目的在于：</p>
+<ul>
+<li>提供保证，方便在同一个数据同时被多个goroutine访问的情况时可以做一些串行化访问的控制；</li>
+<li>允许编译器和硬件对程序做一些优化；</li>
+</ul>
+<h2 id="重排和可见性的问题">重排和可见性的问题</h2>
+<p><strong>由于指令重排，代码并不一定会按照你写的顺序执行</strong>。</p>
+<p>就比如下面这个代码的例子，运行的时候可能会出现半初始化、未初始化的问题等。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
+<span class="kd">var</span> <span class="nx">done</span> <span class="kt">bool</span>
+
+<span class="kd">func</span> <span class="nf">setup</span><span class="p">(){</span>
+  <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+  <span class="nx">done</span> <span class="p">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+  <span class="k">go</span> <span class="nf">setup</span><span class="p">()</span>
+  <span class="k">for</span> <span class="p">!</span><span class="nx">done</span><span class="p">{</span>
+    
+  <span class="p">}</span>
+  <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们就需要了解<code>happens-before</code>概念，其用来描述两个时间的顺序关系，若操作之间能提供<code>happens-before</code>关系，那么我们就可以确定保证它们之间的顺序。</p>
+<h2 id="happens-before">happens-before</h2>
+<p><strong>在一个 goroutine 内部，程序的执行顺序和它们的代码指定的顺序是一样的，即使编译器或者 CPU 重排了读写顺序，从行为上来看，也和代码指定的顺序一样</strong>。但是别于另外一个 goroutine 来说，重排就会产生非常大的影响。<strong>因为 Go 只保证 goroutine 内部重排对读写的顺序没有影响</strong>。</p>
+<ul>
+<li>a Happens-before b 定义的顺序为 a -&gt; b</li>
+</ul>
+<p>比如我们想要保证对于某一个变量的读操作 r1 绝对能够观察到 写操作 w1，我们就需要同时满足两个条件：</p>
+<ol>
+<li>w1 happens before r1；</li>
+<li>如果对该变量有其他的写操作 w2，就需要保证 w2-&gt;w1-&gt;r1或者 w1-&gt;r1-&gt;w2，绝对不会和 w1、r1 同时发生，或者是在它们之间发生。</li>
+</ol>
+<p><strong>在单个的 goroutine 内部，happens-before 的关系和代码编写的顺序是一致的。</strong></p>
+<ol>
+<li>在 Go 语言中，对变量进行零值的初始化就是一个写操作；</li>
+<li>如果对超过机器 word（64bit、32bit 或者其他）大小的值进行读写，那么，就可以看作是对拆成 word 大小的几个读写无序进行；</li>
+<li>Go 并不提供直接的 CPU 屏障（CPU fence）来提示编译器或者 CPU 保证顺序性，而是使用不同架构的内存屏障指令来实现统一的并发原语。</li>
+</ol>
+<h2 id="go-语言中保证的-happens-before-关系">Go 语言中保证的 happens-before 关系</h2>
+<h3 id="init-函数">init 函数</h3>
+<p>main函数一定在导入的包的 init 函数之后执行，且<strong>每个文件最多只能有一个 init 函数</strong>，包下面的多个 init 函数按照它们的<strong>文件名顺序逐个初始化</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210224154349.png"
+        data-srcset="https://img.zhengyua.cn/20210224154349.png, https://img.zhengyua.cn/20210224154349.png 1.5x, https://img.zhengyua.cn/20210224154349.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210224154349.png"
+        title="image-20210224154343784" /></p>
+<h3 id="goroutine">goroutine</h3>
+<p><strong>启动 goroutine 的 go 语句的执行，一定 happens before 此 goroutine 内的代码执行</strong>。</p>
+<p>根据这个规则可说明如果 go 语句传入的参数是一个函数执行的结果，那这个函数一定先于 goroutine 内部的代码被执行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
+
+<span class="kd">func</span> <span class="nf">f</span><span class="p">(){</span>
+  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+  <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+  <span class="k">go</span> <span class="nf">f</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="channel">Channel</h3>
+<p>通用的 Channel happens before 关系保证有4条规则：</p>
+<ol>
+<li>往 Channel 中的发送操作，happens before 从该 Channel 接收相应数据的动作完成之前，即 nSend -&gt; nReceive。</li>
+<li>Close 一个 Channel 的调用，肯定 happens before 从关闭的 Channel 中读取出一个零值。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">ch</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span><span class="mi">10</span><span class="p">)</span>
+<span class="kd">var</span> <span class="nx">s</span> <span class="kt">string</span>
+
+<span class="kd">func</span> <span class="nf">f</span><span class="p">(){</span>
+  <span class="nx">s</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+  <span class="c1">//ch&lt;-struct{}{}
+</span><span class="c1"></span>  <span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+  <span class="k">go</span> <span class="nf">f</span><span class="p">()</span>
+  <span class="o">&lt;-</span><span class="nx">ch</span> <span class="c1">//能够在close之前保证取出零值
+</span><span class="c1"></span>  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li>对于 unbuffered 的 Channel，读取数据的调用一定 happens before 往此 Channel 发送数据的调用完成。</li>
+<li>如果 Channel 的容量是 m（m&gt;0），那么 nReceive -&gt; (n+m)Send。</li>
+</ol>
+<h3 id="mutexrwmutex">Mutex/RWMutex</h3>
+<p>根据官方描述的 happens-before 关系的保证如下：</p>
+<p>对于读写锁 l 的 l.RLock 方法调用，如果存在一个 n，这次的 l.RLock 调用 happens after 第 n 次的 l.Unlock，那么和这个 RLock 相对应的 l.RUnlock 一定 happens before 第 n+1 次 l.Lock。意思是，读写锁的 Lock 必须等待既有的读锁释放后才能获取到。</p>
+<h3 id="waitgroup">WaitGroup</h3>
+<p>WaitGroup的保证是 <strong>Wait 方法等到计数值归零之后才返回</strong>。</p>
+<h3 id="once">Once</h3>
+<p>提供的保证为以下：</p>
+<p><strong>对于 once.Do(f) 调用，f 函数的那个单次调用一定 happens before 任何 once.Do(f) 调用返回</strong>。即函数 f 一定会在 Do 方法返回之前执行。</p>
+<h3 id="atomic">atomic</h3>
+<p>对于 Go 1.15 的官方实现来说，可以保证使用 atomic 的 Load/Store 的变量之间的顺序性。</p>
+<p>但现阶段还是不要使用 atomic 来保证顺序性。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/golang/concurrent/12.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-title="Go并发编程实战课笔记—读写顺序" data-hashtags="Go,并发编程,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-title="Go并发编程实战课笔记—读写顺序" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-title="Go并发编程实战课笔记—读写顺序"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-title="Go并发编程实战课笔记—读写顺序"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-title="Go并发编程实战课笔记—读写顺序" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-title="Go并发编程实战课笔记—读写顺序" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/golang/concurrent/12.html/" data-title="Go并发编程实战课笔记—读写顺序"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/golang/pprof/0.html/" class="prev" rel="prev" title="pprof性能排查分析note"><i class="fas fa-angle-left fa-fw"></i>pprof性能排查分析note</a>
+            <a href="/posts/golang/concurrent/14.html/" class="next" rel="next" title="Go并发编程实战课笔记—WaitGroup">Go并发编程实战课笔记—WaitGroup<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

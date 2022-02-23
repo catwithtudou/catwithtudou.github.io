@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>network - 分类 - </title>
+        <link>https://zhengyua.cn/categories/network/</link>
+        <description>network - 分类 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 28 Jan 2022 20:53:06 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/network/" rel="self" type="application/rss+xml" /><item>
+    <title>simple socks5 proxy &amp; the c10k problem</title>
+    <link>https://zhengyua.cn/posts/network/socks5/0.html/</link>
+    <pubDate>Fri, 28 Jan 2022 20:53:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/network/socks5/0.html/</guid>
+    <description><![CDATA[simple socks5 proxy &amp; the c10k problem socks5 socks5简介 SOCKS是一种网络传输协议，主要用于客户端与外网服务器之间通讯的中间传递。SOCKS是&quot;SOCK]]></description>
+</item></channel>
+</rss>

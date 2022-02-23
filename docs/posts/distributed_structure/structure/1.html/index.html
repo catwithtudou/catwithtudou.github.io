@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MIT6824LEC4笔记:Primary-Backup Replication - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="MIT6824LEC4笔记:Primary-Backup Replication" />
+<meta property="og:description" content="Primary/Backup Replication 课程地址 the note from the lecture Primary/Backup Replication for Fault Tolerance Case study of VMware FT, an extreme version of the idea fault tolerance to provide availability despite server and network failures using replication What kinds of failures can replication deal with? &ldquo;fail-stop&rdquo; failure of a single replica fan stops working, CPU overheats and shuts itself down someone trips over replica&rsquo;s power cord or network" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T17:00:06&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T17:00:06&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="MIT6824LEC4笔记:Primary-Backup Replication"/>
+<meta name="twitter:description" content="Primary/Backup Replication 课程地址 the note from the lecture Primary/Backup Replication for Fault Tolerance Case study of VMware FT, an extreme version of the idea fault tolerance to provide availability despite server and network failures using replication What kinds of failures can replication deal with? &ldquo;fail-stop&rdquo; failure of a single replica fan stops working, CPU overheats and shuts itself down someone trips over replica&rsquo;s power cord or network"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" /><link rel="prev" href="https://zhengyua.cn/posts/distributed_structure/structure/7.html/" /><link rel="next" href="https://zhengyua.cn/posts/distributed_structure/structure/5.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MIT6824LEC4笔记:Primary-Backup Replication",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/distributed_structure\/structure\/1.html\/"
+        },"genre": "posts","keywords": "分布式架构, MIT6824, note","wordcount":  1806 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/distributed_structure\/structure\/1.html\/","datePublished": "2022-01-29T17:00:06+08:00","dateModified": "2022-01-29T17:00:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MIT6824LEC4笔记:Primary-Backup Replication</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/"><i class="far fa-folder fa-fw"></i>分布式架构</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1806 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#primarybackup-replication">Primary/Backup Replication</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="primarybackup-replication">Primary/Backup Replication</h1>
+<blockquote>
+<p><a href="https://pdos.csail.mit.edu/6.824/schedule.html" target="_blank" rel="noopener noreffer">课程地址</a></p>
+</blockquote>
+<blockquote>
+<p>the note from the lecture</p>
+</blockquote>
+<ul>
+<li>Primary/Backup Replication for Fault Tolerance</li>
+</ul>
+<p>Case study of VMware FT, an extreme version of the idea</p>
+<ul>
+<li>fault tolerance to provide availability</li>
+</ul>
+<p>despite server and network failures</p>
+<p>using replication</p>
+<ul>
+<li>What kinds of failures can replication deal with?</li>
+</ul>
+<p>&ldquo;fail-stop&rdquo; failure of a single replica</p>
+<p>fan stops working, CPU overheats and shuts itself down</p>
+<p>someone trips over replica&rsquo;s power cord or network cable</p>
+<p>software notices it is out of disk space and stops</p>
+<p>Maybe not defects in h/w or bugs in s/w or human configuration errors</p>
+<p>Often not fail-stop</p>
+<p>May be correlated (i.e. cause all replicas to crash at the same time)</p>
+<p>But, sometimes can be detected (e.g. checksums)</p>
+<blockquote>
+<p>How about earthquake or city-wide power failure?
+Only if replicas are physically separated</p>
+</blockquote>
+<ul>
+<li>Is replication worth the Nx expense?</li>
+</ul>
+<p>Two main replication approaches:</p>
+<ol>
+<li>State transfer</li>
+</ol>
+<p>Primary replica executes the service</p>
+<p>Primary sends [new] state to backups</p>
+<p>State transfer is simpler ,But state may be large, slow to transfer over network</p>
+<ol start="2">
+<li>Replicated state machine</li>
+</ol>
+<p>Clients send operations to primary,</p>
+<p>primary sequences and sends to backups</p>
+<p>All replicas execute all operations</p>
+<p>If same start state, same operations, same order, deterministic, then same end state.</p>
+<p>Replicated state machine often generates less network traffic</p>
+<p>Operations are often small compared to state</p>
+<p>But complex to get right</p>
+<p>VM-FT uses replicated state machine</p>
+<ul>
+<li>Big Questions:</li>
+</ul>
+<ol>
+<li>
+<p>What state to replicate?</p>
+</li>
+<li>
+<p>Does primary have to wait for backup?</p>
+</li>
+<li>
+<p>When to cut over to backup?</p>
+</li>
+<li>
+<p>Are anomalies visible at cut-over?</p>
+</li>
+<li>
+<p>How to bring a replacement backup up to speed?</p>
+</li>
+</ol>
+<ul>
+<li>At what level do we want replicas to be identical?</li>
+</ul>
+<blockquote>
+<p>Application state, e.g. a database&rsquo;s tables?</p>
+<p>GFS works this way</p>
+<p>Can be efficient; primary only sends high-level operations to backup</p>
+<p>Application code (server) must understand fault tolerance, to e.g. forward op stream</p>
+</blockquote>
+<p>Machine level, e.g. registers and RAM content?</p>
+<p>might allow us to replicate any existing server w/o modification!</p>
+<p>requires forwarding of machine events (interrupts, DMA, &amp;c)</p>
+<p>requires &ldquo;machine&rdquo; modifications to send/recv event stream&hellip;</p>
+<p>paper (VMware FT) replicates machine-level state</p>
+<p>Transparent: can run any existing O/S and server software!</p>
+<p>Appears like a single server to clients</p>
+<ul>
+<li>Overview</li>
+</ul>
+<p>[diagram: app, O/S, VM-FT underneath, disk server, network, clients]</p>
+<ul>
+<li>words:</li>
+</ul>
+<p>hypervisor == monitor == VMM (virtual machine monitor)</p>
+<p>O/S+app is the &ldquo;guest&rdquo; running inside a virtual machine</p>
+<p>two machines, primary and backup</p>
+<p>primary sends all external events (client packets &amp;c) to backup over network</p>
+<p>&ldquo;logging channel&rdquo;, carrying log entries</p>
+<p>ordinarily, backup&rsquo;s output is suppressed by FT</p>
+<p>if either stops being able to talk to the other over the network</p>
+<p>&ldquo;goes live&rdquo; and provides sole service</p>
+<p>if primary goes live, it stops sending log entries to the backup</p>
+<ul>
+<li>
+<p>VMM emulates a local disk interface ,but actual storage is on a network server</p>
+</li>
+<li>
+<p>treated much like a client:</p>
+</li>
+</ul>
+<p>usually only primary communicates with disk server (backup&rsquo;s FT discards)</p>
+<p>if backup goes live, it talks to disk server</p>
+<p>external disk makes creating a new backup faster (don&rsquo;t have to copy primary&rsquo;s disk)</p>
+<ul>
+<li>When does the primary have to send information to the backup?</li>
+</ul>
+<p>Any time something happens that might cause their executions to diverge.</p>
+<p>Anything that&rsquo;s not a deterministic consequence of executing instructions.</p>
+<ul>
+<li>What sources of divergence must FT handle?</li>
+</ul>
+<p>Most instructions execute identically on primary and backup.</p>
+<p>As long as memory+registers are identical,</p>
+<p>which we&rsquo;re assuming by induction.</p>
+<p>Inputs from external world &ndash; just network packets.</p>
+<p>These appear as DMA&rsquo;d data plus an interrupt.</p>
+<p>Timing of interrupts.</p>
+<p>Instructions that aren&rsquo;t functions of state, such as reading current time.</p>
+<p>Not multi-core races, since uniprocessor only.</p>
+<ul>
+<li>Why would divergence be a disaster?</li>
+</ul>
+<p>b/c state on backup would differ from state on primary,</p>
+<p>and if primary then failed, clients would see inconsistency.</p>
+<blockquote>
+<p>Example: GFS lease expiration</p>
+<p>Imagine we&rsquo;re replicating the GFS master</p>
+<p>Chunkserver must send &ldquo;please renew&rdquo; msg before 60-second lease expires</p>
+<p>Clock interrupt drives master&rsquo;s notion of time</p>
+<p>Suppose chunkserver sends &ldquo;please renew&rdquo; just around 60 seconds</p>
+<p>On primary, clock interrupt happens just after request arrives.</p>
+<p>Primary copy of master renews the lease, to the same chunkserver.</p>
+<p>On backup, clock interrupt happens just before request.</p>
+<p>Backup copy of master expires the lease.</p>
+<p>If primary fails, backup takes over, it will think there</p>
+<p>is no lease, and grant it to a different chunkserver.</p>
+<p>Then two chunkservers will have lease for same chunk.</p>
+</blockquote>
+<p>So: backup must see same events, in same order, at same points in instruction stream.</p>
+<ul>
+<li>Each log entry</li>
+</ul>
+<p>instruction #, type, data.</p>
+<ul>
+<li>FT&rsquo;s handling of timer interrupts</li>
+</ul>
+<p>Goal: primary and backup should see interrupt at</p>
+<p>the same point in the instruction stream</p>
+<p>Primary:</p>
+<p>FT fields the timer interrupt</p>
+<p>FT reads instruction number from CPU</p>
+<p>FT sends &ldquo;timer interrupt at instruction X&rdquo; on logging channel</p>
+<p>FT delivers interrupt to primary, and resumes it</p>
+<p>(this relies on CPU support to interrupt after the X&rsquo;th instruction)</p>
+<p>Backup:</p>
+<p>ignores its own timer hardware</p>
+<p>FT sees log entry <em>before</em> backup gets to instruction X</p>
+<p>FT tells CPU to interrupt (to FT) at instruction X</p>
+<p>FT mimics a timer interrupt to backup</p>
+<ul>
+<li>FT&rsquo;s handling of network packet arrival (input)</li>
+</ul>
+<p>Primary:</p>
+<p>FT tells NIC to copy packet data into FT&rsquo;s private &ldquo;bounce buffer&rdquo;</p>
+<p>At some point NIC does DMA, then interrupts</p>
+<p>FT gets the interrupt</p>
+<p>FT pauses the primary</p>
+<p>FT copies the bounce buffer into the primary&rsquo;s memory</p>
+<p>FT simulates a NIC interrupt in primary</p>
+<p>FT sends the packet data and the instruction # to the backup</p>
+<p>Backup:</p>
+<p>FT gets data and instruction # from log stream</p>
+<p>FT tells CPU to interrupt (to FT) at instruction X</p>
+<p>FT copies the data to backup memory, simulates NIC interrupt in backup</p>
+<ul>
+<li>Why the bounce buffer?</li>
+</ul>
+<p>We want the data to appear in memory at exactly the same point in</p>
+<p>execution of the primary and backup.</p>
+<p>Otherwise they may diverge.</p>
+<ul>
+<li>Note that the backup must lag by one one log entry</li>
+</ul>
+<p>Suppose primary gets an interrupt, or input, after instruction X</p>
+<p>If backup has already executed past X, it cannot handle the input correctly</p>
+<p>So backup FT can&rsquo;t start executing at all until it sees the first log entry</p>
+<p>Then it executes just to the instruction # in that log entry</p>
+<p>And waits for the next log entry before resuming backup</p>
+<ul>
+<li>Example: non-deterministic instructions</li>
+</ul>
+<p>some instructions yield different results even if primary/backup have same state</p>
+<p>e.g. reading the current time or cycle count or processor serial #</p>
+<p>Primary:</p>
+<p>FT sets up the CPU to interrupt if primary executes such an instruction</p>
+<p>FT executes the instruction and records the result</p>
+<p>sends result and instruction # to backup</p>
+<p>Backup:</p>
+<p>FT reads log entry, sets up for interrupt at instruction #</p>
+<p>FT then supplies value that the primary got</p>
+<ul>
+<li>What about output (sending network packets)?</li>
+</ul>
+<p>Primary and backup both execute instructions for output</p>
+<p>Primary&rsquo;s FT actually does the output</p>
+<p>Backup&rsquo;s FT discards the output</p>
+<ul>
+<li>Output example: DB server</li>
+</ul>
+<p>clients can send &ldquo;increment&rdquo; request</p>
+<p>DB increments stored value, replies with new value</p>
+<p>so:</p>
+<p>[diagram]</p>
+<p>suppose the server&rsquo;s value starts out at 10</p>
+<p>network delivers client request to FT on primary</p>
+<p>primary&rsquo;s FT sends on logging channel to backup</p>
+<p>FTs deliver request to primary and backup</p>
+<p>primary executes, sets value to 11, sends &ldquo;11&rdquo; reply, FT really sends reply</p>
+<p>backup executes, sets value to 11, sends &ldquo;11&rdquo; reply, and FT discards</p>
+<p>the client gets one &ldquo;11&rdquo; response, as expected</p>
+<p>But wait:</p>
+<p>suppose primary crashes just after sending the reply</p>
+<p>so client got the &ldquo;11&rdquo; reply</p>
+<p>AND the logging channel discards the log entry w/ client request</p>
+<p>primary is dead, so it won&rsquo;t re-send</p>
+<p>backup goes live</p>
+<p>but it has value &ldquo;10&rdquo; in its memory!</p>
+<p>now a client sends another increment request</p>
+<p>it will get &ldquo;11&rdquo; again, not &ldquo;12&rdquo;</p>
+<p>oops</p>
+<ul>
+<li>Solution: the Output Rule (Section 2.2)</li>
+</ul>
+<p>before primary sends output,</p>
+<p>must wait for backup to acknowledge all previous log entries</p>
+<p>Again, with output rule:</p>
+<p>[diagram]</p>
+<p>primary:</p>
+<p>receives client &ldquo;increment&rdquo; request</p>
+<p>sends client request on logging channel</p>
+<p>about to send &ldquo;11&rdquo; reply to client</p>
+<p>first waits for backup to acknowledge previous log entry</p>
+<p>then sends &ldquo;11&rdquo; reply to client</p>
+<p>suppose the primary crashes at some point in this sequence</p>
+<p>if before primary receives acknowledgement from backup</p>
+<p>maybe backup didn&rsquo;t see client&rsquo;s request, and didn&rsquo;t increment</p>
+<p>but also primary won&rsquo;t have replied</p>
+<p>if after primary receives acknowledgement from backup</p>
+<p>then client may see &ldquo;11&rdquo; reply</p>
+<p>but backup guaranteed to have received log entry w/ client&rsquo;s request</p>
+<p>so backup will increment to 11</p>
+<ul>
+<li>The Output Rule is a big deal</li>
+</ul>
+<p>Occurs in some form in all replication systems</p>
+<p>A serious constraint on performance</p>
+<p>An area for application-specific cleverness</p>
+<p>Eg. maybe no need for primary to wait before replying to read-only operation</p>
+<p>FT has no application-level knowledge, must be conservative</p>
+<p>Q: What if the primary crashes just after getting ACK from backup,
+but before the primary emits the output?
+Does this mean that the output won&rsquo;t ever be generated?</p>
+<p>A: Here&rsquo;s what happens when the primary fails and the backup goes live.
+The backup got some log entries from the primary.
+The backup continues executing those log entries WITH OUTPUT DISCARDED.
+After the last log entry, the backup goes live &ndash; stops discarding output
+In our example, the last log entry is arrival of client request
+So after client request arrives, the client will start emitting outputs
+And thus it will emit the reply to the client</p>
+<p>Q: But what if the primary crashed <em>after</em> emitting the output?
+Will the backup emit the output a <em>second</em> time?</p>
+<p>A: Yes.
+OK for TCP, since receivers ignore duplicate sequence numbers.
+OK for writes to disk, since backup will write same data to same block #.</p>
+<p>Duplicate output at cut-over is pretty common in replication systems
+Clients need to keep enough state to ignore duplicates
+Or be designed so that duplicates are harmless</p>
+<p>Q: Does FT cope with network partition &ndash; could it suffer from split brain?
+E.g. if primary and backup both think the other is down.
+Will they both go live?</p>
+<p>A: The disk server breaks the tie.
+Disk server supports atomic test-and-set.
+If primary or backup thinks other is dead, attempts test-and-set.
+If only one is alive, it will win test-and-set and go live.
+If both try, one will lose, and halt.</p>
+<p>The disk server may be a single point of failure</p>
+<p>If disk server is down, service is down</p>
+<p>They probably have in mind a replicated disk server</p>
+<p>Q: Why don&rsquo;t they support multi-core?</p>
+<ul>
+<li>When might FT be attractive?</li>
+</ul>
+<p>Critical but low-intensity services, e.g. name server.</p>
+<p>Services whose software is not convenient to modify.</p>
+<ul>
+<li>What about replication for high-throughput services?</li>
+</ul>
+<p>People use application-level replicated state machines for e.g. databases.</p>
+<p>The state is just the DB, not all of memory+disk.</p>
+<p>The events are DB commands (put or get), not packets and interrupts.</p>
+<p>Result: less fine-grained synchronization, less overhead.</p>
+<p><strong>Summary:</strong></p>
+<ol>
+<li>
+<p>Primary-backup replication</p>
+</li>
+<li>
+<p>VM-FT: clean example</p>
+</li>
+<li>
+<p>How to cope with partition without single point of failure?</p>
+</li>
+<li>
+<p>Next lecture</p>
+</li>
+<li>
+<p>How to get better performance?</p>
+</li>
+</ol>
+<p>6.Application-level replicated state machines</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/distributed_structure/structure/1.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-title="MIT6824LEC4笔记:Primary-Backup Replication" data-hashtags="分布式架构,MIT6824,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-hashtag="分布式架构"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-title="MIT6824LEC4笔记:Primary-Backup Replication" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-title="MIT6824LEC4笔记:Primary-Backup Replication"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-title="MIT6824LEC4笔记:Primary-Backup Replication"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-title="MIT6824LEC4笔记:Primary-Backup Replication" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-title="MIT6824LEC4笔记:Primary-Backup Replication" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/distributed_structure/structure/1.html/" data-title="MIT6824LEC4笔记:Primary-Backup Replication"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/">分布式架构</a>,&nbsp;<a href="/tags/mit6824/">MIT6824</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/distributed_structure/structure/7.html/" class="prev" rel="prev" title="分布式熔断方案"><i class="fas fa-angle-left fa-fw"></i>分布式熔断方案</a>
+            <a href="/posts/distributed_structure/structure/5.html/" class="next" rel="next" title="MIT6824LEC3笔记:GFS">MIT6824LEC3笔记:GFS<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

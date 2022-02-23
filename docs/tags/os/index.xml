@@ -1,0 +1,15 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>os - 标签 - </title>
+        <link>https://zhengyua.cn/tags/os/</link>
+        <description>os - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 28 Jan 2022 20:58:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/os/" rel="self" type="application/rss+xml" /><item>
+    <title>程序运行原理Thinking</title>
+    <link>https://zhengyua.cn/posts/os/common/0.html/</link>
+    <pubDate>Fri, 28 Jan 2022 20:58:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/os/common/0.html/</guid>
+    <description><![CDATA[程序运行原理 Thinking 以下是个人理解（大白话较多） 程序是如何运行起来的 首先对于程序，可以简单理解为可执行的代码，程序是静态的，即存储在磁盘上。 而如果]]></description>
+</item></channel>
+</rss>

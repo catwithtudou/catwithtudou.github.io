@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Go并发编程实战课笔记—Atomic - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="Go并发编程实战课笔记—Atomic" />
+<meta property="og:description" content="Go并发编程实战课笔记—Atomic 以下大多为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo 原子操作基础 在并发编程中，很多场景中使用并" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/golang/concurrent/0.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T02:28:06&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T02:28:06&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="Go并发编程实战课笔记—Atomic"/>
+<meta name="twitter:description" content="Go并发编程实战课笔记—Atomic 以下大多为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo 原子操作基础 在并发编程中，很多场景中使用并"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/golang/concurrent/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/golang/concurrent/1.html/" /><link rel="next" href="https://zhengyua.cn/posts/common_tech/error/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go并发编程实战课笔记—Atomic",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/0.html\/"
+        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  2481 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/0.html\/","datePublished": "2022-01-29T02:28:06+08:00","dateModified": "2022-01-29T02:28:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Go并发编程实战课笔记—Atomic</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2481 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go并发编程实战课笔记atomic">Go并发编程实战课笔记—Atomic</a>
+      <ul>
+        <li><a href="#原子操作基础">原子操作基础</a></li>
+        <li><a href="#应用场景">应用场景</a></li>
+        <li><a href="#atomic提供的方法">atomic提供的方法</a>
+          <ul>
+            <li><a href="#add">Add</a></li>
+            <li><a href="#cas">CAS</a></li>
+            <li><a href="#swap">Swap</a></li>
+            <li><a href="#load">Load</a></li>
+            <li><a href="#store">Store</a></li>
+            <li><a href="#value">Value</a></li>
+          </ul>
+        </li>
+        <li><a href="#第三方库的扩展">第三方库的扩展</a></li>
+        <li><a href="#lock-free-queue">Lock-Free Queue</a></li>
+        <li><a href="#atomic-vs-">Atomic Vs &amp;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="go并发编程实战课笔记atomic">Go并发编程实战课笔记—Atomic</h1>
+<blockquote>
+<p>以下大多为鸟窝大佬的<a href="https://time.geekbang.org/column/intro/100061801" target="_blank" rel="noopener noreffer">Go 并发编程实战课</a> 中摘录的笔记</p>
+<p><a href="https://github.com/catwithtudou/golang_concurrent_examples/tree/master/atomic" target="_blank" rel="noopener noreffer">代码repo</a></p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210222114638.png"
+        data-srcset="https://img.zhengyua.cn/20210222114638.png, https://img.zhengyua.cn/20210222114638.png 1.5x, https://img.zhengyua.cn/20210222114638.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210222114638.png"
+        title="image-20210222114638703" /></p>
+<h2 id="原子操作基础">原子操作基础</h2>
+<p>在并发编程中，很多场景中使用并发原语较为复杂，而<strong>原子操作可以更容易实现底层优化</strong>。</p>
+<p>因为<strong>原子操作就是最小的粒子不可分割</strong>，并不会像其他操作一样产生竞争的逻辑。由原子操作进行组合就能够实现比较复杂的指令或者操作。</p>
+<p>CPU提供了基础的原子操作，但<strong>不同的CPU架构甚至不同的版本提供的原子操作的指令是不同的，所以要用一种编程语言实现支持不同架构的原子操作是相当有难度的</strong>。</p>
+<p>在golang中将更底层的不同的架构下的实现封装成atomic包，提供了一个通用的原子操作API，包括了修改类型的原子操作（read-modify-write|RMW）和加载存储类型的原子操作（Load|Store）。</p>
+<p>不同的架构中虽然代码一样，但产生的编译指令却是不同的，比如看起来貌似是一个原子操作但实际上却不是。</p>
+<p>我们利用下面这段代码在不同的架构中通过<code>go tool compile</code>来分析其编译指令观察。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+
+<span class="c1">// 不同架构下相同的代码进行编译测试
+</span><span class="c1">// 观察其编译指令是否为原子操作
+</span><span class="c1"></span>
+<span class="kd">const</span> <span class="nx">x</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">33</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="nx">x</span>
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">i</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>GOOS=linux GOARCH=386的架构编译</li>
+</ul>
+<blockquote>
+<p>目前Darwin架构不支持386的架构</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210222102446.png"
+        data-srcset="https://img.zhengyua.cn/20210222102446.png, https://img.zhengyua.cn/20210222102446.png 1.5x, https://img.zhengyua.cn/20210222102446.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210222102446.png"
+        title="image-20210222102441269" /></p>
+<ul>
+<li>GOOS=linux GOARCH=amd64的架构编译</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210222103315.png"
+        data-srcset="https://img.zhengyua.cn/20210222103315.png, https://img.zhengyua.cn/20210222103315.png 1.5x, https://img.zhengyua.cn/20210222103315.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210222103315.png"
+        title="image-20210222103315098" /></p>
+<p>可以看到在386架构是拆分成两条赋值语句来执行，amd64架构中是一条指令来执行。</p>
+<h2 id="应用场景">应用场景</h2>
+<p>我们在某些场景可以使用Mutex等并发原语进行优化，虽然可以解决问题，但是这些<strong>并发原语的逻辑比较复杂且对性能有一定的影响</strong>，但我们<strong>使用atomic的一些方法时可以实现更底层的部分优化</strong>。</p>
+<p>比如下面场景：</p>
+<ul>
+<li><strong>通过标志变量来判断某种状态</strong></li>
+</ul>
+<p>考虑到读取和修改变量在并发时会产生竞争导致线程不安全，我们可以利用并发原语Mutex进行加锁保证互斥来解决问题，但此场景并不涉及到资源复杂的竞争逻辑，我们就可以使用atomic原子操作来操作该变量进行解决。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BenchmarkMutex</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
+<span class="kd">var</span> <span class="nx">k</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="nx">l</span><span class="o">:=&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{}</span>
+<span class="kd">var</span> <span class="nx">w</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="nx">w</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">{</span>
+<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="p">&lt;</span><span class="mi">10000</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">{</span>
+<span class="nx">l</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+<span class="nx">k</span> <span class="p">=</span> <span class="nx">k</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nx">l</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="p">}()</span>
+<span class="p">}</span>
+<span class="nx">w</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">BenchmarkAtomic</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
+<span class="kd">var</span> <span class="nx">k</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="kd">var</span> <span class="nx">w</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+<span class="nx">w</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">{</span>
+<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="p">&lt;</span><span class="mi">10000</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">{</span>
+<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">k</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">}()</span>
+<span class="p">}</span>
+<span class="nx">w</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>通过性能评测后可以得到如下结果：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210222110055.png"
+        data-srcset="https://img.zhengyua.cn/20210222110055.png, https://img.zhengyua.cn/20210222110055.png 1.5x, https://img.zhengyua.cn/20210222110055.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210222110055.png"
+        title="image-20210222110055469" /></p>
+<p>有时候我们可以<strong>使用atomic实现自己定义的基本并发原语</strong>，在网上也能够搜集到相关的实现方法，且有些基本并发原语的底层就是基于通过atomic的方法实现的。</p>
+<p>除此之外，<strong>atomic原子操作也是实现lock-free数据结构的基石</strong>，lock-free就是避免互斥锁来优化并发的性能。</p>
+<h2 id="atomic提供的方法">atomic提供的方法</h2>
+<p>因为golang<strong>目前没有泛型的特性</strong>，导致为了支持不同类型会分别为每种类型提供的相同的方法。</p>
+<p>atomic<strong>操作的对象是一个地址</strong>，需要把可寻址的变量的地址作为参数传递给方法，而不是把变量的值传递给方法。</p>
+<h3 id="add">Add</h3>
+<p>Add方法就是给第一个参数地址中的值增加一个delta值。</p>
+<p>对于有符号的整数来说delta可以为负数，但对于无符号类型的没有提供减法操作，可以利用计算机补码的规则把减法变成加法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go">	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">,^</span><span class="nb">uint32</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="cas">CAS</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="nx">addr</span> <span class="o">*</span><span class="kt">int32</span><span class="p">,</span><span class="nx">old</span><span class="p">,</span><span class="nx">new</span> <span class="kt">int32</span><span class="p">)(</span><span class="nx">swapped</span> <span class="kt">bool</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>即判断相等才替换。</p>
+<h3 id="swap">Swap</h3>
+<p>使用Swap方法替换后返回旧值。</p>
+<h3 id="load">Load</h3>
+<p>取出addr地址中的值，即使在多处理器、多核、有CPU cache的情况下，此操作也能保证Load是一个原子操作。</p>
+<h3 id="store">Store</h3>
+<p>把值存入到指定的addr地址中，即使在多处理器、多核、有CPU cache的情况喜爱，此操作也能保证Store是一个原子操作。</p>
+<h3 id="value">Value</h3>
+<p>原子地存取对象类型，但只能存取。常常用在配置变更场景中，如下面代码实例。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;go.uber.org/atomic&#34;</span>
+	<span class="s">&#34;math/rand&#34;</span>
+	<span class="s">&#34;sync&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span><span class="p">{</span>
+	<span class="nx">AddrName</span> <span class="kt">string</span>
+	<span class="nx">Addr</span> <span class="kt">string</span>
+	<span class="nx">Count</span> <span class="kt">int32</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">loadNewConfig</span><span class="p">()</span><span class="nx">Config</span><span class="p">{</span>
+	<span class="k">return</span> <span class="nx">Config</span><span class="p">{</span>
+		<span class="nx">AddrName</span><span class="p">:</span> <span class="s">&#34;北京&#34;</span><span class="p">,</span>
+		<span class="nx">Addr</span><span class="p">:</span>     <span class="s">&#34;0.0.0.1&#34;</span><span class="p">,</span>
+		<span class="nx">Count</span><span class="p">:</span>    <span class="nx">rand</span><span class="p">.</span><span class="nf">Int31</span><span class="p">(),</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+	<span class="kd">var</span> <span class="nx">config</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
+	<span class="nx">config</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nf">loadNewConfig</span><span class="p">())</span>
+	<span class="kd">var</span> <span class="nx">cond</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nf">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{})</span>
+
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span><span class="p">{</span>
+			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">5</span><span class="o">+</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Int63n</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+			<span class="nx">config</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nf">loadNewConfig</span><span class="p">())</span>
+			<span class="nx">cond</span><span class="p">.</span><span class="nf">Broadcast</span><span class="p">()</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+		<span class="k">for</span><span class="p">{</span>
+			<span class="nx">cond</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+			<span class="nx">cond</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+			<span class="nx">c</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">Load</span><span class="p">().(</span><span class="nx">Config</span><span class="p">)</span>
+			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;new config:%+v\n&#34;</span><span class="p">,</span><span class="nx">c</span><span class="p">)</span>
+			<span class="nx">cond</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+		<span class="p">}</span>
+	<span class="p">}()</span>
+
+	<span class="k">select</span> <span class="p">{</span>
+
+	<span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="第三方库的扩展">第三方库的扩展</h2>
+<p>atomic的API较为简单，提供包一级的函数，函数调用起来较为麻烦。</p>
+<p>第三方库的扩展中有些提供了面向对象的使用方式，如uber-go/atomic库。</p>
+<h2 id="lock-free-queue">Lock-Free Queue</h2>
+<p>atomic常常用来实现Lock-Free的数据结构。下面就通过Lock-Free Queue代码实例来进行了解。</p>
+<blockquote>
+<p>后面可以通过利用Mutex等并发原语来实现同样线程安全的数据结构来进行并发场景下性能的比较。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;sync/atomic&#34;</span>
+	<span class="s">&#34;unsafe&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">LKQueue</span> <span class="kd">struct</span><span class="p">{</span>
+	<span class="nx">head</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+	<span class="nx">tail</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+<span class="p">}</span>
+
+<span class="kd">type</span> <span class="nx">node</span> <span class="kd">struct</span><span class="p">{</span>
+	<span class="nx">value</span> <span class="kd">interface</span><span class="p">{}</span>
+	<span class="nx">next</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+<span class="p">}</span>
+
+
+<span class="kd">func</span> <span class="nf">NewLKQueue</span><span class="p">()</span><span class="o">*</span><span class="nx">LKQueue</span><span class="p">{</span>
+	<span class="nx">n</span><span class="o">:=</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">node</span><span class="p">{})</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">LKQueue</span><span class="p">{</span>
+		<span class="nx">head</span><span class="p">:</span> <span class="nx">n</span><span class="p">,</span>
+		<span class="nx">tail</span><span class="p">:</span> <span class="nx">n</span><span class="p">,</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">LKQueue</span><span class="p">)</span><span class="nf">Enqueue</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{}){</span>
+	<span class="nx">n</span><span class="o">:=&amp;</span><span class="nx">node</span><span class="p">{</span><span class="nx">value</span><span class="p">:</span> <span class="nx">v</span><span class="p">}</span>
+	<span class="k">for</span><span class="p">{</span>
+		<span class="nx">tail</span><span class="o">:=</span><span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">)</span>
+		<span class="nx">next</span><span class="o">:=</span><span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">tail</span> <span class="o">==</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">){</span>
+			<span class="k">if</span> <span class="nx">next</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">{</span> <span class="c1">//尾为空即没有数据入队
+</span><span class="c1"></span>				<span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span><span class="p">,</span><span class="nx">next</span><span class="p">,</span><span class="nx">n</span><span class="p">){</span> <span class="c1">//增加到队尾
+</span><span class="c1"></span>					<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">n</span><span class="p">)</span> <span class="c1">//入队成功，移动尾巴指针
+</span><span class="c1"></span>					<span class="k">return</span>
+				<span class="p">}</span>
+			<span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">//尾不为空则需要移动尾指针
+</span><span class="c1"></span>				<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">next</span><span class="p">)</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">LKQueue</span><span class="p">)</span><span class="nf">Dequeue</span><span class="p">()</span><span class="kd">interface</span><span class="p">{}{</span>
+	<span class="k">for</span><span class="p">{</span>
+		<span class="nx">head</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">)</span>
+		<span class="nx">tail</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">)</span>
+		<span class="nx">next</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">head</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">){</span>
+			<span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="nx">tail</span><span class="p">{</span>
+				<span class="k">if</span> <span class="nx">next</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">{</span> <span class="c1">//说明为空队列
+</span><span class="c1"></span>					<span class="k">return</span> <span class="kc">nil</span>
+				<span class="p">}</span>
+				<span class="c1">// 只是尾指针还没调整，尝试调整它指向下一个
+</span><span class="c1"></span>				<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">next</span><span class="p">)</span>
+			<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+				<span class="c1">//读取出队的数据
+</span><span class="c1"></span>				<span class="nx">v</span><span class="o">:=</span><span class="nx">next</span><span class="p">.</span><span class="nx">value</span>
+				<span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">,</span><span class="nx">head</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
+					<span class="k">return</span> <span class="nx">v</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+
+<span class="p">}</span>
+
+
+<span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">node</span><span class="p">){</span>
+	<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">node</span><span class="p">)(</span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadPointer</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">cas</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span><span class="nx">old</span><span class="p">,</span><span class="nx">new</span> <span class="o">*</span><span class="nx">node</span><span class="p">)(</span><span class="nx">ok</span> <span class="kt">bool</span><span class="p">){</span>
+	<span class="k">return</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapPointer</span><span class="p">(</span>
+		<span class="nx">p</span><span class="p">,</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">old</span><span class="p">),</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">new</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="atomic-vs-">Atomic Vs &amp;</h2>
+<p>我们可能会遇到一个疑问：对一个地址的赋值操作是否为原子操作？</p>
+<p>如果是原子操作的话atomic包存在的意义是什么。</p>
+<p>这里总结了一下DaveCheney谈论此问题是给出的解释：</p>
+<p>在write的地址的对齐操作中有可能是需要处理器分成两个指令去处理，若执行一个指令，其他就会看到更新了一半的错误数据，这被称为撕裂写（torn write）。所以我们可以认为赋值操作是一个原子操作，这个“原子操作”可以认为是保证数据的完整性。</p>
+<p>但在多处理多核的系统中，一个核对地址的更改在更新到主内存中之前，是在多级缓存中存放的，即会产生数据一致性的问题。为处理该类问题使用了内存屏障方式，简单来说就是进行操作时必须要等未完成的操作都被刷新到内存中，并且该操作还会让相关处理器的CPU缓存失效以此来拉取最新的值。</p>
+<p>atomic包提供的方法会提供内存屏障的功能，所以atomic不仅可以保证赋值的数据完整性，还能保证多核中的数据可见性。但需要注意的是为了保证数据的一致性，atomic操作也是会降低性能的。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/golang/concurrent/0.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-title="Go并发编程实战课笔记—Atomic" data-hashtags="Go,并发编程,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-title="Go并发编程实战课笔记—Atomic" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-title="Go并发编程实战课笔记—Atomic"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-title="Go并发编程实战课笔记—Atomic"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-title="Go并发编程实战课笔记—Atomic" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-title="Go并发编程实战课笔记—Atomic" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/golang/concurrent/0.html/" data-title="Go并发编程实战课笔记—Atomic"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/golang/concurrent/1.html/" class="prev" rel="prev" title="Go并发编程实战课笔记—Channel"><i class="fas fa-angle-left fa-fw"></i>Go并发编程实战课笔记—Channel</a>
+            <a href="/posts/common_tech/error/0.html/" class="next" rel="next" title="程序中的错误处理note">程序中的错误处理note<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

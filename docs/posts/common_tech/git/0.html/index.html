@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Git中的工作流 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="Git中的工作流" />
+<meta property="og:description" content="Git中的工作流 中心式协同工作流 一般过程如下： 从服务器上git pull origin master同步代码； 修改完后git commit到本地仓库中； 然后git push" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/common_tech/git/0.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T17:00:06&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T17:00:06&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="Git中的工作流"/>
+<meta name="twitter:description" content="Git中的工作流 中心式协同工作流 一般过程如下： 从服务器上git pull origin master同步代码； 修改完后git commit到本地仓库中； 然后git push"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/common_tech/git/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/distributed_structure/structure/3.html/" /><link rel="next" href="https://zhengyua.cn/posts/distributed_structure/structure/8.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Git中的工作流",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/common_tech\/git\/0.html\/"
+        },"genre": "posts","keywords": "通用技术, Git","wordcount":  1385 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/common_tech\/git\/0.html\/","datePublished": "2022-01-29T17:00:06+08:00","dateModified": "2022-01-29T17:00:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Git中的工作流</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/"><i class="far fa-folder fa-fw"></i>通用技术</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1385 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#git中的工作流">Git中的工作流</a>
+      <ul>
+        <li><a href="#中心式协同工作流">中心式协同工作流</a></li>
+        <li><a href="#功能分支协同工作流">功能分支协同工作流</a></li>
+        <li><a href="#gitflow协同工作流">GitFlow协同工作流</a></li>
+        <li><a href="#githubgitlab协同工作流">GitHub/Gitlab协同工作流</a>
+          <ul>
+            <li><a href="#gitflow">GitFlow</a></li>
+            <li><a href="#gillabflow">GillabFlow</a></li>
+          </ul>
+        </li>
+        <li><a href="#本质">本质</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="git中的工作流">Git中的工作流</h1>
+<h2 id="中心式协同工作流">中心式协同工作流</h2>
+<p>一般过程如下：</p>
+<ol>
+<li>从服务器上<code>git pull origin master</code>同步代码；</li>
+<li>修改完后<code>git commit</code>到本地仓库中；</li>
+<li>然后<code>git push origin master</code>到远程仓库中；</li>
+</ol>
+<p>若三步push失败则出现了已经提交的版本与你本地版本不一致，则需要先把远程仓库的代码pull下来，为了避免有merge操作即可以使用<code>git pull -rebase</code>将远程仓库上的提交直接合并到本地仓库中。总结就是以下步骤：</p>
+<ol>
+<li>先把本地提交的代码放在一边；</li>
+<li>然后把远程仓库上的改动下载下来；</li>
+<li>然后在本地把之前的改动全部分别commit直至全部成功。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20201230174217.png"
+        data-srcset="https://img.zhengyua.cn/img/20201230174217.png, https://img.zhengyua.cn/img/20201230174217.png 1.5x, https://img.zhengyua.cn/img/20201230174217.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20201230174217.png"
+        title="image-20201230174210056" /></p>
+<blockquote>
+<p>若有冲突则解决冲突，使用<code>git rebase –continue</code>，直至解决所有冲突。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20201230174250.png"
+        data-srcset="https://img.zhengyua.cn/img/20201230174250.png, https://img.zhengyua.cn/img/20201230174250.png 1.5x, https://img.zhengyua.cn/img/20201230174250.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20201230174250.png"
+        title="image-20201230174250144" /></p>
+</blockquote>
+<h2 id="功能分支协同工作流">功能分支协同工作流</h2>
+<p>一般过程如下：</p>
+<ol>
+<li>首先使用<code>git checkout -b new-feather</code>创建新分支；</li>
+<li>然后共同开发这个功能在此分支上进行开发工作；</li>
+<li>然后通过<code>git push -u origin new-feather</code>把分支push到远程仓库上；</li>
+<li>其他就可以通过<code>git pull -rebase</code>拿到这个分支的最新代码；</li>
+<li>最后通过<code>Pull Request</code>做完CodeReveiw后合并到Master分支上。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20201230174558.png"
+        data-srcset="https://img.zhengyua.cn/img/20201230174558.png, https://img.zhengyua.cn/img/20201230174558.png 1.5x, https://img.zhengyua.cn/img/20201230174558.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20201230174558.png"
+        title="image-20201230174558219" /></p>
+<h2 id="gitflow协同工作流">GitFlow协同工作流</h2>
+<p><strong>重点在于维护且不影响当前可以发布的代码</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20201230174644.png"
+        data-srcset="https://img.zhengyua.cn/img/20201230174644.png, https://img.zhengyua.cn/img/20201230174644.png 1.5x, https://img.zhengyua.cn/img/20201230174644.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20201230174644.png"
+        title="image-20201230174644118" /></p>
+<ul>
+<li>
+<p>Master 分支。也就是主干分支，用作发布环境，上面的每一次提交都是可以发布的。</p>
+</li>
+<li>
+<p>Feature 分支。也就是功能分支，用于开发功能，其对应的是开发环境。</p>
+</li>
+<li>
+<p>Developer 分支。是开发分支，一旦功能开发完成，就向 Developer 分支合并，合并完成后，删除功能分支。这个分支对应的是集成测试环境。</p>
+</li>
+<li>
+<p>Release 分支。当 Developer 分支测试达到可以发布状态时，开出一个 Release 分支来，然后做发布前的准备工作。这个分支对应的是预发环境。之所以需要这个 Release 分支，是我们的开发可以继续向前，不会因为要发布而被 block 住而不能提交。</p>
+<blockquote>
+<p>一旦 Release 分支上的代码达到可以上线的状态，那么需要把 Release 分支向 Master 分支和 Developer 分支同时合并，以保证代码的一致性。然后再把 Release 分支删除掉。</p>
+</blockquote>
+</li>
+<li>
+<p>Hotfix 分支。是用于处理生产线上代码的 Bug-fix，每个线上代码的 Bug-fix 都需要开一个 Hotfix 分支，完成后，向 Developer 分支和 Master 分支上合并。合并完成后，删除 Hotfix 分支。</p>
+</li>
+</ul>
+<h2 id="githubgitlab协同工作流">GitHub/Gitlab协同工作流</h2>
+<blockquote>
+<p>GitFlow会因分支太多造成git log混乱的局面，且需要同时维护Master和Developer分支。</p>
+</blockquote>
+<h3 id="gitflow">GitFlow</h3>
+<p>一般过程如下：</p>
+<ol>
+<li>将官方库fork到自己的代码仓库；</li>
+<li>开发人员在自己的代码仓库进行开发；</li>
+<li>自己的代码仓库中需要配置两个远程仓库；</li>
+<li>本地建立功能分支，在此分支上做代码开发；</li>
+<li>这个功能分支push到自己的代码仓库中；</li>
+<li>然后向官方库发起pull request，并做code review；</li>
+<li>一旦通过则向官方库进行合并。</li>
+</ol>
+<h3 id="gillabflow">GillabFlow</h3>
+<p><strong>重点在于引入不同的环境分支，且包含了预发布和生产分支</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20201230175402.png"
+        data-srcset="https://img.zhengyua.cn/img/20201230175402.png, https://img.zhengyua.cn/img/20201230175402.png 1.5x, https://img.zhengyua.cn/img/20201230175402.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20201230175402.png"
+        title="image-20201230175402554" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20201230175412.png"
+        data-srcset="https://img.zhengyua.cn/img/20201230175412.png, https://img.zhengyua.cn/img/20201230175412.png 1.5x, https://img.zhengyua.cn/img/20201230175412.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20201230175412.png"
+        title="image-20201230175412503" /></p>
+<p>这样也就解决了两个问题：</p>
+<ul>
+<li>环境和代码分支对应的问题；</li>
+<li>版本和代码分支对应的问题。</li>
+</ul>
+<h2 id="本质">本质</h2>
+<p>软件开发的趋势一般如下：</p>
+<ul>
+<li>
+<p>以微服务或者SOA架构的方式。</p>
+<p>使协同工作流变得简单，将各个服务拆解成若干个代码仓库，对于GitFlow过于重，更适合使用GitHubFlow方式。</p>
+</li>
+<li>
+<p>以DevOps为主的开发流程。</p>
+<p>通过CI/CD，不需要维护多个版本，也不需要关注不同的运行环境，GitHubFlow或者功能分支这种方式更适应这种开发流程。</p>
+</li>
+</ul>
+<p>协同工作流的本质，并不是怎么玩好代码仓库的分支策略，而是玩好我们的软件架构和软件开发流程。</p>
+<p>与其花时间在 Git 协同工作流上，还不如把时间花在调整软件架构和自动化软件生产和运维流程上来，这才是真正简化协同工作流程的根本。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/common_tech/git/0.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-title="Git中的工作流" data-hashtags="通用技术,Git"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-hashtag="通用技术"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-title="Git中的工作流" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-title="Git中的工作流"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-title="Git中的工作流"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-title="Git中的工作流" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-title="Git中的工作流" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/common_tech/git/0.html/" data-title="Git中的工作流"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/">通用技术</a>,&nbsp;<a href="/tags/git/">Git</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/distributed_structure/structure/3.html/" class="prev" rel="prev" title="MIT6824LEC1笔记:Map Reduce"><i class="fas fa-angle-left fa-fw"></i>MIT6824LEC1笔记:Map Reduce</a>
+            <a href="/posts/distributed_structure/structure/8.html/" class="next" rel="next" title="apm组件选型">apm组件选型<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

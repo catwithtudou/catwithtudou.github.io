@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>Go并发编程实战课笔记—Channel - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="Go并发编程实战课笔记—Channel" />
+<meta property="og:description" content="Go并发编程实战课笔记—Channel 以下大多为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo 在channel的发展中关于CSP理论的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/golang/concurrent/1.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-29T02:28:06&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-29T02:28:06&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="Go并发编程实战课笔记—Channel"/>
+<meta name="twitter:description" content="Go并发编程实战课笔记—Channel 以下大多为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo 在channel的发展中关于CSP理论的"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/golang/concurrent/1.html/" /><link rel="prev" href="https://zhengyua.cn/posts/golang/concurrent/2.html/" /><link rel="next" href="https://zhengyua.cn/posts/golang/concurrent/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go并发编程实战课笔记—Channel",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/1.html\/"
+        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  1815 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/1.html\/","datePublished": "2022-01-29T02:28:06+08:00","dateModified": "2022-01-29T02:28:06+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">Go并发编程实战课笔记—Channel</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1815 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go并发编程实战课笔记channel">Go并发编程实战课笔记—Channel</a>
+      <ul>
+        <li><a href="#channel的应用场景">Channel的应用场景</a></li>
+        <li><a href="#channel基本用法">Channel基本用法</a></li>
+        <li><a href="#channel的实现原理">Channel的实现原理</a>
+          <ul>
+            <li><a href="#chand的数据结构">chand的数据结构</a></li>
+            <li><a href="#chan初始化">chan初始化</a></li>
+            <li><a href="#send">send</a></li>
+            <li><a href="#receive">receive</a></li>
+            <li><a href="#close">close</a></li>
+          </ul>
+        </li>
+        <li><a href="#易错场景">易错场景</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="go并发编程实战课笔记channel">Go并发编程实战课笔记—Channel</h1>
+<blockquote>
+<p>以下大多为鸟窝大佬的<a href="https://time.geekbang.org/column/intro/100061801" target="_blank" rel="noopener noreffer">Go 并发编程实战课</a> 中摘录的笔记</p>
+<p><a href="https://github.com/catwithtudou/golang_concurrent_examples/tree/master/channel" target="_blank" rel="noopener noreffer">代码repo</a></p>
+</blockquote>
+<p>在channel的发展中关于CSP理论的部分是不可避免的，而Channel的实现就是实现了CSP的思想。</p>
+<p>CSP理论讲述了CSP允许使用进程组件来描述系统，它们独立运行，并且只通过消息传递的方式通信。</p>
+<p>Channel类型是Go语言内置的类型，无需引入包。</p>
+<h2 id="channel的应用场景">Channel的应用场景</h2>
+<blockquote>
+<p>执行业务处理的goroutine不要通过共享内存的方式通信，而是要通过Channel通信的方式来分享数据。</p>
+<p>即“sharing memory by communicating&quot;，类似于CSP模型的方式。</p>
+</blockquote>
+<p>Channel类型和基本并发原语是有竞争关系的，应用于并发场景，涉及到goroutine之间的通讯，可以提供并发的保护。</p>
+<p>总结下来，可以把channel的应用场景分为五种类型：</p>
+<ol>
+<li><strong>数据交流</strong></li>
+</ol>
+<p>当作并发的buffer或者queue解决类似生产者-消费者问题，且多个goroutine可以并发当作生产者和消费者。</p>
+<ol start="2">
+<li><strong>数据传递</strong></li>
+</ol>
+<p>一个goroutine将数据交给另一个gorouitne，相当于把数据的拥有权（引用）托付出去。</p>
+<ol start="3">
+<li><strong>信号通知</strong></li>
+</ol>
+<p>一个goroutine可以将信号（closing、closed、data ready等）传递给另一个或者另一组groutine。</p>
+<ol start="4">
+<li><strong>任务编排</strong></li>
+</ol>
+<p>可以让一组goroutine按照一定的顺序并发或者串行执行，即编排的功能。</p>
+<ol start="5">
+<li><strong>锁机制</strong></li>
+</ol>
+<p>利用Channel可以实现互斥锁的机制。</p>
+<h2 id="channel基本用法">Channel基本用法</h2>
+<p>channel分为只能接收、只能发送、既可以接收也可以发送的三种类型。</p>
+<ul>
+<li>这个箭头总是射向左边的，元素类型总在最右边；</li>
+<li>若箭头指向chan即表示可以往chan中塞数据，若箭头远离chan就表示chan会往外吐数据；</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">chan</span><span class="o">&lt;-</span> <span class="nx">dataType</span>
+<span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">dataType</span>
+<span class="kd">chan</span> <span class="nx">dataType</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>channel根据设置容量分为 buffer chan 和 unbuffered chan。</p>
+<p>在 buffer chan 被阻塞时只有在容量已满的时候才会被阻塞，而 unbuffered chan 只有读写都准备好之后才不不会阻塞。</p>
+<p>还有需要注意的是 nil 是 chan 的零值，是一种特殊的 chan，对值是 nil 的 chan 的发送接收调用者总是会阻塞。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// send the data
+</span><span class="c1"></span><span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">10</span>
+
+<span class="c1">// receive the data
+</span><span class="c1"></span><span class="nx">x</span><span class="p">,</span><span class="nx">ok</span><span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
+<span class="nx">x</span><span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
+<span class="o">&lt;-</span><span class="nx">ch</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>在使用 channel 中我们还可以将 channel 使用于 select 的 case clause，for-range中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-go" data-lang="go"><span class="k">select</span><span class="p">{</span>
+	<span class="k">case</span> <span class="nx">ch</span><span class="o">&lt;-</span><span class="nx">i</span><span class="p">:</span>
+  <span class="k">case</span> <span class="nx">v</span><span class="o">:=&lt;-</span><span class="nx">ch</span><span class="p">:</span> 
+<span class="p">}</span>
+
+<span class="k">for</span> <span class="nx">v</span><span class="o">:=</span><span class="k">range</span> <span class="nx">ch</span><span class="p">{}</span>
+<span class="k">for</span> <span class="k">range</span> <span class="nx">ch</span><span class="p">{}</span> <span class="c1">// clean the chan
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="channel的实现原理">Channel的实现原理</h2>
+<blockquote>
+<p>在此部分中不会贴出相应源码部分，仅讲述实现逻辑思路。</p>
+</blockquote>
+<h3 id="chand的数据结构">chand的数据结构</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210223145435.png"
+        data-srcset="https://img.zhengyua.cn/20210223145435.png, https://img.zhengyua.cn/20210223145435.png 1.5x, https://img.zhengyua.cn/20210223145435.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210223145435.png"
+        title="image-20210223145429969" /></p>
+<h3 id="chan初始化">chan初始化</h3>
+<p>底层调用<code>makechan</code>实现，根据chan的容量的大小和元素的类型不同，初始化不同的存储空间。最终，针对不同的容量和元素类型，分配不同的对象来初始化 hchan 对象的字段，返回 hchan 对象。</p>
+<p>这里需要注意的是在 buffer chan 中元素包含指针和不包含指针中分配内存方式不同，前者是单独分配内存给 buf ，而后者是一段连续的内存给 对象和 buf。</p>
+<h3 id="send">send</h3>
+<p>在这里我们可以从 send 的各种情况来分析发送的逻辑思路：</p>
+<ul>
+<li>
+<p>往 nil chan 中发送数据</p>
+<ul>
+<li>造成死锁阻塞退出</li>
+</ul>
+</li>
+<li>
+<p>往 close chan 中发送数据</p>
+<ul>
+<li>panic退出</li>
+</ul>
+</li>
+<li>
+<p>往 buffer chan 中发送数据</p>
+<ul>
+<li>buffer chan 容量未满
+<ul>
+<li>等待队列中有 receiver
+<ul>
+<li>优先将数据发送至该 receiver 直接返回</li>
+</ul>
+</li>
+<li>等待队列中无 receiver
+<ul>
+<li>将数据发送至 buf 直接返回</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>buffer chan 容量已满
+<ul>
+<li>放入等待队列 sender 中阻塞等待直至被唤醒</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>往 unbuffered chan 中发送数据</p>
+<ul>
+<li>有接收者准备
+<ul>
+<li>chan 中拥有数据
+<ul>
+<li>阻塞等待至 chan 中数据被读取（及 chan close 情况）</li>
+</ul>
+</li>
+<li>chan 中没有数据
+<ul>
+<li>将数据发送至 chan 中直接返回</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>无接收者准备
+<ul>
+<li>chan 中拥有数据
+<ul>
+<li>造成死锁阻塞退出</li>
+</ul>
+</li>
+<li>chan 中没有数据
+<ul>
+<li>造成死锁阻塞退出</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="receive">receive</h3>
+<p>在这里我们可以从 receive 的各种情况来分析发送的逻辑思路：</p>
+<ul>
+<li>
+<p>从 nil chan 中接收数据</p>
+<ul>
+<li>造成死锁阻塞退出</li>
+</ul>
+</li>
+<li>
+<p>从 close chan 中接收数据</p>
+<ul>
+<li>buf 则取出数据直接返回</li>
+<li>无 buf 则取出类型零值直接返回</li>
+</ul>
+</li>
+<li>
+<p>从 buffer chan 中接收数据</p>
+<ul>
+<li>buffer chan buf 不为空
+<ul>
+<li>优先取出 buf 数据直接返回</li>
+</ul>
+</li>
+<li>buffer chan buf 为空
+<ul>
+<li>等待队列中无 sender
+<ul>
+<li>阻塞等待至 chan 中发送数据（及 chan close 情况）</li>
+</ul>
+</li>
+<li>等待队列中有 sender
+<ul>
+<li>接收该 sender 中的数据直接返回</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>从 unbuffered chan 中接收数据</p>
+<ul>
+<li>无数据
+<ul>
+<li>阻塞等待至 chan 中发送数据</li>
+</ul>
+</li>
+<li>有数据
+<ul>
+<li>接收该数据直接返回</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="close">close</h3>
+<p>在这里我们可以从 close 的各种情况来分析发送的逻辑思路：</p>
+<ul>
+<li>nil chan
+<ul>
+<li>panic</li>
+</ul>
+</li>
+<li>not nil chan
+<ul>
+<li>close chan
+<ul>
+<li>panic</li>
+</ul>
+</li>
+<li>not close chan
+<ul>
+<li>把等待队列中的goroutine全部移除并唤醒后返回</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="易错场景">易错场景</h2>
+<p>使用 channel 中最常见的错误就是 panic 和 grouting 泄漏。</p>
+<p>panic的情况共有三种：</p>
+<ul>
+<li>close the nil chan</li>
+<li>send the close chan</li>
+<li>close the close chan</li>
+</ul>
+<p>这里提供一套选择的方法：</p>
+<ul>
+<li>共享资源的并发访问使用传统并发原语；</li>
+<li>复杂的任务编排和消息传递使用 Channel；</li>
+<li>消息通知机制使用 Channel，除非只想 signal 一个 goroutine 才使用 Cond；</li>
+<li>简单等待所有任务的完成用 WaitGroup，也可以使用 Channel；</li>
+<li>需要和 Select 语句结合，使用 Channel；</li>
+<li>需要和超时配合，使用 Channel 和 Context；</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/20210223154038.png"
+        data-srcset="https://img.zhengyua.cn/20210223154038.png, https://img.zhengyua.cn/20210223154038.png 1.5x, https://img.zhengyua.cn/20210223154038.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/20210223154038.png"
+        title="image-20210223154037981" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-29</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/golang/concurrent/1.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-title="Go并发编程实战课笔记—Channel" data-hashtags="Go,并发编程,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-title="Go并发编程实战课笔记—Channel" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-title="Go并发编程实战课笔记—Channel"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-title="Go并发编程实战课笔记—Channel"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-title="Go并发编程实战课笔记—Channel" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-title="Go并发编程实战课笔记—Channel" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/golang/concurrent/1.html/" data-title="Go并发编程实战课笔记—Channel"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">并发编程</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/golang/concurrent/2.html/" class="prev" rel="prev" title="Go并发编程实战课笔记—Cond"><i class="fas fa-angle-left fa-fw"></i>Go并发编程实战课笔记—Cond</a>
+            <a href="/posts/golang/concurrent/0.html/" class="next" rel="next" title="Go并发编程实战课笔记—Atomic">Go并发编程实战课笔记—Atomic<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

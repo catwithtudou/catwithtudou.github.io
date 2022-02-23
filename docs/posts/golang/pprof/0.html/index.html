@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>pprof性能排查分析note - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="pprof性能排查分析note" />
+<meta property="og:description" content="pprof性能排查分析note pprof 概述 工具 runtime/pprof net/hhtp/pprof 采样 CPU Heap Goroutine Mutex Block ThreadCreate 分析 网页 可视化终端 展示 Top Graph Source FlameGraph Peek Disassemble 性能排查[炸弹] 前置准备 使用 net/http/pprof 浏览器查看指标 ip:port/debug/pprof/" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/golang/pprof/0.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-01-28T21:05:26&#43;08:00" />
+<meta property="article:modified_time" content="2022-01-28T21:05:26&#43;08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="pprof性能排查分析note"/>
+<meta name="twitter:description" content="pprof性能排查分析note pprof 概述 工具 runtime/pprof net/hhtp/pprof 采样 CPU Heap Goroutine Mutex Block ThreadCreate 分析 网页 可视化终端 展示 Top Graph Source FlameGraph Peek Disassemble 性能排查[炸弹] 前置准备 使用 net/http/pprof 浏览器查看指标 ip:port/debug/pprof/"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/golang/pprof/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/rust/0.html/" /><link rel="next" href="https://zhengyua.cn/posts/golang/concurrent/12.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "pprof性能排查分析note",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/golang\/pprof\/0.html\/"
+        },"genre": "posts","keywords": "pprof, 性能优化, Go","wordcount":  1214 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/golang\/pprof\/0.html\/","datePublished": "2022-01-28T21:05:26+08:00","dateModified": "2022-01-28T21:05:26+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">pprof性能排查分析note</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-28">2022-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1214 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#pprof性能排查分析note">pprof性能排查分析note</a>
+      <ul>
+        <li><a href="#pprof">pprof</a>
+          <ul>
+            <li><a href="#概述">概述</a></li>
+            <li><a href="#性能排查炸弹">性能排查[炸弹]</a></li>
+          </ul>
+        </li>
+        <li><a href="#proof指标采样的流程和原理">proof指标采样的流程和原理</a>
+          <ul>
+            <li><a href="#cpu采样">CPU采样</a></li>
+            <li><a href="#goroutinethreadcreate采样">Goroutine&amp;ThreadCreate采样</a></li>
+            <li><a href="#heap堆内存采样">Heap（堆内存）采样</a></li>
+            <li><a href="#blockmutex采样">Block&amp;Mutex采样</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="pprof性能排查分析note">pprof性能排查分析note</h1>
+<h2 id="pprof">pprof</h2>
+<h3 id="概述">概述</h3>
+<ol>
+<li>工具</li>
+</ol>
+<p>runtime/pprof</p>
+<p>net/hhtp/pprof</p>
+<ol start="2">
+<li>采样</li>
+</ol>
+<p>CPU</p>
+<p>Heap</p>
+<p>Goroutine</p>
+<p>Mutex</p>
+<p>Block</p>
+<p>ThreadCreate</p>
+<ol start="3">
+<li>分析</li>
+</ol>
+<p>网页</p>
+<p>可视化终端</p>
+<ol start="4">
+<li>展示</li>
+</ol>
+<p>Top</p>
+<p>Graph</p>
+<p>Source</p>
+<p>FlameGraph</p>
+<p>Peek</p>
+<p>Disassemble</p>
+<h3 id="性能排查炸弹">性能排查[炸弹]</h3>
+<ol>
+<li>前置准备</li>
+</ol>
+<p>使用 net/http/pprof</p>
+<ol start="2">
+<li>浏览器查看指标</li>
+</ol>
+<p>ip:port/debug/pprof/</p>
+<ol start="3">
+<li>CPU</li>
+</ol>
+<p><code>go tool pprof &quot;http://localhost:6060/dubug/pprof/profile?seconds=10&quot;</code></p>
+<p>topN:查看占用资源最多的函数</p>
+<p>其中需要注意两个参数：</p>
+<ul>
+<li>flat:本函数的执行耗时；</li>
+<li>cum:累计量。指该函数加上该函数调用的函数总耗时；</li>
+</ul>
+<p>在 flat==cum 情况下说明该函数没有子函数，若 flat == 0 则说明函数中只有其他函数的调用；</p>
+<p>list:根据给定的正则表达式查找代码行</p>
+<p>web:生成调用关系图</p>
+<ol start="4">
+<li>Heap</li>
+</ol>
+<p><code>go tool pprof -http=:8080 &quot;http://localhost:6060/debug/pprof/heap&quot;</code></p>
+<p>Top视图</p>
+<p>Source视图：源码视角查看资源占用</p>
+<p>SAMPLE选项：</p>
+<ul>
+<li>alloc_objects:程序累计申请的对象数</li>
+<li>alloc_sapce:程序累计申请的内存大小</li>
+<li>infuse_objects:当前持有的对象数</li>
+<li>infuse_sapce:当前持有的内存大小</li>
+</ul>
+<ol start="5">
+<li>Goroutine</li>
+</ol>
+<p>goroutine泄漏也会导致内存泄漏</p>
+<p><code>go tool pprof -http=:8080 &quot;http://localhost:6060/debug/pprof/goroutine&quot;</code></p>
+<p>FlameGraph：火焰图</p>
+<ol start="6">
+<li>Mutex</li>
+</ol>
+<p><code>go tool pprof -http=:8080 &quot;http://localhost:6060/debug/pprof/mutex&quot;</code></p>
+<ol start="7">
+<li>Block</li>
+</ol>
+<p><code>go tool pprof -http=:8080 &quot;http://localhost:6060/debug/pprof/block&quot;</code></p>
+<p>若阻塞操作消耗时间相对于其他阻塞过小，则 pprof 视图中可能会被忽略，出现这种问题我们可以通过调整比例发现，且 pprof 的 http端口监听若出现阻塞也会被记录下来。</p>
+<h2 id="proof指标采样的流程和原理">proof指标采样的流程和原理</h2>
+<h3 id="cpu采样">CPU采样</h3>
+<ul>
+<li>采样对象：函数调用和它们的占用时间</li>
+<li>采样率：100次/秒，固定值</li>
+<li>采样时间：从手动启动到手动结束</li>
+</ul>
+<p>核心在于通过设定和取消信号处理函数，来开启和关闭定时器。</p>
+<ul>
+<li>操作系统：每10ms向进程发送一次SIGPROF信号</li>
+<li>进程：每次接受到SIGPROF会记录调用栈</li>
+<li>写缓冲：每100ms读取一次已经记录的调用栈并写入输出流</li>
+</ul>
+<h3 id="goroutinethreadcreate采样">Goroutine&amp;ThreadCreate采样</h3>
+<ul>
+<li>
+<p>Goroutine</p>
+<p>记录所有用户发起且在运行中的 goroutine（即入口非 runtime 开头的）和 runtime.main 的调用栈信息</p>
+<p>Stop-&gt;遍历allgs切片-&gt;输出创建g的堆栈-&gt;Start</p>
+</li>
+<li>
+<p>ThreadCreate</p>
+<p>记录程序创建的所有系统线程的信息</p>
+<p>Stop-&gt;遍历allm链表-&gt;输出创建m的堆栈-&gt;Start</p>
+</li>
+</ul>
+<h3 id="heap堆内存采样">Heap（堆内存）采样</h3>
+<ul>
+<li>
+<p>采样程序通过内存分配器在堆上分配和释放且参与GC的内存，记录分配/释放的大小和数量</p>
+<blockquote>
+<p>底层使用cgo、调用就回收的栈内存等是不会被记录的。</p>
+</blockquote>
+</li>
+<li>
+<p>采样率：每分配512KB记录一次，可以在运行开头修改，1为每次分配均记录</p>
+</li>
+<li>
+<p>采样时间：从程序运行开始到采样时</p>
+</li>
+<li>
+<p>采用指标：alloc_space、alloc_objects、inuse_space、inuse_objects；</p>
+</li>
+<li>
+<p>计算方式：inuse = alloc - free</p>
+</li>
+</ul>
+<h3 id="blockmutex采样">Block&amp;Mutex采样</h3>
+<ul>
+<li>
+<p>阻塞</p>
+<p>采用阻塞操作的次数和耗时</p>
+<p>采样率：阻塞耗时超过阈值值才会被记录，1为每次阻塞均记录</p>
+<p>阻塞操作-上报调用栈和消耗时间-&gt;profiler-采样时-&gt;遍历阻塞记录-&gt;统计阻塞次数和耗时</p>
+</li>
+<li>
+<p>锁竞争</p>
+<p>采样争抢锁的次数和耗时</p>
+<p>采样率：只记录固定比例的锁操作，1为每次加锁均记录</p>
+<p>锁操作-上报调用栈和消耗时间-&gt;profiler-&gt;采样时-遍历锁记录-&gt;统计锁竞争次数和耗时</p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-01-28</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/golang/pprof/0.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-title="pprof性能排查分析note" data-hashtags="pprof,性能优化,Go"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-hashtag="pprof"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-title="pprof性能排查分析note" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-title="pprof性能排查分析note"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-title="pprof性能排查分析note"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-title="pprof性能排查分析note" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-title="pprof性能排查分析note" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/golang/pprof/0.html/" data-title="pprof性能排查分析note"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/pprof/">pprof</a>,&nbsp;<a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">性能优化</a>,&nbsp;<a href="/tags/go/">Go</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/rust/0.html/" class="prev" rel="prev" title="（WIP）Rust学习笔记"><i class="fas fa-angle-left fa-fw"></i>（WIP）Rust学习笔记</a>
+            <a href="/posts/golang/concurrent/12.html/" class="next" rel="next" title="Go并发编程实战课笔记—读写顺序">Go并发编程实战课笔记—读写顺序<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

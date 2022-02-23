@@ -1,0 +1,71 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>分布式架构 - 分类 - </title>
+        <link>https://zhengyua.cn/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/</link>
+        <description>分布式架构 - 分类 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/%E5%88%86%E5%B8%83%E5%BC%8F%E6%9E%B6%E6%9E%84/" rel="self" type="application/rss+xml" /><item>
+    <title>apm组件选型</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/8.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/8.html/</guid>
+    <description><![CDATA[APM组件选型 探针的性能 重点在agent对服务的吞吐量、CPU和内存的影响。 微服务的规模和动态性使数据收集的成本提高。 collector的可]]></description>
+</item><item>
+    <title>MIT6824LEC1笔记:Map Reduce</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/3.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/3.html/</guid>
+    <description><![CDATA[MIT6824LEC1笔记:Map Reduce 课程地址 代码实现repo地址 即课程Lab1。]]></description>
+</item><item>
+    <title>MIT6824LEC3笔记:GFS</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/5.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/5.html/</guid>
+    <description><![CDATA[GFS 课程地址 Before gfs why is distributed storage hard High performance -&gt; shard data over many servers Many servers -&gt; constant faults Fault tolerance -&gt; replication replication -&gt; potential inconsistencies Better consistency -&gt; low performance it can sum up the all thinking points like: performance fault tolerance replication consistency these points have connection and influence each other. what would we like for consistency? There are two conditions]]></description>
+</item><item>
+    <title>MIT6824LEC4笔记:Primary-Backup Replication</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/1.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/1.html/</guid>
+    <description><![CDATA[Primary/Backup Replication 课程地址 the note from the lecture Primary/Backup Replication for Fault Tolerance Case study of VMware FT, an extreme version of the idea fault tolerance to provide availability despite server and network failures using replication What kinds of failures can replication deal with? &ldquo;fail-stop&rdquo; failure of a single replica fan stops working, CPU overheats and shuts itself down someone trips over replica&rsquo;s power cord or network]]></description>
+</item><item>
+    <title>分布式熔断方案</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/7.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/7.html/</guid>
+    <description><![CDATA[分布式熔断方案note 微服务容错机制 微服务架构中因各个服务之间的依赖和调用关系较为复杂，当下游的服务出现问题时就可能会造成上游的雪崩效应。 解]]></description>
+</item><item>
+    <title>分布式系统全局唯一ID生成器</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/4.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/4.html/</guid>
+    <description><![CDATA[分布式系统全局唯一ID生成器 代码实现示例repo地址 使用场景一般： 分布式系统设计时，数据分片场景下，通常需要一个全局唯一id； 在消息系统中需]]></description>
+</item><item>
+    <title>分布式系统架构的本质note</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/0.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/0.html/</guid>
+    <description><![CDATA[分布式系统架构的本质note 以下为左耳听风 记录的笔记。 为什么需要分布式系统 放弃传统的单体架构，选择分布式系统，主要有两方面原因： 增大系统容量]]></description>
+</item><item>
+    <title>弹力设计note</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/6.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/6.html/</guid>
+    <description><![CDATA[弹力设计note 以下为左耳听风 记录的笔记。 认识故障和弹力设计 系统可用性测量 分布式系统的容错设计，在英文中又叫Resiliency（弹力），即]]></description>
+</item><item>
+    <title>服务限流的通用方案</title>
+    <link>https://zhengyua.cn/posts/distributed_structure/structure/2.html/</link>
+    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/distributed_structure/structure/2.html/</guid>
+    <description><![CDATA[服务限流的通用方案 服务限流场景 限流常见使用层面： 用户网络层：突发的流量场景如热点事件流量，恶意刷流，竞对爬虫等； 内部应用层：上游服务的异常调]]></description>
+</item></channel>
+</rss>
