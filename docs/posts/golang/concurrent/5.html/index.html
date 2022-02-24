@@ -9,8 +9,8 @@
 <meta property="og:description" content="Go并发编程实战课笔记—GroupOperation 分组操作：处理一组子任务执行的并发原语 以下为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhengyua.cn/posts/golang/concurrent/5.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-01-29T02:28:06&#43;08:00" />
-<meta property="article:modified_time" content="2022-01-29T02:28:06&#43;08:00" />
+<meta property="article:published_time" content="2022-01-29T02:28:06+08:00" />
+<meta property="article:modified_time" content="2022-01-29T02:28:06+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
@@ -153,7 +153,7 @@
 <p>在使用ErrGroup时我们会用到的三个方法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -163,7 +163,7 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 一旦有子任务返回错误或是Wait调用返回则该返回的context会被cancel
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 一旦有子任务返回错误或是Wait调用返回则该返回的context会被cancel
 </span><span class="c1">// 注意当传递ctx参数是一个可以cancel的Context的话则被cancel的时候并不会终止该正在执行的子任务
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">WithContext</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)(</span><span class="o">*</span><span class="nx">Group</span><span class="p">,</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span>
 <span class="c1">// 任务函数f若执行成功则返回nil，若不成功则返回error且会cancel那个新的Context
@@ -209,7 +209,7 @@
 <p>默认情况下，SizedGroup 控制的是子任务的并发数量，而不是 goroutine 的数量。在这种方式下，每次调用 Go 方法都不会被阻塞，而是新建一个 goroutine 去执行。如果想控制 goroutine 的数量，你可以使用 syncs.Preemptive 设置这个并发原语的可选项。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -242,7 +242,7 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">
 <span class="kn">package</span> <span class="nx">main</span>
 
 <span class="kn">import</span> <span class="p">(</span>
@@ -286,7 +286,7 @@
 <p>提供的三个方法如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -298,7 +298,7 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 等待所有异步函数执行完才返回，且返回结果顺序和传入顺序一致
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 等待所有异步函数执行完才返回，且返回结果顺序和传入顺序一致
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">All</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">fns</span> <span class="o">...</span><span class="nx">AsyncFunc</span><span class="p">)([]</span><span class="kd">interface</span><span class="p">{},[]</span><span class="kt">error</span><span class="p">)</span>
 <span class="c1">// type AsyncFunc func(ctx context.Context) (interface{}, error)
 </span><span class="c1"></span>
@@ -315,7 +315,7 @@
 <p>提供的方法如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -333,7 +333,7 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="c1">// type Executable func(context.Context) (interface{}, error)
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// type Executable func(context.Context) (interface{}, error)
 </span><span class="c1"></span>
 <span class="c1">// 会传入一组可执行的函数且返回子任务的执行结果，一旦一个子任务出现错误则会返回错误信息，执行结果为 nil
 </span><span class="c1"></span><span class="kd">func</span> <span class="nf">All</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">Executable</span><span class="p">)</span> <span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
@@ -355,7 +355,7 @@
 <p>该并发原语与时间处理相关，可为 worker pool 指定任务在某个时间或者某个时间之后执行。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -367,7 +367,7 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Group</span>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Group</span>
   <span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="o">*</span><span class="nx">Group</span>
 <span class="c1">// 会在 time.Now()+delay 之后执行函数
 </span><span class="c1"></span>  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Delay</span><span class="p">(</span><span class="nx">delay</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">())</span>
