@@ -191,11 +191,11 @@ publishdir = "./docs"
     [params.page.math]
       enable = true
       # 默认块定界符是 $$ ... $$ 和 \\[ ... \\]
-      blockLeftDelimiter = ""
-      blockRightDelimiter = ""
+      blockLeftDelimiter = "$$"
+      blockRightDelimiter = "$$"
       # 默认行内定界符是 $ ... $ 和 \\( ... \\)
-      inlineLeftDelimiter = ""
-      inlineRightDelimiter = ""
+      inlineLeftDelimiter = "$"
+      inlineRightDelimiter = "$"
       # KaTeX 插件 copy_tex
       copyTex = true
       # KaTeX 插件 mhchem
