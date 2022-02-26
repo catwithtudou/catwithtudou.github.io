@@ -4,14 +4,7 @@
         <link>https://zhengyua.cn/tags/wip/</link>
         <description>WIP - 标签 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 26 Feb 2022 18:18:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/wip/" rel="self" type="application/rss+xml" /><item>
-    <title>《白话机器学习的数学》阅读笔记</title>
-    <link>https://zhengyua.cn/posts/ai/machine_learning/0.html/</link>
-    <pubDate>Sat, 26 Feb 2022 18:18:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/ai/machine_learning/0.html/</guid>
-    <description><![CDATA[概述 通过读取大量的数据、学习数据的特征并从中找出数据的模式。 这样的任务也被称为机器学习或者模式识别。 机器学习中比较擅长的任务： 回归（regr]]></description>
-</item><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 28 Jan 2022 20:59:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/wip/" rel="self" type="application/rss+xml" /><item>
     <title>（WIP）Rust学习笔记</title>
     <link>https://zhengyua.cn/posts/rust/0.html/</link>
     <pubDate>Fri, 28 Jan 2022 20:59:26 &#43;0800</pubDate>
