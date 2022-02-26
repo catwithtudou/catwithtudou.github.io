@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>《白话机器学习的数学》阅读笔记 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="《白话机器学习的数学》阅读笔记" />
+<meta property="og:description" content="概述 通过读取大量的数据、学习数据的特征并从中找出数据的模式。 这样的任务也被称为机器学习或者模式识别。 机器学习中比较擅长的任务： 回归（regr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/ai/machine_learning/0.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-02-26T18:18:00+08:00" />
+<meta property="article:modified_time" content="2022-02-26T18:18:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="《白话机器学习的数学》阅读笔记"/>
+<meta name="twitter:description" content="概述 通过读取大量的数据、学习数据的特征并从中找出数据的模式。 这样的任务也被称为机器学习或者模式识别。 机器学习中比较擅长的任务： 回归（regr"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/ai/machine_learning/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/distributed_structure/structure/8.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "《白话机器学习的数学》阅读笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/0.html\/"
+        },"genre": "posts","keywords": "ai, machine_learning, WIP, note","wordcount":  2966 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/0.html\/","datePublished": "2022-02-26T18:18:00+08:00","dateModified": "2022-02-26T18:18:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">《白话机器学习的数学》阅读笔记</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/machine-learning/"><i class="far fa-folder fa-fw"></i>machine learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-26">2022-02-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2966 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#概述">概述</a></li>
+        <li><a href="#回归问题">回归问题</a>
+          <ul>
+            <li><a href="#最小二乘法公式">最小二乘法公式</a></li>
+            <li><a href="#最速下降法或梯度下降法">最速下降法（或梯度下降法）</a></li>
+            <li><a href="#多重回归">多重回归</a></li>
+            <li><a href="#随机梯度下降法">随机梯度下降法</a></li>
+          </ul>
+        </li>
+        <li><a href="#分类问题">分类问题</a>
+          <ul>
+            <li><a href="#感知机">感知机</a></li>
+            <li><a href="#sigmoid函数">sigmoid函数</a></li>
+            <li><a href="#似然函数">似然函数</a></li>
+            <li><a href="#对数似然函数">对数似然函数</a></li>
+            <li><a href="#线性不可分">线性不可分</a></li>
+          </ul>
+        </li>
+        <li><a href="#模型评估">模型评估</a>
+          <ul>
+            <li><a href="#交叉验证">交叉验证</a>
+              <ul>
+                <li><a href="#回归">回归</a></li>
+                <li><a href="#分类">分类</a></li>
+                <li><a href="#交叉验证方法">交叉验证方法</a></li>
+              </ul>
+            </li>
+            <li><a href="#正则化">正则化</a>
+              <ul>
+                <li><a href="#过拟合">过拟合</a></li>
+                <li><a href="#正则化方法">正则化方法</a></li>
+                <li><a href="#分类的正则化">分类的正则化</a></li>
+                <li><a href="#包含正则化项的表达式的微分">包含正则化项的表达式的微分</a></li>
+              </ul>
+            </li>
+            <li><a href="#学习曲线">学习曲线</a>
+              <ul>
+                <li><a href="#欠拟合">欠拟合</a></li>
+                <li><a href="#区分过拟合与欠拟合">区分过拟合与欠拟合</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="概述">概述</h2>
+<p><strong>通过读取大量的数据、学习数据的特征并从中找出数据的模式。</strong> 这样的任务也被称为机器学习或者模式识别。</p>
+<p>机器学习中比较擅长的任务：</p>
+<ul>
+<li>回归（regression）：从连续数据中学习趋势，如时间序列数据；</li>
+<li>分类（classification）：数据携带标签进行分类；</li>
+<li>聚类（clustering）：数据本身不带标签；</li>
+</ul>
+<p>机器学习中监督学习区分：</p>
+<ul>
+<li>使用有标签的数据进行的学习称为有监督学习（回归和分类）；</li>
+<li>使用没有标签的数据进行的学习称为无监督学习（聚类）；</li>
+</ul>
+<h2 id="回归问题">回归问题</h2>
+<p>$y=\theta_0+\theta_1x$</p>
+<p>$f_\theta(x)=\theta_0+\theta_1x$</p>
+<h3 id="最小二乘法公式">最小二乘法公式</h3>
+<p>$$
+E(\theta)=\frac{1}{2}\sum_{i=1}^{n}(y^i-f_\theta(x^i))^2
+$$</p>
+<p>使$y$与$f_\theta(x)$误差尽可能减小即最优化问题，使用差值的平方是因为避免差值为负数同时利于微分，至于$\frac{1}{2}$是为了让作为结果的表达式变得简单而随便加的常数（在最优化问题中不影响结果）。</p>
+<h3 id="最速下降法或梯度下降法">最速下降法（或梯度下降法）</h3>
+<p>$$
+x:=x-\eta\frac{\mathrm{d}}{\mathrm{d}x}g(x)
+$$</p>
+<p>其中$\eta$即为学习率，可以理解$\eta$越大，则下降越快，更新次数越少，甚至可能远离最优值，这就是发散状态，而$\eta$较小时移动量较小，更新次数增多，但是值会往收敛方向移动。</p>
+<p>因为$f_\theta(x)$拥有$\theta_0$和$\theta_1$两个参数，即目标函数是双变量函数，所以不能用普通的微分，而要用偏微分。</p>
+<p>$$\theta_0=\theta_0-\eta\frac{\partial{E}}{\partial{\theta_0}}$$</p>
+<p>$$\theta_1=\theta_1-\eta\frac{\partial{E}}{\partial{\theta_1}}$$</p>
+<blockquote>
+<p>假设$u=E(\theta)$，$v=f_\theta(x)$，利用阶梯性地进行微分：
+$$\frac{\partial{u}}{\partial{\theta_0}}=\frac{\partial{u}}{\partial{v}}\cdot\frac{\partial{v}}{\partial{\theta_0}}$$</p>
+</blockquote>
+<p>最后得到：</p>
+<p>$$\theta_0=\theta_0-\eta\sum_{i=1}^{n}(f_\theta(x^i)-y^i)$$</p>
+<p>$$\theta_1=\theta_1-\eta\sum_{i=1}^{n}(f_\theta(x^i)-y^i)x^i$$</p>
+<p>前面我们假设$f_\theta(x)=\theta_0+\theta_1x$，若这里为了更好拟合更新成$f_\theta(x)=\theta_0+\theta_1x+\theta_2x^2$，进行上面类似的梯度计算也可以得到：</p>
+<p>$$\theta_0=\theta_0-\eta\sum_{i=1}^{n}(f_\theta(x^i)-y^i)$$</p>
+<p>$$\theta_1=\theta_1-\eta\sum_{i=1}^{n}(f_\theta(x^i)-y^i)x^i$$</p>
+<p>$$\theta_2=\theta_2-\eta\sum_{i=1}^{n}(f_\theta(x^i)-y^i)x^{i^2}$$</p>
+<p>像这样增加函数中多项式的次数，然后再使用函数的分析方法被称为<strong>多项式回归</strong>。</p>
+<h3 id="多重回归">多重回归</h3>
+<p>$$f_\theta(x_1,&hellip;,x_n)=\theta_0+\theta_1x_1+&hellip;+\theta_nx_n$$</p>
+<p>将$\theta$和$x$转换为列向量简化表达式：</p>
+<p>$$
+\mathbf{\theta}=\left[\begin{matrix}\theta_0\\\theta_1\\\vdots\\\theta_n\end{matrix} \right]
+$$</p>
+<p>$$
+\mathbf{x}=\left[\begin{matrix}x_0\\x_2\\\vdots\\x_n\end{matrix}\right]
+$$</p>
+<p>得到：$\mathbf{\theta^T}\mathbf{x}=\theta_0x_0+\theta_1x_1+&hellip;+\theta_nx_n$ 即 $f_\mathbf{\theta}(\mathbf{x})=\mathbf{\theta^T}\mathbf{x}$</p>
+<p>然后我们代入梯度下降算法计算$\theta$的公式：</p>
+<p>$$
+\theta_j=\theta_j-\eta\sum_{i=1}^{n}(f_\mathbf{\theta}\mathbf{x}^{(i)}-y^{(i)})x{_j}{^{(i)}}
+$$</p>
+<h3 id="随机梯度下降法">随机梯度下降法</h3>
+<p>前面的最速下降法容易陷入局部最优解的情况：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/s14311002262022.png"
+        data-srcset="https://img.zhengyua.cn/s14311002262022.png, https://img.zhengyua.cn/s14311002262022.png 1.5x, https://img.zhengyua.cn/s14311002262022.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/s14311002262022.png"
+        title="s14311002262022" /></p>
+<p>而随机梯度下降法就是训练时随机选择训练数据，设随机选择$m$个训练数据额索引的集合为$K$，那么更新参数的公式为：</p>
+<p>$$
+\theta_j=\theta_j-\eta\sum_{k\in{K}}(f_\mathbf{\theta}\mathbf{x}^{(k)}-y^{(k)})x{_j}{^{(k)}}
+$$</p>
+<h2 id="分类问题">分类问题</h2>
+<p>使权重向量成为法线向量的直线，设权重向量为$\mathbf{w}$，直线的表达式为（向量内积）：
+$$
+\mathbf{w}\cdot\mathbf{x} = 0
+$$</p>
+<blockquote>
+<p>或者另外一个内积表达式：$\mathbf{w}\cdot\mathbf{x} = |\mathbf{w}|\cdot|\mathbf{x}|\cdot\cos{\theta}$</p>
+</blockquote>
+<p>通过训练找到权重向量，然后才能得到与这个向量垂直的直线，最后根据这条直线就可以对数据进行分类了。</p>
+<h3 id="感知机">感知机</h3>
+<p>接受多个输入后将每个值与各自的权重相乘，最后输出总和的模型。</p>
+<p>$$
+f_\mathbf{w}(\mathbf{x})=\left\{\begin{array}{ll}1&amp;(\mathbf{w}\cdot\mathbf{x}\geq0)\\-1&amp;(\mathbf{w}\cdot\mathbf{x}&lt;0)\end{array}\right.
+$$</p>
+<p>权重向量的更新表达式：</p>
+<p>$$
+\mathbf{w}=\left\{\begin{array}{ll}\mathbf{w}+y^{i}\mathbf{x}^{(i)}&amp;&amp;(f_\mathbf{w}(\mathbf{x}^{(i)})\neq y^{(i)})\\\mathbf{w}&amp;&amp;(f_\mathbf{w}(\mathbf{x}^{(i)})= ^{(i)})\end{array}\right.
+$$</p>
+<p>感知机的局限在于只能解决线性可分的问题。</p>
+<h3 id="sigmoid函数">sigmoid函数</h3>
+<p>$$
+f_\theta(\mathbf{x})=\frac{1}{1+e^{-\mathbf{\theta}^{T}\mathbf{x}}}
+$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/s15545702262022.png"
+        data-srcset="https://img.zhengyua.cn/s15545702262022.png, https://img.zhengyua.cn/s15545702262022.png 1.5x, https://img.zhengyua.cn/s15545702262022.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/s15545702262022.png"
+        title="s15545702262022" /></p>
+<p>其sigmoid函数取值范围为$0&lt;f_\theta(\mathbf{x})&lt;1$。</p>
+<blockquote>
+<p>其微分结果如下：
+$\frac{\mathrm{d}\sigma{x}}{\mathrm{d}x}=\sigma{(x)}(1-\sigma{(x)})$</p>
+</blockquote>
+<h3 id="似然函数">似然函数</h3>
+<p>目标函数即为通过$P(y=1|\mathbf{x})$和$P(y=0|\mathbf{x})$的联合概率得到：</p>
+<p>$$
+L(\mathbf{\theta})=\prod_{i=1}^nP(y^{(i)}=1|\mathbf{x}^{(i)})^{y^{(i)}}P(y^{(i)}=0|\mathbf{x}^{(i)})^{1-y^{(i)}}
+$$</p>
+<h3 id="对数似然函数">对数似然函数</h3>
+<p>将似然函数进行对数化便于运算，公式如下：</p>
+<p>$$
+\log{L(\mathbf{\theta})}=\sum_{i=1}^n(y^{(i)}\log{f_\mathbf{\theta}(\mathbf{x}^{(i)})}+(1-y^{(i)})\log{(1-f_\mathbf{\theta}(\mathbf{x}^{(i)}})))
+$$</p>
+<p>逻辑回归将这个对数似然函数用作目标函数，然后对目标函数求微分得到：</p>
+<p>$$
+\frac{\partial{u}}{\partial{\theta_j}}=\frac{\partial{u}}{\partial{v}}\cdot\frac{\partial{v}}{\partial{\theta_j}}=\sum_{i=1}^{n}(y^{(i)}-f_\mathbf{\theta}(\mathbf{x}^{(i)}))x_j^{(i)}
+$$</p>
+<p>最后导出参数更新表达式（梯度下降），这里求的是最大化与之前最小化不同，所以其方向相反：</p>
+<p>$$
+\theta_j:=\theta_j+\eta\sum_{i=1}^{n}(y^{(i)}-f_\mathbf{\theta}(\mathbf{x}^{(i)}))x_j^{(i)}
+$$</p>
+<p>若与前面回归保持一致即：</p>
+<p>$$
+\theta_j:=\theta_j-\eta\sum_{i=1}^{n}(f_\mathbf{\theta}(\mathbf{x}^{(i)})-y^{(i)})x_j^{(i)}
+$$</p>
+<h3 id="线性不可分">线性不可分</h3>
+<p>类似多项回归一样，增加次数得到非线性曲线。</p>
+<h2 id="模型评估">模型评估</h2>
+<h3 id="交叉验证">交叉验证</h3>
+<p>将获取的全部训练数据分成两份，一份用于测试，一份用于训练。然后用前者来评估模型。（交叉验证）</p>
+<h4 id="回归">回归</h4>
+<p>对于回归的情况，只要在训练好的模型上计算测试数据的误差的平方，再取其平均值就可以了：</p>
+<p>$$
+\frac{1}{n}\sum_{i=1}^n(y^{(i)}-f_\mathbf{\theta}(\mathbf{x}^{(i)}))^2
+$$</p>
+<p>上面得到的值被称为均方误差或者MSE（Mean Square Error）。<strong>这个误差越小，精度就越高，模型也就越好</strong>。</p>
+<h4 id="分类">分类</h4>
+<p>对于分类的情况，由于回归是连续值，所以可以从误差入手，但是分类中必须考虑分类的类别是否正确。</p>
+<p>对于二分类的结果可以用这张图表示：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/s16493902262022.png"
+        data-srcset="https://img.zhengyua.cn/s16493902262022.png, https://img.zhengyua.cn/s16493902262022.png 1.5x, https://img.zhengyua.cn/s16493902262022.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/s16493902262022.png"
+        title="s16493902262022" /></p>
+<p>通过表中的4个记号来表示精度（Accuracy）,表达式如下，即值越高精度越高，也就意味着模型越好：</p>
+<p>$$
+Accuracy = \frac{TP+TN}{TP+FP+FN+TN}
+$$</p>
+<p>在大多情况下，除了精度还需要引入其他指标进行评估：</p>
+<ul>
+<li>精确率（$Precision=\frac{TP}{TP+FP}=\frac{TN}{TN+FN}$，值越高分类错误越少)</li>
+<li>召回率（$Recall=\frac{TP}{TP+FN}=\frac{TN}{TN+FP}$，值越高即被正确分类的数据越多）</li>
+</ul>
+<blockquote>
+<p>当数据不平衡时，使用数量少的那个会更好。</p>
+</blockquote>
+<p>一般来说，精确率和召回率会一个高一个低，需要取舍。基于此就出现了评定综合性能的指标$F1$值，表达式如下：</p>
+<blockquote>
+<p>$F1$值指标在数学上是精确率和召回率的调和平均值。</p>
+</blockquote>
+<p>$$
+Fmeasure=\frac{2}{\frac{1}{Precision}+\frac{1}{Recall}}
+$$</p>
+<p>除$F1$值指标外，还有较为通用的带权重的$F$值指标，表达式如下：</p>
+<p>$$
+WeightedFmeasure = \frac{(1+\beta^2)\cdot Precision\cdot Recall}{\beta^2\cdot Precision+Recall}
+$$</p>
+<h4 id="交叉验证方法">交叉验证方法</h4>
+<p>在交叉验证的方法中，较为经典的是K折交叉验证:</p>
+<ul>
+<li>把全部训练数据分为K份；</li>
+<li>将K-1份数据用作训练数据，剩下的1份用作测试数据；</li>
+<li>每次更换训练数据和测试数据，重复进行K次交叉验证；</li>
+<li>最后计算K个精度的平均值，把它作为最终的精度；</li>
+</ul>
+<blockquote>
+<p>不切实际地增加K值会非常耗费时间，所以必须要确定一个合适的K值。</p>
+</blockquote>
+<h3 id="正则化">正则化</h3>
+<h4 id="过拟合">过拟合</h4>
+<p>若模型只能拟合训练数据的状态被称为过拟合（overfitting）。</p>
+<p>避免过拟合的方法一般有：</p>
+<ul>
+<li>增加全部训练数据的数量</li>
+<li>使用简单的模型</li>
+<li>正则化</li>
+</ul>
+<h4 id="正则化方法">正则化方法</h4>
+<p>可以在前面回归得到的目标函数（最小二乘法）加上正则化项得到一个新的目标函数，如下：</p>
+<p>$$
+E(\mathbf{\theta})=\frac{1}{2}\sum_{i=1}^{n}{(y^i-f_\mathbf{\theta}(\mathbf{x}^i))^2}+R(\mathbf{\theta})=\frac{1}{2}\sum_{i=1}^{n}{(y^i-f_\mathbf{\theta}(\mathbf{x}^i))^2}+\frac{\lambda}{2}\sum_{j=1}^{m}\theta_j^2
+$$</p>
+<p>要对这个新的目标函数进行最小化，这种方法即称为正则化。</p>
+<blockquote>
+<p>其中正则化项中：</p>
+<ul>
+<li>$m$：参数的个数;</li>
+<li>$\theta_0$称为偏置项，一般不对它进行正则化；</li>
+<li>$\lambda$：决定正则化项影响程度的正的常数；</li>
+</ul>
+</blockquote>
+<p>正则化的效果<strong>可以防止参数变得过大，有助于参数接近较小的值</strong>。参数的值变小，意味着该参数的影响也会相应地变小。</p>
+<h4 id="分类的正则化">分类的正则化</h4>
+<p>在前面分类提到的目标函数（对数似然函数）增加正则化项，表达式如下：</p>
+<p>$$
+\log{L(\mathbf{\theta})}=-\sum_{i=1}^n(y^{(i)}\log{f_\mathbf{\theta}(\mathbf{x}^{(i)})}+(1-y^{(i)})\log{(1-f_\mathbf{\theta}(\mathbf{x}^{(i)}})))+\frac{\lambda}{2}\sum_{j=1}^{m}\theta_j^2
+$$</p>
+<blockquote>
+<p>为方便与回归处理相似，将目标函数最大化的目标转化为最小化问题，在原目标函数增加负号，加上正则化项。且这里反转了符号之后，在更新参数时也需要将符号反方向移动。</p>
+</blockquote>
+<h4 id="包含正则化项的表达式的微分">包含正则化项的表达式的微分</h4>
+<p>其中回归和分类的目标函数的微分我们在前面已经求过了，这里主要是求正则化项的微分表达式:</p>
+<p>$$
+\frac{\partial{R(\mathbf{\theta})}}{\partial{\theta_j}}=\lambda\theta_j
+$$</p>
+<p>最后这里代入到回归场景下的参数更新表达式中：</p>
+<p>$$
+\theta_j:=\theta_j-\eta\big (\sum_{i=1}^{n}(f_\mathbf{\theta}(\mathbf{x}^{(i)})-y^{(i)})x_j^{(i)}+\lambda\theta_j\big )
+$$</p>
+<p>这里一般不对$\theta_0$应用正则化，所以这里区分两种情况：</p>
+<ul>
+<li>$j=0$</li>
+</ul>
+<p>$$
+\theta_0:=\theta_0-\eta\big (\sum_{i=1}^{n}(f_\mathbf{\theta}(\mathbf{x}^{(i)})-y^{(i)})x_j^{(i)}\big )
+$$</p>
+<ul>
+<li>$j&gt;0$</li>
+</ul>
+<p>$$
+\theta_j:=\theta_j-\eta\big (\sum_{i=1}^{n}(f_\mathbf{\theta}(\mathbf{x}^{(i)})-y^{(i)})x_j^{(i)}+\lambda\theta_j\big )
+$$</p>
+<p>至此提到的正则被称为<em>L2正则化</em>，除此之外还有<em>L1正则化</em>，它的正则化项如下：</p>
+<p>$$
+R(\mathbf{\theta})= \lambda\sum_{i=1}^{m}|\theta_i|
+$$</p>
+<p>L1正则化的特征是被判定为不需要的参数会变为0，从而减少变量个数即直接去除不要的变量。而L2正则化不会把参数变为0，通过会抑制参数，使变量的影响不会过大。</p>
+<h3 id="学习曲线">学习曲线</h3>
+<h4 id="欠拟合">欠拟合</h4>
+<p>欠拟合（underfitting）与过拟合相反的状态即没有拟合训练数据。在这种情况下模型的性能也会变差。</p>
+<h4 id="区分过拟合与欠拟合">区分过拟合与欠拟合</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/s18072202262022.png"
+        data-srcset="https://img.zhengyua.cn/s18072202262022.png, https://img.zhengyua.cn/s18072202262022.png 1.5x, https://img.zhengyua.cn/s18072202262022.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/s18072202262022.png"
+        title="s18072202262022" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/s18103602262022.png"
+        data-srcset="https://img.zhengyua.cn/s18103602262022.png, https://img.zhengyua.cn/s18103602262022.png 1.5x, https://img.zhengyua.cn/s18103602262022.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/s18103602262022.png"
+        title="s18103602262022" /></p>
+<p>将两份数据的精度用图来展示后，如果是这种形状，就说明出现了欠拟合的状态，也可以称为高偏差。</p>
+<p>而过拟合或称为高方差，如下图所示：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/s18100102262022.png"
+        data-srcset="https://img.zhengyua.cn/s18100102262022.png, https://img.zhengyua.cn/s18100102262022.png 1.5x, https://img.zhengyua.cn/s18100102262022.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/s18100102262022.png"
+        title="s18100102262022" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/s18104502262022.png"
+        data-srcset="https://img.zhengyua.cn/s18104502262022.png, https://img.zhengyua.cn/s18104502262022.png 1.5x, https://img.zhengyua.cn/s18104502262022.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/s18104502262022.png"
+        title="s18104502262022" /></p>
+<p>像这样展示了数据数量和精度的图称为学习曲线。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-02-26</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/ai/machine_learning/0.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-title="《白话机器学习的数学》阅读笔记" data-hashtags="ai,machine_learning,WIP,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-hashtag="ai"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-title="《白话机器学习的数学》阅读笔记" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-title="《白话机器学习的数学》阅读笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-title="《白话机器学习的数学》阅读笔记"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-title="《白话机器学习的数学》阅读笔记" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-title="《白话机器学习的数学》阅读笔记" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/ai/machine_learning/0.html/" data-title="《白话机器学习的数学》阅读笔记"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ai/">ai</a>,&nbsp;<a href="/tags/machine_learning/">machine_learning</a>,&nbsp;<a href="/tags/wip/">WIP</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/distributed_structure/structure/8.html/" class="prev" rel="prev" title="apm组件选型"><i class="fas fa-angle-left fa-fw"></i>apm组件选型</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>
