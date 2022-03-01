@@ -2,14 +2,18 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://zhengyua.cn/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/categories/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/posts/search_engine/es/0.html/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/tags/es/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/tags/note/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/posts/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/categories/search-engine/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/tags/search_engine/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/tags/</loc><lastmod>2022-02-28T09:24:00&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/ai/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/categories/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/categories/machine-learning/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/machine_learning/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/tags/note/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/posts/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/tags/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/posts/ai/machine_learning/0.html/</loc><lastmod>2022-02-26T18:18:00&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/apm/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/posts/distributed_structure/structure/8.html/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>

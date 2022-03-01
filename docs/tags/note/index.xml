@@ -4,7 +4,14 @@
         <link>https://zhengyua.cn/tags/note/</link>
         <description>note - 标签 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 26 Feb 2022 18:18:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/note/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Mon, 28 Feb 2022 09:24:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/note/" rel="self" type="application/rss+xml" /><item>
+    <title>ElasticSearch初识</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/0.html/</link>
+    <pubDate>Mon, 28 Feb 2022 09:24:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/0.html/</guid>
+    <description><![CDATA[ElasticSearch 简介 开源分布式搜索分析引擎 近实时（Near Real Time） 分布式存储/搜索/分析引擎 Elastic Search 起源是基于 Lucene 。Lucene 是基于 Java 开发的搜索引擎类库，]]></description>
+</item><item>
     <title>《白话机器学习的数学》阅读笔记</title>
     <link>https://zhengyua.cn/posts/ai/machine_learning/0.html/</link>
     <pubDate>Sat, 26 Feb 2022 18:18:00 &#43;0800</pubDate>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/golang/concurrent/2.html/</guid>
     <description><![CDATA[Go并发编程实战课笔记—Cond 以下大多为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo Go标准库的Cond Go 标准库提供 Cond 原语的目的是]]></description>
-</item><item>
-    <title>Go并发编程实战课笔记—Context</title>
-    <link>https://zhengyua.cn/posts/golang/concurrent/3.html/</link>
-    <pubDate>Sat, 29 Jan 2022 02:28:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/golang/concurrent/3.html/</guid>
-    <description><![CDATA[Go并发编程实战课笔记—Context 以下为鸟窝大佬的Go 并发编程实战课 中摘录的笔记]]></description>
 </item></channel>
 </rss>
