@@ -11,5 +11,33 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/ai/machine_learning/0.html/</guid>
     <description><![CDATA[概述 通过读取大量的数据、学习数据的特征并从中找出数据的模式。 这样的任务也被称为机器学习或者模式识别。 机器学习中比较擅长的任务： 回归（regr]]></description>
+</item><item>
+    <title>MachineLearning(AndrewNg)Notes-Week9</title>
+    <link>https://zhengyua.cn/posts/ai/machine_learning/4.html/</link>
+    <pubDate>Sat, 27 Jul 2019 21:51:34 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/ai/machine_learning/4.html/</guid>
+    <description><![CDATA[Week 9 Density Estimation(异常检测) Problem Motivation Density Estimation Algotithm Anomaly detection example Gaussian Distribution(高斯分布或正态分布) The formula for the Gaussian density is: $$ p(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right) $$ Gaussian distribution example Parameter estimation Algorithm Anomaly]]></description>
+</item><item>
+    <title>MachineLearning(AndrewNg)Notes-Week8</title>
+    <link>https://zhengyua.cn/posts/ai/machine_learning/3.html/</link>
+    <pubDate>Fri, 05 Jul 2019 11:55:09 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/ai/machine_learning/3.html/</guid>
+    <description><![CDATA[Clustering K-Means Algorithm(K均值 (K-means) 算法) Optimization Objective Random Initialization Choosing the Number of Clusters Motivation Motivation I : Data Compression Motivation II:Visualization Principal Component Analysis(PCA) Principal Component Analysis(PCA)Problem Formulation Principal Component Analysisi Algorithm PCA Applying Reconstruction from Compressed Representation Choosing the Number of Principal Components Advice for Applying PCA]]></description>
+</item><item>
+    <title>MachineLearning(AndrewNg)Notes-Week7</title>
+    <link>https://zhengyua.cn/posts/ai/machine_learning/2.html/</link>
+    <pubDate>Thu, 27 Jun 2019 23:29:53 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/ai/machine_learning/2.html/</guid>
+    <description><![CDATA[Large Margin Classification Optimization Objective Large Margin Intuition Mathematics Behind Large Margin Classification Kernels Kernels I Kernels II Using An SVM ]]></description>
+</item><item>
+    <title>MachineLearning(AndrewNg)Notes-Week1-Week5总结</title>
+    <link>https://zhengyua.cn/posts/ai/machine_learning/1.html/</link>
+    <pubDate>Sun, 23 Jun 2019 11:53:03 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/ai/machine_learning/1.html/</guid>
+    <description><![CDATA[Liner Regression Cost Function $h(x)=\theta_0+\theta_1x+&hellip;.$ $h(x)=\theta^Tx$ Linear Regression $J(\theta) = \frac{1}{2m}\sum_{1}^{m}(h_\theta(x^i)-y^i)$ $\frac{\partial{J(\theta)}}{\partial{\theta_j}}=\frac{1}{m}\sum_{1}^{m}(h_\theta(x^i)-y^i)$ Gradient descent algorithm repeat until convergence{ $\theta_j := \theta_j - \frac{ \alpha}{m}\sum_{i=1}^{m}(h_\theta(x^{(i)})-y^{(i)}) x^{(i)}$ } Feature scaling and mean normalization $x_i=\frac{x_i-\mu_i}{s_i}$ $\mu_i$: the average of all the values for feature (i) $s_i$ : standard deviation learning rate If α is too small: slow convergence. If α is too large: may not decrease on every iteration and thus may not]]></description>
 </item></channel>
 </rss>

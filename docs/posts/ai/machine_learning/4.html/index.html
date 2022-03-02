@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>MachineLearning(AndrewNg)Notes-Week9 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="MachineLearning(AndrewNg)Notes-Week9" />
+<meta property="og:description" content="Week 9 Density Estimation(异常检测) Problem Motivation Density Estimation Algotithm Anomaly detection example Gaussian Distribution(高斯分布或正态分布) The formula for the Gaussian density is: $$ p(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right) $$ Gaussian distribution example Parameter estimation Algorithm Anomaly" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/ai/machine_learning/4.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2019-07-27T21:51:34+08:00" />
+<meta property="article:modified_time" content="2019-07-27T21:51:34+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="MachineLearning(AndrewNg)Notes-Week9"/>
+<meta name="twitter:description" content="Week 9 Density Estimation(异常检测) Problem Motivation Density Estimation Algotithm Anomaly detection example Gaussian Distribution(高斯分布或正态分布) The formula for the Gaussian density is: $$ p(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right) $$ Gaussian distribution example Parameter estimation Algorithm Anomaly"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/ai/machine_learning/4.html/" /><link rel="prev" href="https://zhengyua.cn/posts/ai/machine_learning/3.html/" /><link rel="next" href="https://zhengyua.cn/posts/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "MachineLearning(AndrewNg)Notes-Week9",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/4.html\/"
+        },"genre": "posts","keywords": "ai, machine_learning, note","wordcount":  251 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/4.html\/","datePublished": "2019-07-27T21:51:34+08:00","dateModified": "2019-07-27T21:51:34+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">MachineLearning(AndrewNg)Notes-Week9</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/machine-learning/"><i class="far fa-folder fa-fw"></i>machine learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-07-27">2019-07-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 251 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#week-9">Week 9</a>
+      <ul>
+        <li><a href="#density-estimation异常检测">Density Estimation(异常检测)</a>
+          <ul>
+            <li><a href="#problem-motivation">Problem Motivation</a></li>
+            <li><a href="#gaussian-distribution高斯分布或正态分布">Gaussian Distribution(高斯分布或正态分布)</a></li>
+            <li><a href="#algorithm">Algorithm</a></li>
+          </ul>
+        </li>
+        <li><a href="#building-an-anomaly-detection-system">Building an Anomaly Detection System</a>
+          <ul>
+            <li><a href="#developing-and-evaluating-an-anomaly-detection-system">Developing and Evaluating an Anomaly Detection System</a></li>
+            <li><a href="#anomaly-detection-vs-supervised-learning">Anomaly Detection vs. Supervised Learning</a></li>
+            <li><a href="#choosing-what-features-to-use">Choosing What Features to Use</a></li>
+          </ul>
+        </li>
+        <li><a href="#multivariate-gaussian-distributionoptional">Multivariate Gaussian Distribution(Optional)</a>
+          <ul>
+            <li><a href="#multivariate-gaussian-distribution">Multivariate Gaussian Distribution</a></li>
+            <li><a href="#anomaly-detection-using-the-multivariate-gaussian-distribution">Anomaly Detection using the Multivariate Gaussian Distribution</a></li>
+          </ul>
+        </li>
+        <li><a href="#predicting-movie-ratings">Predicting Movie Ratings</a>
+          <ul>
+            <li><a href="#problem-formulation">Problem Formulation</a></li>
+            <li><a href="#content-based-recommendations">Content Based Recommendations</a></li>
+          </ul>
+        </li>
+        <li><a href="#collaborative-filtering">Collaborative Filtering</a>
+          <ul>
+            <li><a href="#collaborative-filtering-1">Collaborative Filtering</a></li>
+            <li><a href="#collaborative-filtering-algorithm">Collaborative Filtering Algorithm</a></li>
+          </ul>
+        </li>
+        <li><a href="#low-rank-matrix-factorization低秩矩阵分解">Low Rank Matrix Factorization(低秩矩阵分解)</a>
+          <ul>
+            <li><a href="#vectorization-low-rank-matrix-factorization">Vectorization: Low Rank Matrix Factorization</a></li>
+            <li><a href="#implementational-detail-mean-normalization">Implementational Detail: Mean Normalization</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="week-9">Week 9</h1>
+<h2 id="density-estimation异常检测">Density Estimation(异常检测)</h2>
+<h3 id="problem-motivation">Problem Motivation</h3>
+<ul>
+<li>Density Estimation Algotithm</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212204.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212204.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212204.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212204.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212204.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212204.png" /></p>
+<ul>
+<li>Anomaly detection example</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212305.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212305.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212305.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212305.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212305.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726212305.png" /></p>
+<h3 id="gaussian-distribution高斯分布或正态分布">Gaussian Distribution(高斯分布或正态分布)</h3>
+<p>The formula for the Gaussian density is:
+$$
+p(x) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214415.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214415.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214415.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214415.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214415.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214415.png" /></p>
+<ul>
+<li>
+<p>Gaussian distribution example</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214501.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214501.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214501.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214501.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214501.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214501.png" /></p>
+</li>
+<li>
+<p>Parameter estimation</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214536.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214536.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214536.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214536.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214536.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190726214536.png" /></p>
+</li>
+</ul>
+<h3 id="algorithm">Algorithm</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727170936.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727170936.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727170936.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727170936.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727170936.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727170936.png" /></p>
+<ul>
+<li>
+<p>Anomaly detection example</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727171020.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727171020.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727171020.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727171020.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727171020.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727171020.png" /></p>
+</li>
+</ul>
+<h2 id="building-an-anomaly-detection-system">Building an Anomaly Detection System</h2>
+<h3 id="developing-and-evaluating-an-anomaly-detection-system">Developing and Evaluating an Anomaly Detection System</h3>
+<ul>
+<li>
+<p>the important of real-number evaluation</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173409.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173409.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173409.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173409.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173409.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173409.png" /></p>
+</li>
+<li>
+<p>Aircraft engines motivating example</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173428.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173428.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173428.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173428.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173428.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173428.png" /></p>
+</li>
+<li>
+<p>Alogorithm evaluation</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173459.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173459.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173459.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173459.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173459.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727173459.png" /></p>
+</li>
+</ul>
+<h3 id="anomaly-detection-vs-supervised-learning">Anomaly Detection vs. Supervised Learning</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175128.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175128.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175128.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175128.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175128.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175128.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175149.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175149.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175149.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175149.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175149.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727175149.png" /></p>
+<h3 id="choosing-what-features-to-use">Choosing What Features to Use</h3>
+<ul>
+<li>
+<p>Non-gaussian features</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180334.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180334.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180334.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180334.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180334.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180334.png" /></p>
+</li>
+<li>
+<p>Error analysis for anomaly detection</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180405.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180405.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180405.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180405.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180405.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180405.png" /></p>
+</li>
+<li>
+<p>Monitoring computers in a data center</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180422.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180422.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180422.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180422.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180422.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727180422.png" /></p>
+</li>
+</ul>
+<h2 id="multivariate-gaussian-distributionoptional">Multivariate Gaussian Distribution(Optional)</h2>
+<h3 id="multivariate-gaussian-distribution">Multivariate Gaussian Distribution</h3>
+<ul>
+<li>
+<p>Motivating example:Monitoring machines in a data center</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181928.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181928.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181928.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181928.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181928.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181928.png" /></p>
+</li>
+<li>
+<p>Multivariate Gaussian(Normal)distribution</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181949.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181949.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181949.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181949.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181949.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727181949.png" /></p>
+</li>
+<li>
+<p>Multivariate Gaussian(Normal) examples</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182024.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182024.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182024.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182024.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182024.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182024.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182046.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182046.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182046.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182046.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182046.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182046.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182111.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182111.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182111.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182111.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182111.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182111.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182133.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182133.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182133.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182133.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182133.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182133.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182156.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182156.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182156.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182156.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182156.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182156.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182212.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182212.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182212.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182212.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182212.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727182212.png" /></p>
+</li>
+</ul>
+<h3 id="anomaly-detection-using-the-multivariate-gaussian-distribution">Anomaly Detection using the Multivariate Gaussian Distribution</h3>
+<ul>
+<li>
+<p>Multivariate Gaussian (Normal) distribution</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183756.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183756.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183756.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183756.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183756.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183756.png" /></p>
+</li>
+<li>
+<p>Anomaly detection with the multivariate Gaussian</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183816.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183816.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183816.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183816.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183816.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183816.png" /></p>
+</li>
+<li>
+<p>Relationship to original model</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183846.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183846.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183846.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183846.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183846.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183846.png" /></p>
+</li>
+<li>
+<p>Original model vs. Multivariate Gaussian</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183913.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183913.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183913.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183913.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183913.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183913.png" /></p>
+</li>
+</ul>
+<h2 id="predicting-movie-ratings">Predicting Movie Ratings</h2>
+<h3 id="problem-formulation">Problem Formulation</h3>
+<ul>
+<li>Example : Predicting movie ratings</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727192249.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727192249.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727192249.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727192249.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727192249.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727192249.png" /></p>
+<h3 id="content-based-recommendations">Content Based Recommendations</h3>
+<ul>
+<li>
+<p>Content-based recommender systems</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193843.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193843.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193843.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193843.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193843.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193843.png" /></p>
+</li>
+<li>
+<p>Problem formulation</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193919.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193919.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193919.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193919.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193919.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193919.png" /></p>
+</li>
+<li>
+<p>Optimization objective</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193941.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193941.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193941.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193941.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193941.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193941.png" /></p>
+</li>
+<li>
+<p>Optimization algorithm</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193959.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193959.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193959.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193959.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193959.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727193959.png" /></p>
+</li>
+</ul>
+<h2 id="collaborative-filtering">Collaborative Filtering</h2>
+<h3 id="collaborative-filtering-1">Collaborative Filtering</h3>
+<ul>
+<li>
+<p>Problem motivation</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195231.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195231.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195231.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195231.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195231.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195231.png" /></p>
+</li>
+<li>
+<p>Optimization algorithm</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195252.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195252.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195252.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195252.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195252.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195252.png" /></p>
+</li>
+<li>
+<p>Collaborative filtering</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195315.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195315.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195315.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195315.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195315.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727195315.png" /></p>
+</li>
+</ul>
+<h3 id="collaborative-filtering-algorithm">Collaborative Filtering Algorithm</h3>
+<ul>
+<li>
+<p>Collaborative filtering optimization objective</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200726.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200726.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200726.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200726.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200726.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200726.png" /></p>
+</li>
+<li>
+<p>Collaborative filtering algorithm</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200745.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200745.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200745.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200745.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200745.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727200745.png" /></p>
+</li>
+</ul>
+<h2 id="low-rank-matrix-factorization低秩矩阵分解">Low Rank Matrix Factorization(低秩矩阵分解)</h2>
+<h3 id="vectorization-low-rank-matrix-factorization">Vectorization: Low Rank Matrix Factorization</h3>
+<ul>
+<li>
+<p>Collaborative filtering</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202307.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202307.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202307.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202307.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202307.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202307.png" /></p>
+</li>
+<li>
+<p>Finding related movies</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202330.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202330.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202330.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202330.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202330.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727202330.png" /></p>
+</li>
+</ul>
+<h3 id="implementational-detail-mean-normalization">Implementational Detail: Mean Normalization</h3>
+<ul>
+<li>
+<p>Users  who have not reated any movies</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727234928.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727234928.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727234928.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727234928.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727234928.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727234928.png" /></p>
+</li>
+<li>
+<p>Mean Normalizatio</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727235001.png"
+        data-srcset="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727235001.png, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727235001.png 1.5x, https://raw.githubusercontent.com/catwithtudou/photo/master/20190727235001.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727235001.png"
+        title="https://raw.githubusercontent.com/catwithtudou/photo/master/20190727235001.png" /></p>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2019-07-27</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/ai/machine_learning/4.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-title="MachineLearning(AndrewNg)Notes-Week9" data-hashtags="ai,machine_learning,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-hashtag="ai"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-title="MachineLearning(AndrewNg)Notes-Week9" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-title="MachineLearning(AndrewNg)Notes-Week9"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-title="MachineLearning(AndrewNg)Notes-Week9"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-title="MachineLearning(AndrewNg)Notes-Week9" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-title="MachineLearning(AndrewNg)Notes-Week9" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/ai/machine_learning/4.html/" data-title="MachineLearning(AndrewNg)Notes-Week9"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ai/">ai</a>,&nbsp;<a href="/tags/machine_learning/">machine_learning</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ai/machine_learning/3.html/" class="prev" rel="prev" title="MachineLearning(AndrewNg)Notes-Week8"><i class="fas fa-angle-left fa-fw"></i>MachineLearning(AndrewNg)Notes-Week8</a>
+            <a href="/posts/0.html/" class="next" rel="next" title="0">0<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>
