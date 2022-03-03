@@ -121,7 +121,7 @@ $$
 
   ![](https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183846.png)
 
-- Original model vs. Multivariate Gaussian 
+- Original model vs. Multivariate Gaussian
 
   ![](https://raw.githubusercontent.com/catwithtudou/photo/master/20190727183913.png)
 

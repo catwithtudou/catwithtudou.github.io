@@ -4,7 +4,14 @@
         <link>https://zhengyua.cn/tags/es/</link>
         <description>es - 标签 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Mon, 28 Feb 2022 09:24:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/es/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Thu, 03 Mar 2022 09:24:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/es/" rel="self" type="application/rss+xml" /><item>
+    <title>ElasticSearch基本概念</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
+    <pubDate>Thu, 03 Mar 2022 09:24:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/1.html/</guid>
+    <description><![CDATA[文档（Document） Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位 文档会被序列化成 JSON 格式，保存在 Elasticsearch 中 JSON 对象由字段构成 每个字段都有对应的字]]></description>
+</item><item>
     <title>ElasticSearch初识</title>
     <link>https://zhengyua.cn/posts/search_engine/es/0.html/</link>
     <pubDate>Mon, 28 Feb 2022 09:24:00 &#43;0800</pubDate>

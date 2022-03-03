@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>ElasticSearch基本概念 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="ElasticSearch基本概念" />
+<meta property="og:description" content="文档（Document） Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位 文档会被序列化成 JSON 格式，保存在 Elasticsearch 中 JSON 对象由字段构成 每个字段都有对应的字" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/search_engine/es/1.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-03T09:24:00+08:00" />
+<meta property="article:modified_time" content="2022-03-03T09:24:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="ElasticSearch基本概念"/>
+<meta name="twitter:description" content="文档（Document） Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位 文档会被序列化成 JSON 格式，保存在 Elasticsearch 中 JSON 对象由字段构成 每个字段都有对应的字"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/search_engine/es/1.html/" /><link rel="prev" href="https://zhengyua.cn/posts/search_engine/es/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ElasticSearch基本概念",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/1.html\/"
+        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  2092 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/1.html\/","datePublished": "2022-03-03T09:24:00+08:00","dateModified": "2022-03-03T09:24:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">ElasticSearch基本概念</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/search-engine/"><i class="far fa-folder fa-fw"></i>search engine</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-03">2022-03-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2092 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#文档document">文档（Document）</a>
+          <ul>
+            <li><a href="#json-文档">JSON 文档</a></li>
+            <li><a href="#文档的元数据">文档的元数据</a></li>
+          </ul>
+        </li>
+        <li><a href="#索引">索引</a>
+          <ul>
+            <li><a href="#与-rdbms-比较">与 RDBMS 比较</a></li>
+          </ul>
+        </li>
+        <li><a href="#rest-api">REST API</a></li>
+        <li><a href="#分布式架构">分布式架构</a>
+          <ul>
+            <li><a href="#节点">节点</a>
+              <ul>
+                <li><a href="#master-eligible-nodesmaster-node">Master-eligible nodes&amp;Master Node</a></li>
+                <li><a href="#data-nodecoordinating-node">Data Node&amp;Coordinating Node</a></li>
+                <li><a href="#other-node-type">Other Node Type</a></li>
+                <li><a href="#配置节点类型">配置节点类型</a></li>
+              </ul>
+            </li>
+            <li><a href="#分片">分片</a>
+              <ul>
+                <li><a href="#分片的设定">分片的设定</a></li>
+              </ul>
+            </li>
+            <li><a href="#查看集群的健康状况">查看集群的健康状况</a></li>
+          </ul>
+        </li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="文档document">文档（Document）</h2>
+<ul>
+<li>Elasticsearch 是面向文档的，<strong>文档是所有可搜索数据的最小单位</strong></li>
+<li>文档会被<strong>序列化成 JSON 格式</strong>，保存在 Elasticsearch 中
+<ul>
+<li>JSON 对象由字段构成</li>
+<li>每个字段都有对应的字段类型（字符串/数值/布尔值/日期/二进制/范围类型）</li>
+</ul>
+</li>
+<li><strong>每个文档都有一个 UniqueID</strong>（可指定也可自动生成）</li>
+</ul>
+<h3 id="json-文档">JSON 文档</h3>
+<ul>
+<li>一篇文档包含了一系列字段。类似数据库表中一条记录</li>
+<li>JSON 文档，格式灵活，不需要预先定义格式
+<ul>
+<li>字段的类型可以指定或者由 Elasticsearch自动推算得到</li>
+<li>支持数组/支持嵌套</li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220303084355.png"
+        data-srcset="https://img.zhengyua.cn/img/20220303084355.png, https://img.zhengyua.cn/img/20220303084355.png 1.5x, https://img.zhengyua.cn/img/20220303084355.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220303084355.png"
+        title="https://img.zhengyua.cn/img/20220303084355.png" /></p>
+<h3 id="文档的元数据">文档的元数据</h3>
+<p>元数据，<strong>用于标注文档的相关信息</strong>：</p>
+<ul>
+<li><code>_index</code>：文档所属的索引名</li>
+<li><code>_type</code>：文档所属的类型名</li>
+<li><code>_id</code>：文档唯一ID</li>
+<li><code>_source</code>：文档原始的 JSON 数据</li>
+<li><code>_version</code>：文档的版本信息</li>
+<li><code>_score</code>：相关性打分（搜索查询时）</li>
+</ul>
+<blockquote>
+<p>在7.0之前，一个 Index 可以设置多个 Type。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220303084417.png"
+        data-srcset="https://img.zhengyua.cn/img/20220303084417.png, https://img.zhengyua.cn/img/20220303084417.png 1.5x, https://img.zhengyua.cn/img/20220303084417.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220303084417.png"
+        title="https://img.zhengyua.cn/img/20220303084417.png" /></p>
+<h2 id="索引">索引</h2>
+<p>index（索引）是文档的容器，是一类文档的集合：</p>
+<ul>
+<li><strong>index</strong>体现逻辑空间概念：每个索引都有自己的 Mapping 定义，用于定义包含文档的字段名和字段类型</li>
+<li><strong>Shard</strong>体现物理空间概念：索引中的数据分散在 Shard 上</li>
+</ul>
+<p>索引中的 Mapping 和 Setting：</p>
+<ul>
+<li>前者定义<strong>文档字段的类型</strong></li>
+<li>后者定义<strong>不同的数据分布</strong></li>
+</ul>
+<blockquote>
+<p>索引在不同场景语意可能不同，比如除上面提到的索引语义外，当保存一个文档到 Elasticsearch 的过程也可以叫索引（动词）。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220303084621.png"
+        data-srcset="https://img.zhengyua.cn/img/20220303084621.png, https://img.zhengyua.cn/img/20220303084621.png 1.5x, https://img.zhengyua.cn/img/20220303084621.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220303084621.png"
+        title="https://img.zhengyua.cn/img/20220303084621.png" /></p>
+<h3 id="与-rdbms-比较">与 RDBMS 比较</h3>
+<table>
+<thead>
+<tr>
+<th>RDBMS</th>
+<th>Elasticsearch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Table</td>
+<td>Index(Type)</td>
+</tr>
+<tr>
+<td>Row</td>
+<td>Document</td>
+</tr>
+<tr>
+<td>Column</td>
+<td>Filed</td>
+</tr>
+<tr>
+<td>Schema</td>
+<td>Mapping</td>
+</tr>
+<tr>
+<td>SQL</td>
+<td>DSL</td>
+</tr>
+</tbody>
+</table>
+<p>区别主要在于：</p>
+<ul>
+<li>RDBMS：<strong>事务性/Join</strong></li>
+<li>Elasticsearch：<strong>Schemaless/相关性/高性能全文检索</strong></li>
+</ul>
+<h2 id="rest-api">REST API</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220303085858.png"
+        data-srcset="https://img.zhengyua.cn/img/20220303085858.png, https://img.zhengyua.cn/img/20220303085858.png 1.5x, https://img.zhengyua.cn/img/20220303085858.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220303085858.png"
+        title="https://img.zhengyua.cn/img/20220303085858.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220303092450.png"
+        data-srcset="https://img.zhengyua.cn/img/20220303092450.png, https://img.zhengyua.cn/img/20220303092450.png 1.5x, https://img.zhengyua.cn/img/20220303092450.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220303092450.png"
+        title="https://img.zhengyua.cn/img/20220303092450.png" /></p>
+<p>下面是一些常用指令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#查看索引相关信息</span>
+GET movies
+
+<span class="c1">#查看索引的文档总数</span>
+GET movies/_count
+
+<span class="c1">#查看前10条文档，了解文档格式</span>
+POST movies/_search
+<span class="o">{</span>
+<span class="o">}</span>
+
+<span class="c1">#_cat indices API</span>
+<span class="c1">#查看indices</span>
+GET /_cat/indices/kibana*?v<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>index
+
+<span class="c1">#查看状态为绿的索引</span>
+GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">health</span><span class="o">=</span>green
+
+<span class="c1">#按照文档个数排序</span>
+GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>docs.count:desc
+
+<span class="c1">#查看具体的字段</span>
+GET /_cat/indices/kibana*?pri<span class="p">&amp;</span>v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>health,index,pri,rep,docs.count,mt
+
+<span class="c1">#How much memory is used per index?</span>
+GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>i,tm<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>tm:desc
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="分布式架构">分布式架构</h2>
+<p>常见的分布式架构一般会带来以下好处：</p>
+<ul>
+<li>高可用性：
+<ul>
+<li><strong>服务可用性</strong>：允许有节点停止服务</li>
+<li><strong>数据可用性</strong>：部分节点丢失，不会丢失数据</li>
+</ul>
+</li>
+<li><strong>可扩展性</strong>：
+<ul>
+<li>请求量提升或数据的不断增长（将数据分布到所有节点上）</li>
+</ul>
+</li>
+</ul>
+<p>Elasticsearch 的分布式架构可以做到：</p>
+<ul>
+<li><strong>存储的水平扩容</strong></li>
+<li><strong>提高系统可用性</strong>，部分节点停止服务，整个集群的服务不受影响</li>
+</ul>
+<p>涉及到 Elasticsearch 配置中：</p>
+<ul>
+<li>不同的集群通过不同的名字区分，默认为<code>elasticsearch</code></li>
+<li>通过配置文件修改，或者在命令行中<code>-E cluster.name=catwithtudou</code>进行设定</li>
+<li>一个集群可以有一个或多个节点</li>
+</ul>
+<h3 id="节点">节点</h3>
+<p>节点即 Elasticsearch 的一个实例：</p>
+<ul>
+<li><strong>本质上就是一个 JAVA 进程</strong></li>
+<li>一台机器上可以运行多个实例，但生产环境一般建议一台机器只运行一个 Elasticsearch 实例</li>
+</ul>
+<p>涉及到相关配置中：</p>
+<ul>
+<li>每个节点都有名字，可通过配置文件配置，或启动时<code>-E node.name=node1</code>指定</li>
+<li>节点启动之后，<strong>会分配一个 UID，保存在 data 目录下</strong></li>
+</ul>
+<h4 id="master-eligible-nodesmaster-node">Master-eligible nodes&amp;Master Node</h4>
+<ul>
+<li>每个节点在启动后，默认为一个  Master eligible 节点</li>
+</ul>
+<blockquote>
+<p>可以设置<code>node.master:false</code>禁止</p>
+</blockquote>
+<ul>
+<li><strong>Master-eligible 节点可以参加选主流程，成为 Master 节点</strong></li>
+</ul>
+<blockquote>
+<p>当第一个节点启动的时候，默认将自己选举成 Master 节点</p>
+</blockquote>
+<ul>
+<li>每个节点上都保存了集群的状态，<strong>只有 Master 节点才能修改集群的状态信息</strong>，其中<strong>集群状态（Cluster State）</strong>，维护集群中的必要信息：
+<ul>
+<li>所有的节点信息</li>
+<li>所有的索引和其相关的 Mapping 与 Settings 信息</li>
+<li>分片的路由信息</li>
+</ul>
+</li>
+</ul>
+<h4 id="data-nodecoordinating-node">Data Node&amp;Coordinating Node</h4>
+<ul>
+<li><em>Data Node</em>：可以保存数据的节点。<strong>负责保存分片数据</strong>。在数据扩展上起到重要作用</li>
+<li>Coordinating Node：<strong>负责接收 Client 的请求，将请求分发到合适的节点，最终把结果汇集到一起</strong>，每个节点默认都起到了该Node类型职责</li>
+</ul>
+<h4 id="other-node-type">Other Node Type</h4>
+<ul>
+<li><em>Hot&amp;Warm Node</em>：不同硬件配置的 Data Node，用来实现 Hot&amp;Warm 架构，降级集群部署的成本</li>
+<li><em>Maching Learning Node</em>：负责跑机器学习的 Job，用来做异常检测</li>
+<li><em>Tribe Node</em>：连接到不同的集群，并且支持将这些集群当成一个单独的集群处理</li>
+</ul>
+<h4 id="配置节点类型">配置节点类型</h4>
+<ul>
+<li>开发环境中一个节点可以承担多种角色</li>
+<li>生产环境中，应该设置单一的角色的节点（dedicated node）</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>配置参数</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master eligible</td>
+<td>node.master</td>
+<td>true</td>
+</tr>
+<tr>
+<td>data</td>
+<td>node.data</td>
+<td>true</td>
+</tr>
+<tr>
+<td>ingest</td>
+<td>node.ingest</td>
+<td>true</td>
+</tr>
+<tr>
+<td>coordinating only</td>
+<td>无</td>
+<td>每个节点默认是</td>
+</tr>
+<tr>
+<td>machine learning</td>
+<td>node.ml</td>
+<td>true（需要 enable x-pack）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="分片">分片</h3>
+<p>分片主要分为主分片和副本：</p>
+<ul>
+<li>Primary Shard：<strong>用以解决数据水平扩展的问题</strong>。通过主分片，可以将数据分布到集群内的所有节点上
+<ul>
+<li>一个分片是一个运行的 Lucene 的实例</li>
+<li>主分片数在索引创建时指定，<strong>后续不允许修改</strong>，除非<code>Reindex</code></li>
+</ul>
+</li>
+<li>Replica Shard：<strong>用以解决数据高可用的问题</strong>。分片是主分片的拷贝：
+<ul>
+<li>副本分片数，可以<strong>动态调整</strong></li>
+<li>增加副本数，还可以一定程度上提高<strong>服务的可用性</strong></li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220303102828.png"
+        data-srcset="https://img.zhengyua.cn/img/20220303102828.png, https://img.zhengyua.cn/img/20220303102828.png 1.5x, https://img.zhengyua.cn/img/20220303102828.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220303102828.png"
+        title="https://img.zhengyua.cn/img/20220303102828.png" /></p>
+<h4 id="分片的设定">分片的设定</h4>
+<p>对于生产环境中分片的设定，<strong>需要提前规划好容量</strong>：</p>
+<ul>
+<li>分片数设置过小：
+<ul>
+<li>导致后续<strong>无法增加节点实现水平扩展</strong></li>
+<li>单个分片的数据量太大，<strong>导致数据分配耗时高</strong></li>
+</ul>
+</li>
+<li>分片数设置过大：
+<ul>
+<li>影响搜索结果的<strong>相关性打分</strong>，影响统计结果的准确性</li>
+<li>单个节点上过多的分片，会导致<strong>资源浪费，同时也会消耗性能</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>7.0版本开始，默认主分片设置为 1，解决了 over-sharding 的问题。</p>
+</blockquote>
+<h3 id="查看集群的健康状况">查看集群的健康状况</h3>
+<p>使用<code>GET _cluster/health</code>可查询集群的健康状况：</p>
+<ul>
+<li>Green：主分片与副本都分配正常</li>
+<li>Yellow：主分片分配正常，副本分配不正常</li>
+<li>Red：有主分片未分配（如当服务器的磁盘容量超过85%时，创建了一个新的索引）</li>
+</ul>
+<p>一般有以下常用指令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">GET _cat/nodes?v
+GET /_nodes/es7_01,es7_02
+GET /_cat/nodes?v
+GET /_cat/nodes?v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>id,ip,port,v,m
+
+
+GET _cluster/health
+GET _cluster/health?level<span class="o">=</span>shards
+GET /_cluster/health/kibana_sample_data_ecommerce
+GET /_cluster/health/kibana_sample_data_ecommerce?level<span class="o">=</span>shards
+
+<span class="c1">#### cluster state</span>
+GET /_cluster/state
+
+<span class="c1">#cluster get settings</span>
+GET /_cluster/settings
+GET /_cluster/settings?include_defaults<span class="o">=</span><span class="nb">true</span>
+
+GET _cat/shards
+GET _cat/shards?h<span class="o">=</span>index,shard,prirep,state,unassigned.reason
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220303105951.png"
+        data-srcset="https://img.zhengyua.cn/img/20220303105951.png, https://img.zhengyua.cn/img/20220303105951.png 1.5x, https://img.zhengyua.cn/img/20220303105951.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220303105951.png"
+        title="https://img.zhengyua.cn/img/20220303105951.png" /></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://time.geekbang.org/course/intro/100030501?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/course/intro/100030501?tab=catalog</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/search_engine/es/1.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-title="ElasticSearch基本概念" data-hashtags="search_engine,note,es"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-hashtag="search_engine"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-title="ElasticSearch基本概念" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-title="ElasticSearch基本概念"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-title="ElasticSearch基本概念"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-title="ElasticSearch基本概念" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-title="ElasticSearch基本概念" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/search_engine/es/1.html/" data-title="ElasticSearch基本概念"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/search_engine/">search_engine</a>,&nbsp;<a href="/tags/note/">note</a>,&nbsp;<a href="/tags/es/">es</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/search_engine/es/0.html/" class="prev" rel="prev" title="ElasticSearch初识"><i class="fas fa-angle-left fa-fw"></i>ElasticSearch初识</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>
