@@ -12,6 +12,13 @@
     <guid>https://zhengyua.cn/posts/ai/machine_learning/0.html/</guid>
     <description><![CDATA[概述 通过读取大量的数据、学习数据的特征并从中找出数据的模式。 这样的任务也被称为机器学习或者模式识别。 机器学习中比较擅长的任务： 回归（regr]]></description>
 </item><item>
+    <title>线性回归与非线性回归</title>
+    <link>https://zhengyua.cn/posts/ai/machine_learning/5.html/</link>
+    <pubDate>Fri, 06 Mar 2020 11:59:20 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/ai/machine_learning/5.html/</guid>
+    <description><![CDATA[基于梯度下降法的一元线性回归应用 回归Regression 一元线性回归 回归分析(regression analysis)用来建立方程模拟两个或者]]></description>
+</item><item>
     <title>MachineLearning(AndrewNg)Notes-Week9</title>
     <link>https://zhengyua.cn/posts/ai/machine_learning/4.html/</link>
     <pubDate>Sat, 27 Jul 2019 21:51:34 &#43;0800</pubDate>

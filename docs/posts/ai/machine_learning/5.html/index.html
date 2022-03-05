@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>线性回归与非线性回归 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="线性回归与非线性回归" />
+<meta property="og:description" content="基于梯度下降法的一元线性回归应用 回归Regression 一元线性回归 回归分析(regression analysis)用来建立方程模拟两个或者" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/ai/machine_learning/5.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2020-03-06T11:59:20+08:00" />
+<meta property="article:modified_time" content="2020-03-06T11:59:20+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="线性回归与非线性回归"/>
+<meta name="twitter:description" content="基于梯度下降法的一元线性回归应用 回归Regression 一元线性回归 回归分析(regression analysis)用来建立方程模拟两个或者"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/ai/machine_learning/5.html/" /><link rel="prev" href="https://zhengyua.cn/posts/ai/machine_learning/4.html/" /><link rel="next" href="https://zhengyua.cn/posts/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "线性回归与非线性回归",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/5.html\/"
+        },"genre": "posts","keywords": "ai, machine_learning, note","wordcount":  4785 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/5.html\/","datePublished": "2020-03-06T11:59:20+08:00","dateModified": "2020-03-06T11:59:20+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">线性回归与非线性回归</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/machine-learning/"><i class="far fa-folder fa-fw"></i>machine learning</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2020-03-06">2020-03-06</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4785 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#基于梯度下降法的一元线性回归应用">基于梯度下降法的一元线性回归应用</a>
+          <ul>
+            <li><a href="#回归regression">回归Regression</a>
+              <ul>
+                <li><a href="#一元线性回归">一元线性回归</a></li>
+                <li><a href="#求解方程系数">求解方程系数</a></li>
+              </ul>
+            </li>
+            <li><a href="#代价函数cost-function">代价函数Cost Function</a>
+              <ul>
+                <li><a href="#相关系数">相关系数</a></li>
+                <li><a href="#决定系数">决定系数</a></li>
+              </ul>
+            </li>
+            <li><a href="#梯度下降法gradient-descent">梯度下降法Gradient Descent</a>
+              <ul>
+                <li><a href="#用梯度下降法来求解线性回归">用梯度下降法来求解线性回归</a></li>
+                <li><a href="#非凸函数和凸函数">非凸函数和凸函数</a></li>
+                <li><a href="#优化过程">优化过程</a></li>
+                <li><a href="#代码实现">代码实现</a>
+                  <ul>
+                    <li><a href="#运行结果">运行结果</a></li>
+                  </ul>
+                </li>
+                <li><a href="#使用sklearn实现-一元线性回归">使用sklearn实现-一元线性回归</a>
+                  <ul>
+                    <li><a href="#运行结果-1">运行结果</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#基于梯度下降法的多元线性回归应用">基于梯度下降法的多元线性回归应用</a>
+          <ul>
+            <li><a href="#多元线性回归">多元线性回归</a></li>
+            <li><a href="#多元线性回归模型">多元线性回归模型</a></li>
+            <li><a href="#梯度下降法-多元线性回归">梯度下降法-多元线性回归</a>
+              <ul>
+                <li><a href="#代码实现-1">代码实现</a>
+                  <ul>
+                    <li><a href="#运行结果-2">运行结果</a></li>
+                  </ul>
+                </li>
+                <li><a href="#基于sklearn实现多元线性回归">基于sklearn实现多元线性回归</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#多项式回归及应用">多项式回归及应用</a>
+          <ul>
+            <li><a href="#代码实现-2">代码实现</a></li>
+          </ul>
+        </li>
+        <li><a href="#标准方程法normal-equation">标准方程法(Normal Equation)</a>
+          <ul>
+            <li><a href="#矩阵不可逆的情况">矩阵不可逆的情况</a></li>
+            <li><a href="#梯度下降法vs标准方程法">梯度下降法vs标准方程法</a></li>
+            <li><a href="#代码实现-3">代码实现</a>
+              <ul>
+                <li><a href="#运行结果-3">运行结果</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#特征缩放交叉验证法">特征缩放交叉验证法</a>
+          <ul>
+            <li><a href="#特征缩放">特征缩放</a></li>
+            <li><a href="#交叉验证法">交叉验证法</a></li>
+          </ul>
+        </li>
+        <li><a href="#过拟合overfitting正则化regularized">过拟合(Overfitting)&amp;正则化(Regularized)</a>
+          <ul>
+            <li><a href="#过拟合">过拟合</a></li>
+            <li><a href="#正则化">正则化</a></li>
+          </ul>
+        </li>
+        <li><a href="#岭回归lasso回归弹性网的应用">岭回归/LASSO回归/弹性网的应用</a>
+          <ul>
+            <li><a href="#岭回归ridge-regression">岭回归(Ridge Regression)</a>
+              <ul>
+                <li><a href="#sklearn-代码实现">sklearn-代码实现</a>
+                  <ul>
+                    <li><a href="#运行结果-4">运行结果</a></li>
+                  </ul>
+                </li>
+                <li><a href="#标准方程法-代码实现">标准方程法-代码实现</a></li>
+              </ul>
+            </li>
+            <li><a href="#lasso">LASSO</a>
+              <ul>
+                <li><a href="#lasso与岭回归">LASSO与岭回归</a></li>
+                <li><a href="#sklearn-代码实现lasso">sklearn-代码实现Lasso</a></li>
+              </ul>
+            </li>
+            <li><a href="#弹性网elastic-net">弹性网(Elastic Net)</a>
+              <ul>
+                <li><a href="#sklearn-代码实现elasticnet">sklearn-代码实现ElasticNet</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="基于梯度下降法的一元线性回归应用">基于梯度下降法的一元线性回归应用</h2>
+<h3 id="回归regression">回归Regression</h3>
+<h4 id="一元线性回归">一元线性回归</h4>
+<ul>
+<li>回归分析(regression analysis)用来建立方程模拟两个或者多个变量之间如何关联</li>
+<li>被预测的变量叫做：因变量(dependent variable), 输出(output)</li>
+<li>被用来进行预测的变量叫做： 自变量(independent variable), 输入(input)</li>
+<li>一元线性回归包含一个自变量和一个因变量</li>
+<li>以上两个变量的关系用一条直线来模拟</li>
+<li>如果包含两个以上的自变量，则称作多元回归分析(multiple regression)</li>
+</ul>
+<p>ℎ𝜃 𝑥 = 𝜃0 + 𝜃1𝑥</p>
+<p>这个方程对应的图像是一条直线，称作回归线。其中，𝜃1为回归线的斜率， 𝜃0为回归线的截距。</p>
+<ul>
+<li>线性回归的三种关系:
+<ol>
+<li>正相关</li>
+<li>负相关</li>
+<li>不相关</li>
+</ol>
+</li>
+</ul>
+<h4 id="求解方程系数">求解方程系数</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111133.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111133.png, http://img.zhengyua.cn/img/20200303111133.png 1.5x, http://img.zhengyua.cn/img/20200303111133.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111133.png"
+        title="http://img.zhengyua.cn/img/20200303111133.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111247.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111247.png, http://img.zhengyua.cn/img/20200303111247.png 1.5x, http://img.zhengyua.cn/img/20200303111247.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111247.png"
+        title="http://img.zhengyua.cn/img/20200303111247.png" /></p>
+<h3 id="代价函数cost-function">代价函数Cost Function</h3>
+<ul>
+<li>
+<p>最小二乘法</p>
+</li>
+<li>
+<p>真实值y，预测值ℎ𝜃 𝑥 ，则误差平方为(y − ℎ_𝜃(x))^2</p>
+</li>
+<li>
+<p>找到合适的参数，使得误差平方和：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111453.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111453.png, http://img.zhengyua.cn/img/20200303111453.png 1.5x, http://img.zhengyua.cn/img/20200303111453.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111453.png"
+        title="http://img.zhengyua.cn/img/20200303111453.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111529.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111529.png, http://img.zhengyua.cn/img/20200303111529.png 1.5x, http://img.zhengyua.cn/img/20200303111529.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111529.png"
+        title="http://img.zhengyua.cn/img/20200303111529.png" /></p>
+<ul>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111542.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111542.png, http://img.zhengyua.cn/img/20200303111542.png 1.5x, http://img.zhengyua.cn/img/20200303111542.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111542.png"
+        title="http://img.zhengyua.cn/img/20200303111542.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111631.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111631.png, http://img.zhengyua.cn/img/20200303111631.png 1.5x, http://img.zhengyua.cn/img/20200303111631.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111631.png"
+        title="http://img.zhengyua.cn/img/20200303111631.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111704.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111704.png, http://img.zhengyua.cn/img/20200303111704.png 1.5x, http://img.zhengyua.cn/img/20200303111704.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111704.png"
+        title="http://img.zhengyua.cn/img/20200303111704.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111753.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111753.png, http://img.zhengyua.cn/img/20200303111753.png 1.5x, http://img.zhengyua.cn/img/20200303111753.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111753.png"
+        title="http://img.zhengyua.cn/img/20200303111753.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111812.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111812.png, http://img.zhengyua.cn/img/20200303111812.png 1.5x, http://img.zhengyua.cn/img/20200303111812.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111812.png"
+        title="http://img.zhengyua.cn/img/20200303111812.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111828.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111828.png, http://img.zhengyua.cn/img/20200303111828.png 1.5x, http://img.zhengyua.cn/img/20200303111828.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111828.png"
+        title="http://img.zhengyua.cn/img/20200303111828.png" /></p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="相关系数">相关系数</h4>
+<p>使用相关系数去衡量线性相关性的强弱</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303111914.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303111914.png, http://img.zhengyua.cn/img/20200303111914.png 1.5x, http://img.zhengyua.cn/img/20200303111914.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303111914.png"
+        title="http://img.zhengyua.cn/img/20200303111914.png" /></p>
+<h4 id="决定系数">决定系数</h4>
+<p>相关系数𝑅2(coefficient of determination)是用来描述两个变量之间的线性关系的，但决定系数的适用范围更广，可以用于描述非线性或者有两个及两个以上自变量的相关关系。它可以用来评价模型的效果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112016.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112016.png, http://img.zhengyua.cn/img/20200303112016.png 1.5x, http://img.zhengyua.cn/img/20200303112016.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112016.png"
+        title="http://img.zhengyua.cn/img/20200303112016.png" /></p>
+<h3 id="梯度下降法gradient-descent">梯度下降法Gradient Descent</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112058.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112058.png, http://img.zhengyua.cn/img/20200303112058.png 1.5x, http://img.zhengyua.cn/img/20200303112058.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112058.png"
+        title="http://img.zhengyua.cn/img/20200303112058.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112113.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112113.png, http://img.zhengyua.cn/img/20200303112113.png 1.5x, http://img.zhengyua.cn/img/20200303112113.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112113.png"
+        title="http://img.zhengyua.cn/img/20200303112113.png" /></p>
+<ul>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112150.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112150.png, http://img.zhengyua.cn/img/20200303112150.png 1.5x, http://img.zhengyua.cn/img/20200303112150.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112150.png"
+        title="http://img.zhengyua.cn/img/20200303112150.png" /></p>
+<blockquote>
+<p>学习率不能太小，也不能太大，可以多尝试一些值0.1,0.03,0.01,0.003,0.001,0.0003,0.0001…,否则有可能会陷入局部极小值</p>
+</blockquote>
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112307.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112307.png, http://img.zhengyua.cn/img/20200303112307.png 1.5x, http://img.zhengyua.cn/img/20200303112307.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112307.png"
+        title="http://img.zhengyua.cn/img/20200303112307.png" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="用梯度下降法来求解线性回归">用梯度下降法来求解线性回归</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112406.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112406.png, http://img.zhengyua.cn/img/20200303112406.png 1.5x, http://img.zhengyua.cn/img/20200303112406.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112406.png"
+        title="http://img.zhengyua.cn/img/20200303112406.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112547.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112547.png, http://img.zhengyua.cn/img/20200303112547.png 1.5x, http://img.zhengyua.cn/img/20200303112547.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112547.png"
+        title="http://img.zhengyua.cn/img/20200303112547.png" /></p>
+<h4 id="非凸函数和凸函数">非凸函数和凸函数</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112654.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112654.png, http://img.zhengyua.cn/img/20200303112654.png 1.5x, http://img.zhengyua.cn/img/20200303112654.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112654.png"
+        title="http://img.zhengyua.cn/img/20200303112654.png" /></p>
+<ul>
+<li>
+<p>线性回归的代价函数是凸函数</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112617.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112617.png, http://img.zhengyua.cn/img/20200303112617.png 1.5x, http://img.zhengyua.cn/img/20200303112617.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112617.png"
+        title="http://img.zhengyua.cn/img/20200303112617.png" /></p>
+</li>
+</ul>
+<h4 id="优化过程">优化过程</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303112729.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303112729.png, http://img.zhengyua.cn/img/20200303112729.png 1.5x, http://img.zhengyua.cn/img/20200303112729.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303112729.png"
+        title="http://img.zhengyua.cn/img/20200303112729.png" /></p>
+<h4 id="代码实现">代码实现</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&#34;data.csv&#34;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&#34;,&#34;</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="c1">#learning rate</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="c1">#截距</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1">#斜率</span>
+<span class="n">k</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1">#最大迭代次数</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">50</span>
+
+<span class="c1">#最小二乘法</span>
+<span class="k">def</span> <span class="nf">compute_error</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">):</span>
+    <span class="n">totalError</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)):</span>
+        <span class="c1">#(真实值-预测值)^2</span>
+        <span class="n">totalError</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">k</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">totalError</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+
+<span class="k">def</span> <span class="nf">gradient_descent_runner</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+    <span class="c1">#计算总数据量</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+        <span class="n">b_grad</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">k_grad</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)):</span>
+            <span class="n">b_grad</span> <span class="o">+=</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">k</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span>
+            <span class="n">k_grad</span> <span class="o">+=</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">((</span><span class="n">k</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">+</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">b_grad</span><span class="p">)</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">k</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">k_grad</span><span class="p">)</span>
+        <span class="c1">#每迭代五次,输出图像</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;epochs :&#34;</span><span class="p">,</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">k</span><span class="o">*</span><span class="n">x_data</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        
+    <span class="k">return</span> <span class="n">b</span><span class="p">,</span> <span class="n">k</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Starting b = </span><span class="si">{0}</span><span class="s2">, k = </span><span class="si">{1}</span><span class="s2">, error = </span><span class="si">{2}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">compute_error</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Running ...&#34;</span><span class="p">)</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="n">gradient_descent_runner</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">epochs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;After </span><span class="si">{0}</span><span class="s2"> iterations b = </span><span class="si">{1}</span><span class="s2">, k = </span><span class="si">{2}</span><span class="s2">, error = </span><span class="si">{3}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">compute_error</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)))</span>
+
+<span class="c1"># 画图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">k</span><span class="o">*</span><span class="n">x_data</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="运行结果">运行结果</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303180056.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303180056.png, http://img.zhengyua.cn/img/20200303180056.png 1.5x, http://img.zhengyua.cn/img/20200303180056.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303180056.png"
+        title="http://img.zhengyua.cn/img/20200303180056.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303180118.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303180118.png, http://img.zhengyua.cn/img/20200303180118.png 1.5x, http://img.zhengyua.cn/img/20200303180118.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303180118.png"
+        title="http://img.zhengyua.cn/img/20200303180118.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303180147.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303180147.png, http://img.zhengyua.cn/img/20200303180147.png 1.5x, http://img.zhengyua.cn/img/20200303180147.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303180147.png"
+        title="http://img.zhengyua.cn/img/20200303180147.png" /></p>
+<h4 id="使用sklearn实现-一元线性回归">使用sklearn实现-一元线性回归</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sklearn.</span> <span class="n">linear_model</span> <span class="kn">import</span> <span class="nn">LinearRegression</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&#34;data.csv&#34;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&#34;,&#34;</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1">#加上纬度</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1">#创建并拟合模型</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+<span class="c1">#画图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="运行结果-1">运行结果</h5>
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303192540.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303192540.png, http://img.zhengyua.cn/img/20200303192540.png 1.5x, http://img.zhengyua.cn/img/20200303192540.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303192540.png"
+        title="http://img.zhengyua.cn/img/20200303192540.png" /></li>
+</ul>
+<h2 id="基于梯度下降法的多元线性回归应用">基于梯度下降法的多元线性回归应用</h2>
+<h3 id="多元线性回归">多元线性回归</h3>
+<ul>
+<li>
+<p>单特征</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303192828.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303192828.png, http://img.zhengyua.cn/img/20200303192828.png 1.5x, http://img.zhengyua.cn/img/20200303192828.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303192828.png"
+        title="http://img.zhengyua.cn/img/20200303192828.png" /></p>
+</li>
+<li>
+<p>多特征</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303192849.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303192849.png, http://img.zhengyua.cn/img/20200303192849.png 1.5x, http://img.zhengyua.cn/img/20200303192849.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303192849.png"
+        title="http://img.zhengyua.cn/img/20200303192849.png" /></p>
+</li>
+</ul>
+<h3 id="多元线性回归模型">多元线性回归模型</h3>
+<p>当Y值的影响因素不是唯一时，采用多元线性回归</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303192924.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303192924.png, http://img.zhengyua.cn/img/20200303192924.png 1.5x, http://img.zhengyua.cn/img/20200303192924.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303192924.png"
+        title="http://img.zhengyua.cn/img/20200303192924.png" /></p>
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303192941.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303192941.png, http://img.zhengyua.cn/img/20200303192941.png 1.5x, http://img.zhengyua.cn/img/20200303192941.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303192941.png"
+        title="http://img.zhengyua.cn/img/20200303192941.png" />
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303193004.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303193004.png, http://img.zhengyua.cn/img/20200303193004.png 1.5x, http://img.zhengyua.cn/img/20200303193004.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303193004.png"
+        title="http://img.zhengyua.cn/img/20200303193004.png" /></li>
+</ul>
+</li>
+</ul>
+<h3 id="梯度下降法-多元线性回归">梯度下降法-多元线性回归</h3>
+<h4 id="代码实现-1">代码实现</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">genfromtxt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">genfromtxt</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;Delivery.csv&#34;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="s1">&#39;&#39;&#39;
+</span><span class="s1">[[100.    4.    9.3]
+</span><span class="s1">[ 50.    3.    4.8]
+</span><span class="s1">[100.    4.    8.9]
+</span><span class="s1">[100.    2.    6.5]
+</span><span class="s1">[ 50.    2.    4.2]
+</span><span class="s1">[ 80.    2.    6.2]
+</span><span class="s1">[ 75.    3.    7.4]
+</span><span class="s1">[ 65.    4.    6. ]
+</span><span class="s1">[ 90.    3.    7.6]
+</span><span class="s1">[ 90.    2.    6.1]]
+</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="c1">#切分数据</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span>
+<span class="s1">&#39;&#39;&#39;
+</span><span class="s1">[[100.   4.]
+</span><span class="s1">[ 50.   3.]
+</span><span class="s1">[100.   4.]
+</span><span class="s1">[100.   2.]
+</span><span class="s1">[ 50.   2.]
+</span><span class="s1">[ 80.   2.]
+</span><span class="s1">[ 75.   3.]
+</span><span class="s1">[ 65.   4.]
+</span><span class="s1">[ 90.   3.]
+</span><span class="s1">[ 90.   2.]]
+</span><span class="s1">[9.3 4.8 8.9 6.5 4.2 6.2 7.4 6.  7.6 6.1]
+</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="c1">#学习率</span>
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">0.0001</span>
+<span class="c1">#参数</span>
+<span class="n">theta0</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">theta1</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">theta2</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1">#最大迭代次数</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="c1">#最小二乘法</span>
+<span class="k">def</span> <span class="nf">compute_error</span><span class="p">(</span><span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">):</span>
+  <span class="n">totalError</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)):</span>
+      <span class="n">totalError</span> <span class="o">+=</span> <span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">theta1</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta2</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span><span class="n">theta0</span><span class="p">))</span> <span class="o">**</span> <span class="mi">2</span>
+  <span class="k">return</span> <span class="n">totalError</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">gradient_descent_runner</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+  <span class="c1">#计算总数据量</span>
+  <span class="n">m</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">))</span>
+  
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+      <span class="n">theta0_grad</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">theta1_grad</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">theta2_grad</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="c1">#计算梯度的总和再求平均</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_data</span><span class="p">)):</span>
+          <span class="n">theta0_grad</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">theta1</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta2</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta0</span><span class="p">))</span>
+          <span class="n">theta1_grad</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">theta1</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta2</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta0</span><span class="p">))</span>
+          <span class="n">theta2_grad</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">theta1</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta2</span> <span class="o">*</span> <span class="n">x_data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">theta0</span><span class="p">))</span> 
+      <span class="c1">#更新</span>
+      <span class="n">theta0</span> <span class="o">=</span> <span class="n">theta0</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">theta0_grad</span><span class="p">)</span>
+      <span class="n">theta1</span> <span class="o">=</span> <span class="n">theta1</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">theta1_grad</span><span class="p">)</span>
+      <span class="n">theta2</span> <span class="o">=</span> <span class="n">theta2</span> <span class="o">-</span> <span class="p">(</span><span class="n">lr</span> <span class="o">*</span> <span class="n">theta2_grad</span><span class="p">)</span>
+  
+  <span class="k">return</span> <span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Starting theta0 = </span><span class="si">{0}</span><span class="s2">, theta1 = </span><span class="si">{1}</span><span class="s2">, theta2 = </span><span class="si">{2}</span><span class="s2">, error = </span><span class="si">{3}</span><span class="s2">&#34;</span><span class="o">.</span>
+   <span class="nb">format</span><span class="p">(</span><span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">compute_error</span><span class="p">(</span><span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Running....&#34;</span><span class="p">)</span>
+<span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span> <span class="o">=</span> <span class="n">gradient_descent_runner</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">epochs</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;After </span><span class="si">{0}</span><span class="s2"> iterations theta0 = </span><span class="si">{1}</span><span class="s2">, theta1 = </span><span class="si">{2}</span><span class="s2">, theta2 = </span><span class="si">{3}</span><span class="s2">, error = </span><span class="si">{4}</span><span class="s2">&#34;</span><span class="o">.</span>
+   <span class="nb">format</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">compute_error</span><span class="p">(</span><span class="n">theta0</span><span class="p">,</span> <span class="n">theta1</span><span class="p">,</span> <span class="n">theta2</span><span class="p">,</span> <span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)))</span>
+
+<span class="s1">&#39;&#39;&#39;
+</span><span class="s1">Starting theta0 = 0, theta1 = 0, theta2 = 0, error = 47.279999999999994
+</span><span class="s1">Running....
+</span><span class="s1">After 1000 iterations theta0 = 0.006971416196678632, theta1 = 0.08021042690771771, theta2 = 0.07611036240566814, error = 0.7731271432218118
+</span><span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1">#生成网格矩阵</span>
+<span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">theta0</span> <span class="o">+</span> <span class="n">x0</span> <span class="o">*</span> <span class="n">theta1</span> <span class="o">+</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">theta2</span>
+<span class="c1">#画3D图</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="c1">#设置坐标轴</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;Miles&#34;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Num of Deleveries&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+
+<span class="c1">#显示</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="运行结果-2">运行结果</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200303200436.png"
+        data-srcset="http://img.zhengyua.cn/img/20200303200436.png, http://img.zhengyua.cn/img/20200303200436.png 1.5x, http://img.zhengyua.cn/img/20200303200436.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200303200436.png"
+        title="http://img.zhengyua.cn/img/20200303200436.png" /></p>
+<h4 id="基于sklearn实现多元线性回归">基于sklearn实现多元线性回归</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">genfromtxt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">mpl_toolkits.mplot3d</span> <span class="kn">import</span> <span class="n">Axes3D</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">genfromtxt</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;Delivery.csv&#34;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1">#切分数据</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1">#创建模型</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span><span class="n">y_data</span><span class="p">)</span>
+
+<span class="c1">#系数</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;coefficients:&#34;</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+
+<span class="c1">#截距</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;intercept:&#34;</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+
+<span class="c1">#测试</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">102</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
+<span class="n">predict</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&#34;predict:&#34;</span><span class="p">,</span><span class="n">predict</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;3d&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x_data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">y_data</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span> <span class="o">=</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="n">x0</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1">#生成网格矩阵</span>
+<span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span> <span class="o">+</span> <span class="n">x0</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x1</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1">#画3D图</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">z</span><span class="p">)</span>
+<span class="c1">#设置坐标轴</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&#34;Miles&#34;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Num of Deleveries&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">)</span>
+
+<span class="c1">#显示</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>运行结果与上面类似,就不展示出来了</li>
+</ul>
+<h2 id="多项式回归及应用">多项式回归及应用</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305080528.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305080528.png, http://img.zhengyua.cn/img/20200305080528.png 1.5x, http://img.zhengyua.cn/img/20200305080528.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305080528.png"
+        title="http://img.zhengyua.cn/img/20200305080528.png" /></p>
+<h3 id="代码实现-2">代码实现</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.lineaBr_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&#34;job.csv&#34;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&#34;,&#34;</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">x_data</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">y_data</span><span class="p">[:,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="c1">#创建并拟合模型</span>
+<span class="c1">#这里是多元线性回归</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+<span class="c1">#画图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_data</span><span class="p">),</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305082513.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305082513.png, http://img.zhengyua.cn/img/20200305082513.png 1.5x, http://img.zhengyua.cn/img/20200305082513.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305082513.png"
+        title="http://img.zhengyua.cn/img/20200305082513.png" /></p>
+<ul>
+<li>可以看出使用多元线性回归,效果并不是太好,所以我们换成多项式回归来对数据进行特征处理一下</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#定义多项式回归,degree(偏置值)的值可以调节多项式的特征</span>
+<span class="n">poly_reg</span> <span class="o">=</span> <span class="n">PolynomialFeatures</span><span class="p">(</span><span class="n">degree</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+<span class="c1">#特征处理</span>
+<span class="n">x_poly</span> <span class="o">=</span> <span class="n">poly_reg</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_poly</span><span class="p">)</span>
+<span class="c1">#定义回归模型</span>
+<span class="n">lin_reg</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="c1">#训练模型</span>
+<span class="n">lin_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_poly</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+
+<span class="c1">#画图</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">lin_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">poly_reg</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">x_data</span><span class="p">)),</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&#34;Truth of Bluff (Polynomial Regression)&#34;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&#34;Position level&#34;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&#34;Salary&#34;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305082613.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305082613.png, http://img.zhengyua.cn/img/20200305082613.png 1.5x, http://img.zhengyua.cn/img/20200305082613.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305082613.png"
+        title="http://img.zhengyua.cn/img/20200305082613.png" /></p>
+<ul>
+<li>这里看到通过进行多项式特征处理后,拟合结果就比较好</li>
+</ul>
+<h2 id="标准方程法normal-equation">标准方程法(Normal Equation)</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305082720.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305082720.png, http://img.zhengyua.cn/img/20200305082720.png 1.5x, http://img.zhengyua.cn/img/20200305082720.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305082720.png"
+        title="http://img.zhengyua.cn/img/20200305082720.png" /></p>
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305082928.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305082928.png, http://img.zhengyua.cn/img/20200305082928.png 1.5x, http://img.zhengyua.cn/img/20200305082928.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305082928.png"
+        title="http://img.zhengyua.cn/img/20200305082928.png" /></li>
+</ul>
+<p><strong>分子布局(Numerator-layout)</strong>: 分子为列向量或者分母为行向量</p>
+<p><strong>分母布局(Denominator-layout)</strong>:分子为行向量或者分母为列向量</p>
+<blockquote>
+<p><strong>求导公式</strong>:https://en.wikipedia.org/wiki/Matrix_calculus#Scalar-by-vector_identiti</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305083105.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305083105.png, http://img.zhengyua.cn/img/20200305083105.png 1.5x, http://img.zhengyua.cn/img/20200305083105.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305083105.png"
+        title="http://img.zhengyua.cn/img/20200305083105.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305083122.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305083122.png, http://img.zhengyua.cn/img/20200305083122.png 1.5x, http://img.zhengyua.cn/img/20200305083122.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305083122.png"
+        title="http://img.zhengyua.cn/img/20200305083122.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305083241.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305083241.png, http://img.zhengyua.cn/img/20200305083241.png 1.5x, http://img.zhengyua.cn/img/20200305083241.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305083241.png"
+        title="http://img.zhengyua.cn/img/20200305083241.png" /></p>
+<h3 id="矩阵不可逆的情况">矩阵不可逆的情况</h3>
+<ul>
+<li>线性相关的特征(多重共线性)</li>
+<li>特征数据太多(样本数m&lt;=特征数量n)</li>
+</ul>
+<h3 id="梯度下降法vs标准方程法">梯度下降法vs标准方程法</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305083451.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305083451.png, http://img.zhengyua.cn/img/20200305083451.png 1.5x, http://img.zhengyua.cn/img/20200305083451.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305083451.png"
+        title="http://img.zhengyua.cn/img/20200305083451.png" /></p>
+<h3 id="代码实现-3">代码实现</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">genfromtxt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#标准方程法求解回归参数</span>
+<span class="k">def</span> <span class="nf">weights</span><span class="p">(</span><span class="n">xArr</span><span class="p">,</span> <span class="n">yArr</span><span class="p">):</span>
+    <span class="n">xMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">xArr</span><span class="p">)</span>
+    <span class="n">yMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">yArr</span><span class="p">)</span>
+    <span class="n">xTx</span> <span class="o">=</span> <span class="n">xMat</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">xMat</span> <span class="c1">#矩阵乘法</span>
+    <span class="c1">#计算矩阵的值,如果值为0,说明该矩阵没有逆矩阵</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">xTx</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;This matrix cannot do inverse&#34;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="c1">#xTx.T 为 xTx 的逆矩阵</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">xTx</span><span class="o">.</span><span class="n">I</span> <span class="o">*</span> <span class="n">xMat</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">yMat</span>
+    <span class="k">return</span> <span class="n">ws</span>
+
+
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&#34;data.csv&#34;</span><span class="p">,</span><span class="n">delimiter</span><span class="o">=</span><span class="s2">&#34;,&#34;</span><span class="p">)</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1">#给样本添加偏置项</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="n">x_data</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="err">​```</span>
+
+<span class="n">ws</span> <span class="o">=</span> <span class="n">weights</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="p">[[</span><span class="mf">7.99102098</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">1.32243102</span><span class="p">]]</span>
+<span class="err">​```</span>
+
+<span class="c1">#画图</span>
+<span class="n">x_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(([</span><span class="mi">20</span><span class="p">],[</span><span class="mi">80</span><span class="p">]))</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_test</span><span class="o">*</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">y_data_predict</span> <span class="o">=</span> <span class="n">ws</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">x_data</span><span class="o">*</span><span class="n">ws</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">,</span> <span class="s1">&#39;b.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data_predict</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="运行结果-3">运行结果</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305085459.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305085459.png, http://img.zhengyua.cn/img/20200305085459.png 1.5x, http://img.zhengyua.cn/img/20200305085459.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305085459.png"
+        title="http://img.zhengyua.cn/img/20200305085459.png" /></p>
+<h2 id="特征缩放交叉验证法">特征缩放交叉验证法</h2>
+<h3 id="特征缩放">特征缩放</h3>
+<p><strong>数据归一化:</strong></p>
+<p>数据归一化就是把数据的取值范围处理为0-1或者-1-1之间。</p>
+<ul>
+<li>
+<p>任意数据转化为0-1之间：newValue = (oldValue-min)/(max-min)</p>
+<p>任意数据转化为-1-1之间：newValue = ((oldValue-min)/(max-min)-0.5)*2</p>
+</li>
+</ul>
+<p><strong>均值标准化:</strong></p>
+<p>x为特征数据，u为数据的平均值，s为数据的方差</p>
+<p>newValue = (oldValue-u)/s</p>
+<h3 id="交叉验证法">交叉验证法</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305085823.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305085823.png, http://img.zhengyua.cn/img/20200305085823.png 1.5x, http://img.zhengyua.cn/img/20200305085823.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305085823.png"
+        title="http://img.zhengyua.cn/img/20200305085823.png" /></p>
+<ul>
+<li>通过切分数据,每个部分分成训练集和测试集,且将每个部分的误差加起来计算平均值即为最终误差</li>
+</ul>
+<h2 id="过拟合overfitting正则化regularized">过拟合(Overfitting)&amp;正则化(Regularized)</h2>
+<h3 id="过拟合">过拟合</h3>
+<p><strong>拟合情况:</strong></p>
+<ul>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305090820.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305090820.png, http://img.zhengyua.cn/img/20200305090820.png 1.5x, http://img.zhengyua.cn/img/20200305090820.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305090820.png"
+        title="http://img.zhengyua.cn/img/20200305090820.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305090846.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305090846.png, http://img.zhengyua.cn/img/20200305090846.png 1.5x, http://img.zhengyua.cn/img/20200305090846.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305090846.png"
+        title="http://img.zhengyua.cn/img/20200305090846.png" /></p>
+</li>
+</ul>
+<p><strong>防止过拟合:</strong></p>
+<ul>
+<li>减少特征</li>
+<li>增加数据量</li>
+<li>正则化</li>
+</ul>
+<h3 id="正则化">正则化</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305091000.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305091000.png, http://img.zhengyua.cn/img/20200305091000.png 1.5x, http://img.zhengyua.cn/img/20200305091000.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305091000.png"
+        title="http://img.zhengyua.cn/img/20200305091000.png" /></p>
+<h2 id="岭回归lasso回归弹性网的应用">岭回归/LASSO回归/弹性网的应用</h2>
+<h3 id="岭回归ridge-regression">岭回归(Ridge Regression)</h3>
+<blockquote>
+<p>w = (𝑋^𝑇𝑋)^(−1)𝑋^𝑇y</p>
+<ul>
+<li>如果数据的特征比样本点还多，数据特征n，样本个数m，如果n&gt;m，则计算时会出错。因为(𝑋^𝑇𝑋)不是满秩矩阵，所以不可逆。</li>
+</ul>
+<p>为了解决这个问题，统计学家引入了岭回归的概念。</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305091404.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305091404.png, http://img.zhengyua.cn/img/20200305091404.png 1.5x, http://img.zhengyua.cn/img/20200305091404.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305091404.png"
+        title="http://img.zhengyua.cn/img/20200305091404.png" /></p>
+<ul>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305091429.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305091429.png, http://img.zhengyua.cn/img/20200305091429.png 1.5x, http://img.zhengyua.cn/img/20200305091429.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305091429.png"
+        title="http://img.zhengyua.cn/img/20200305091429.png" /></p>
+</li>
+<li>
+<p>岭回归最早是用来处理特征数多于样本的情况，现在也用于在估计中加入偏差，从而得到更好的估计。同时也可以解决多重共线性的问题。<strong>岭回归是一种有偏估计</strong>。</p>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305091525.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305091525.png, http://img.zhengyua.cn/img/20200305091525.png 1.5x, http://img.zhengyua.cn/img/20200305091525.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305091525.png"
+        title="http://img.zhengyua.cn/img/20200305091525.png" /></p>
+<p><strong>选择𝜆值，使到：</strong></p>
+<ol>
+<li>各回归系数的岭估计基本稳定。</li>
+<li>残差平方和增大不太多</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305092001.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305092001.png, http://img.zhengyua.cn/img/20200305092001.png 1.5x, http://img.zhengyua.cn/img/20200305092001.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305092001.png"
+        title="http://img.zhengyua.cn/img/20200305092001.png" /></p>
+<ul>
+<li>𝜆值为横坐标,所求参数为纵坐标</li>
+</ul>
+<h4 id="sklearn-代码实现">sklearn-代码实现</h4>
+<blockquote>
+<p>Longley数据集</p>
+<p>Longley数据集来自J．W．Longley（1967）发表在JASA上的一篇论文，是强共线性的宏观经济数据,包含GNP deflator(GNP平减指数)、GNP(国民生产总值)、Unemployed(失业率)、ArmedForces(武装力量)、Population(人口)、year(年份)，Emlpoyed(就业率)。</p>
+<ul>
+<li>LongLey数据集因存在严重的多重共线性问题，在早期经常用来检验各种算法或计算机的计算精度</li>
+</ul>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">genfromtxt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">genfromtxt</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;longley.csv&#34;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="p">[[</span>     <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">83.</span>     <span class="mf">234.289</span>  <span class="mf">235.6</span>    <span class="mf">159.</span>     <span class="mf">107.608</span> <span class="mf">1947.</span>      <span class="mf">60.323</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">88.5</span>    <span class="mf">259.426</span>  <span class="mf">232.5</span>    <span class="mf">145.6</span>    <span class="mf">108.632</span> <span class="mf">1948.</span>      <span class="mf">61.122</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">88.2</span>    <span class="mf">258.054</span>  <span class="mf">368.2</span>    <span class="mf">161.6</span>    <span class="mf">109.773</span> <span class="mf">1949.</span>      <span class="mf">60.171</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">89.5</span>    <span class="mf">284.599</span>  <span class="mf">335.1</span>    <span class="mf">165.</span>     <span class="mf">110.929</span> <span class="mf">1950.</span>      <span class="mf">61.187</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">96.2</span>    <span class="mf">328.975</span>  <span class="mf">209.9</span>    <span class="mf">309.9</span>    <span class="mf">112.075</span> <span class="mf">1951.</span>      <span class="mf">63.221</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">98.1</span>    <span class="mf">346.999</span>  <span class="mf">193.2</span>    <span class="mf">359.4</span>    <span class="mf">113.27</span>  <span class="mf">1952.</span>      <span class="mf">63.639</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">99.</span>     <span class="mf">365.385</span>  <span class="mf">187.</span>     <span class="mf">354.7</span>    <span class="mf">115.094</span> <span class="mf">1953.</span>      <span class="mf">64.989</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">100.</span>     <span class="mf">363.112</span>  <span class="mf">357.8</span>    <span class="mf">335.</span>     <span class="mf">116.219</span> <span class="mf">1954.</span>      <span class="mf">63.761</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">101.2</span>    <span class="mf">397.469</span>  <span class="mf">290.4</span>    <span class="mf">304.8</span>    <span class="mf">117.388</span> <span class="mf">1955.</span>      <span class="mf">66.019</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">104.6</span>    <span class="mf">419.18</span>   <span class="mf">282.2</span>    <span class="mf">285.7</span>    <span class="mf">118.734</span> <span class="mf">1956.</span>      <span class="mf">67.857</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">108.4</span>    <span class="mf">442.769</span>  <span class="mf">293.6</span>    <span class="mf">279.8</span>    <span class="mf">120.445</span> <span class="mf">1957.</span>      <span class="mf">68.169</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">110.8</span>    <span class="mf">444.546</span>  <span class="mf">468.1</span>    <span class="mf">263.7</span>    <span class="mf">121.95</span>  <span class="mf">1958.</span>      <span class="mf">66.513</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">112.6</span>    <span class="mf">482.704</span>  <span class="mf">381.3</span>    <span class="mf">255.2</span>    <span class="mf">123.366</span> <span class="mf">1959.</span>      <span class="mf">68.655</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">114.2</span>    <span class="mf">502.601</span>  <span class="mf">393.1</span>    <span class="mf">251.4</span>    <span class="mf">125.368</span> <span class="mf">1960.</span>      <span class="mf">69.564</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">115.7</span>    <span class="mf">518.173</span>  <span class="mf">480.6</span>    <span class="mf">257.2</span>    <span class="mf">127.852</span> <span class="mf">1961.</span>      <span class="mf">69.331</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">116.9</span>    <span class="mf">554.894</span>  <span class="mf">400.7</span>    <span class="mf">282.7</span>    <span class="mf">130.081</span> <span class="mf">1962.</span>      <span class="mf">70.551</span><span class="p">]]</span>
+<span class="err">​```</span>
+
+<span class="c1">#切分数据</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">2</span><span class="p">:]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1">#创建模型</span>
+<span class="c1">#生成50个值</span>
+<span class="n">alphas_to_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">#创建模型,保存误差值,CV:交叉验证</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">RidgeCV</span><span class="p">(</span><span class="n">alphas</span> <span class="o">=</span> <span class="n">alphas_to_test</span><span class="p">,</span> <span class="n">store_cv_values</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+
+<span class="c1">#岭系数</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alpha_</span><span class="p">)</span>
+<span class="c1">#loss值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">cv_values_</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="mf">0.40875510204081633</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="err">​```</span>
+
+<span class="c1">#画图</span>
+<span class="c1">#岭系数跟Loss值的关系</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">alphas_to_test</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">cv_values_</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="c1">#选取的岭系数的位置</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alpha_</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">cv_values_</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1">#简单测试</span>
+<span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_data</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">])</span>
+<span class="n">y_data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="err">​```</span>
+<span class="n">out</span><span class="p">:</span><span class="n">array</span><span class="p">([</span><span class="mf">88.11216213</span><span class="p">])</span>
+<span class="n">out</span><span class="p">:</span><span class="mf">88.2</span>
+<span class="err">​```</span>
+</code></pre></td></tr></table>
+</div>
+</div><h5 id="运行结果-4">运行结果</h5>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200305094231.png"
+        data-srcset="http://img.zhengyua.cn/img/20200305094231.png, http://img.zhengyua.cn/img/20200305094231.png 1.5x, http://img.zhengyua.cn/img/20200305094231.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200305094231.png"
+        title="http://img.zhengyua.cn/img/20200305094231.png" /></p>
+<h4 id="标准方程法-代码实现">标准方程法-代码实现</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">genfromtxt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">genfromtxt</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;longley.csv&#34;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="c1">#切分数据</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">2</span><span class="p">:]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="p">[[</span>     <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span>      <span class="n">nan</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">83.</span>     <span class="mf">234.289</span>  <span class="mf">235.6</span>    <span class="mf">159.</span>     <span class="mf">107.608</span> <span class="mf">1947.</span>      <span class="mf">60.323</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">88.5</span>    <span class="mf">259.426</span>  <span class="mf">232.5</span>    <span class="mf">145.6</span>    <span class="mf">108.632</span> <span class="mf">1948.</span>      <span class="mf">61.122</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">88.2</span>    <span class="mf">258.054</span>  <span class="mf">368.2</span>    <span class="mf">161.6</span>    <span class="mf">109.773</span> <span class="mf">1949.</span>      <span class="mf">60.171</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">89.5</span>    <span class="mf">284.599</span>  <span class="mf">335.1</span>    <span class="mf">165.</span>     <span class="mf">110.929</span> <span class="mf">1950.</span>      <span class="mf">61.187</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">96.2</span>    <span class="mf">328.975</span>  <span class="mf">209.9</span>    <span class="mf">309.9</span>    <span class="mf">112.075</span> <span class="mf">1951.</span>      <span class="mf">63.221</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">98.1</span>    <span class="mf">346.999</span>  <span class="mf">193.2</span>    <span class="mf">359.4</span>    <span class="mf">113.27</span>  <span class="mf">1952.</span>      <span class="mf">63.639</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>   <span class="mf">99.</span>     <span class="mf">365.385</span>  <span class="mf">187.</span>     <span class="mf">354.7</span>    <span class="mf">115.094</span> <span class="mf">1953.</span>      <span class="mf">64.989</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">100.</span>     <span class="mf">363.112</span>  <span class="mf">357.8</span>    <span class="mf">335.</span>     <span class="mf">116.219</span> <span class="mf">1954.</span>      <span class="mf">63.761</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">101.2</span>    <span class="mf">397.469</span>  <span class="mf">290.4</span>    <span class="mf">304.8</span>    <span class="mf">117.388</span> <span class="mf">1955.</span>      <span class="mf">66.019</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">104.6</span>    <span class="mf">419.18</span>   <span class="mf">282.2</span>    <span class="mf">285.7</span>    <span class="mf">118.734</span> <span class="mf">1956.</span>      <span class="mf">67.857</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">108.4</span>    <span class="mf">442.769</span>  <span class="mf">293.6</span>    <span class="mf">279.8</span>    <span class="mf">120.445</span> <span class="mf">1957.</span>      <span class="mf">68.169</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">110.8</span>    <span class="mf">444.546</span>  <span class="mf">468.1</span>    <span class="mf">263.7</span>    <span class="mf">121.95</span>  <span class="mf">1958.</span>      <span class="mf">66.513</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">112.6</span>    <span class="mf">482.704</span>  <span class="mf">381.3</span>    <span class="mf">255.2</span>    <span class="mf">123.366</span> <span class="mf">1959.</span>      <span class="mf">68.655</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">114.2</span>    <span class="mf">502.601</span>  <span class="mf">393.1</span>    <span class="mf">251.4</span>    <span class="mf">125.368</span> <span class="mf">1960.</span>      <span class="mf">69.564</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">115.7</span>    <span class="mf">518.173</span>  <span class="mf">480.6</span>    <span class="mf">257.2</span>    <span class="mf">127.852</span> <span class="mf">1961.</span>      <span class="mf">69.331</span><span class="p">]</span>
+ <span class="p">[</span>     <span class="n">nan</span>  <span class="mf">116.9</span>    <span class="mf">554.894</span>  <span class="mf">400.7</span>    <span class="mf">282.7</span>    <span class="mf">130.081</span> <span class="mf">1962.</span>      <span class="mf">70.551</span><span class="p">]]</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="err">​```</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">x_data</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">y_data</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1">#给样本项加偏置值</span>
+<span class="n">X_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">16</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="n">x_data</span><span class="p">),</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">X_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="err">​```</span>
+
+<span class="c1">#岭回归标准方程法求解回归参数</span>
+<span class="k">def</span> <span class="nf">weights</span><span class="p">(</span><span class="n">xArr</span><span class="p">,</span> <span class="n">yArr</span><span class="p">,</span> <span class="n">lam</span><span class="o">=</span><span class="mf">0.2</span><span class="p">):</span>
+    <span class="n">xMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">xArr</span><span class="p">)</span>
+    <span class="n">yMat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">yArr</span><span class="p">)</span>
+    <span class="n">xTx</span> <span class="o">=</span> <span class="n">xMat</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">xMat</span> <span class="c1">#矩阵乘法</span>
+    <span class="n">rxTx</span> <span class="o">=</span> <span class="n">xTx</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">xMat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">lam</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rxTx</span><span class="p">)</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;This mattrix cannot do inverse&#34;</span><span class="p">)</span>
+        <span class="k">return</span>
+    <span class="n">ws</span> <span class="o">=</span> <span class="n">rxTx</span><span class="o">.</span><span class="n">I</span> <span class="o">*</span> <span class="n">xMat</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">yMat</span>
+    <span class="k">return</span> <span class="n">ws</span>
+
+<span class="n">ws</span> <span class="o">=</span> <span class="n">weights</span><span class="p">(</span><span class="n">X_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ws</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="p">[[</span> <span class="mf">7.38107882e-04</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">2.07703836e-01</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">2.10076376e-02</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">5.05385441e-03</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">1.59173066e+00</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">1.10442920e-01</span><span class="p">]</span>
+ <span class="p">[</span><span class="o">-</span><span class="mf">2.42280461e-01</span><span class="p">]]</span>
+<span class="err">​```</span>
+
+<span class="c1">#计算预测值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">X_data</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mat</span><span class="p">(</span><span class="n">ws</span><span class="p">))</span>
+
+<span class="err">​```</span>
+<span class="p">[[</span> <span class="mf">83.55075226</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">86.92588689</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">88.09720228</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">90.95677622</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">96.06951002</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">97.81955375</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">98.36444357</span><span class="p">]</span>
+ <span class="p">[</span> <span class="mf">99.99814266</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">103.26832266</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">105.03165135</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">107.45224671</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">109.52190685</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">112.91863666</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">113.98357055</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">115.29845063</span><span class="p">]</span>
+ <span class="p">[</span><span class="mf">117.64279933</span><span class="p">]]</span>
+<span class="err">​```</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="lasso">LASSO</h3>
+<blockquote>
+<ul>
+<li>Tibshirani(1996)提出了Lasso(The Least Absolute Shrinkage and 
+Selectionator operator)算法</li>
+<li>通过构造<strong>一个一阶惩罚函数获得一个精炼的模型</strong>；通过最终确定一些
+指标（变量）的系数为零（岭回归估计系数等于0的机会微乎其微，
+造成筛选变量困难），解释力很强。</li>
+<li>擅长处理具有多重共线性的数据，与岭回归一样是<strong>有偏估计</strong> 。</li>
+</ul>
+</blockquote>
+<h4 id="lasso与岭回归">LASSO与岭回归</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200306111653.png"
+        data-srcset="http://img.zhengyua.cn/img/20200306111653.png, http://img.zhengyua.cn/img/20200306111653.png 1.5x, http://img.zhengyua.cn/img/20200306111653.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200306111653.png"
+        title="http://img.zhengyua.cn/img/20200306111653.png" /></p>
+<ul>
+<li>
+<p>图像比较</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200306111842.png"
+        data-srcset="http://img.zhengyua.cn/img/20200306111842.png, http://img.zhengyua.cn/img/20200306111842.png 1.5x, http://img.zhengyua.cn/img/20200306111842.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200306111842.png"
+        title="http://img.zhengyua.cn/img/20200306111842.png" /></p>
+</li>
+<li>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200306112924.png"
+        data-srcset="http://img.zhengyua.cn/img/20200306112924.png, http://img.zhengyua.cn/img/20200306112924.png 1.5x, http://img.zhengyua.cn/img/20200306112924.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200306112924.png"
+        title="http://img.zhengyua.cn/img/20200306112924.png" /></p>
+</li>
+</ul>
+<h4 id="sklearn-代码实现lasso">sklearn-代码实现Lasso</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">genfromtxt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">genfromtxt</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;longley.csv&#34;</span><span class="p">,</span><span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1">#切分数据</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">2</span><span class="p">:]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="err">​```</span>
+<span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">16</span><span class="p">,)</span>
+<span class="err">​```</span>
+
+<span class="c1">#创建模型,得到一个合适的误差值,由于交叉验证其函数内部自动生成随机数进行测试</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LassoCV</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+<span class="c1">#lasso系数</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alpha_</span><span class="p">)</span>
+<span class="c1">#相关系数</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+<span class="c1">#其中三个特征有共线性即为0</span>
+
+<span class="err">​```</span>
+<span class="mf">20.03464209711722</span>
+<span class="p">[</span><span class="mf">0.10206856</span> <span class="mf">0.00409161</span> <span class="mf">0.00354815</span> <span class="mf">0.</span>         <span class="mf">0.</span>         <span class="mf">0.</span>        <span class="p">]</span>
+<span class="err">​```</span>
+
+<span class="c1">#预测值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]))</span>
+<span class="c1">#真实值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="err">​```</span>
+<span class="p">[</span><span class="mf">115.6461414</span><span class="p">]</span>
+<span class="mf">115.7</span>
+<span class="err">​```</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="弹性网elastic-net">弹性网(Elastic Net)</h3>
+<blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200306114817.png"
+        data-srcset="http://img.zhengyua.cn/img/20200306114817.png, http://img.zhengyua.cn/img/20200306114817.png 1.5x, http://img.zhengyua.cn/img/20200306114817.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200306114817.png"
+        title="http://img.zhengyua.cn/img/20200306114817.png" /></p>
+<p>很容易看出,q=2时就是为岭回归,q=1为Lasso回归</p>
+</blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://img.zhengyua.cn/img/20200306114933.png"
+        data-srcset="http://img.zhengyua.cn/img/20200306114933.png, http://img.zhengyua.cn/img/20200306114933.png 1.5x, http://img.zhengyua.cn/img/20200306114933.png 2x"
+        data-sizes="auto"
+        alt="http://img.zhengyua.cn/img/20200306114933.png"
+        title="http://img.zhengyua.cn/img/20200306114933.png" /></p>
+<h4 id="sklearn-代码实现elasticnet">sklearn-代码实现ElasticNet</h4>
+<p>由于部分结果与上面类似,这里就不贴出来了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-PYTHON" data-lang="PYTHON"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">genfromtxt</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+
+<span class="c1">#载入数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">genfromtxt</span><span class="p">(</span><span class="sa">r</span><span class="s2">&#34;longley.csv&#34;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1">#切分数据</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">2</span><span class="p">:]</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1">#创建模型</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">ElasticNetCV</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_data</span><span class="p">,</span> <span class="n">y_data</span><span class="p">)</span>
+
+<span class="c1">#l弹性网系数</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alpha_</span><span class="p">)</span>
+<span class="c1">#相关系数</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
+
+<span class="err">​```</span>
+<span class="mf">42.96498005089394</span>
+<span class="p">[</span><span class="mf">0.1016487</span>  <span class="mf">0.00416716</span> <span class="mf">0.00349843</span> <span class="mf">0.</span>         <span class="mf">0.</span>         <span class="mf">0.</span>        <span class="p">]</span>
+<span class="err">​```</span>
+
+<span class="c1">#预测值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_data</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">]))</span>
+<span class="c1">#真实值</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_data</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="err">​```</span>
+<span class="p">[</span><span class="mf">115.6037171</span><span class="p">]</span>
+<span class="mf">115.7</span>
+<span class="err">​```</span>
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2020-03-06</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/ai/machine_learning/5.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-title="线性回归与非线性回归" data-hashtags="ai,machine_learning,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-hashtag="ai"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-title="线性回归与非线性回归" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-title="线性回归与非线性回归"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-title="线性回归与非线性回归"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-title="线性回归与非线性回归" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-title="线性回归与非线性回归" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/ai/machine_learning/5.html/" data-title="线性回归与非线性回归"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/ai/">ai</a>,&nbsp;<a href="/tags/machine_learning/">machine_learning</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ai/machine_learning/4.html/" class="prev" rel="prev" title="MachineLearning(AndrewNg)Notes-Week9"><i class="fas fa-angle-left fa-fw"></i>MachineLearning(AndrewNg)Notes-Week9</a>
+            <a href="/posts/0.html/" class="next" rel="next" title="0">0<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>
