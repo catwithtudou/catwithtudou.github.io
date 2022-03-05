@@ -4,9 +4,23 @@
         <link>https://zhengyua.cn/</link>
         <description>一直是阵雨🌦️&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Thu, 03 Mar 2022 09:24:00 &#43;0800</lastBuildDate>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 05 Mar 2022 14:38:00 &#43;0800</lastBuildDate>
             <atom:link href="https://zhengyua.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>ElasticSearch倒排索引&amp;Analysis分词</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
+    <pubDate>Sat, 05 Mar 2022 14:38:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/1.html/</guid>
+    <description><![CDATA[正排索引和倒排索引 书籍的目录也是生活中常见的正排索引。 倒排索引核心组成 其主要包含两个部分： 单词词典（Term Dictionary） 记录所有的]]></description>
+</item><item>
+    <title>HelloOs</title>
+    <link>https://zhengyua.cn/posts/os/common/1.html/</link>
+    <pubDate>Sat, 05 Mar 2022 09:58:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/os/common/1.html/</guid>
+    <description><![CDATA[Hello OS 是基于硬件，一个最小的操作系统内核 Hello OS 的引导流程如下： BIOS 固件是固化在 PC 机主板上的 ROM 芯片中的，可掉电保存，它负责检测和初始化 CPU、内存及]]></description>
+</item><item>
     <title>ElasticSearch基本概念</title>
     <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
     <pubDate>Thu, 03 Mar 2022 09:24:00 &#43;0800</pubDate>
@@ -62,19 +76,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/distributed_structure/structure/1.html/</guid>
     <description><![CDATA[Primary/Backup Replication 课程地址 the note from the lecture Primary/Backup Replication for Fault Tolerance Case study of VMware FT, an extreme version of the idea fault tolerance to provide availability despite server and network failures using replication What kinds of failures can replication deal with? &ldquo;fail-stop&rdquo; failure of a single replica fan stops working, CPU overheats and shuts itself down someone trips over replica&rsquo;s power cord or network]]></description>
-</item><item>
-    <title>分布式熔断方案</title>
-    <link>https://zhengyua.cn/posts/distributed_structure/structure/7.html/</link>
-    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/distributed_structure/structure/7.html/</guid>
-    <description><![CDATA[分布式熔断方案note 微服务容错机制 微服务架构中因各个服务之间的依赖和调用关系较为复杂，当下游的服务出现问题时就可能会造成上游的雪崩效应。 解]]></description>
-</item><item>
-    <title>分布式系统全局唯一ID生成器</title>
-    <link>https://zhengyua.cn/posts/distributed_structure/structure/4.html/</link>
-    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/distributed_structure/structure/4.html/</guid>
-    <description><![CDATA[分布式系统全局唯一ID生成器 代码实现示例repo地址 使用场景一般： 分布式系统设计时，数据分片场景下，通常需要一个全局唯一id； 在消息系统中需]]></description>
 </item></channel>
 </rss>

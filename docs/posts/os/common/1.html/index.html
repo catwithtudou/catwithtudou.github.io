@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>HelloOs - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="HelloOs" />
+<meta property="og:description" content="Hello OS 是基于硬件，一个最小的操作系统内核 Hello OS 的引导流程如下： BIOS 固件是固化在 PC 机主板上的 ROM 芯片中的，可掉电保存，它负责检测和初始化 CPU、内存及" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/os/common/1.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-05T09:58:26+08:00" />
+<meta property="article:modified_time" content="2022-03-05T09:58:26+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="HelloOs"/>
+<meta name="twitter:description" content="Hello OS 是基于硬件，一个最小的操作系统内核 Hello OS 的引导流程如下： BIOS 固件是固化在 PC 机主板上的 ROM 芯片中的，可掉电保存，它负责检测和初始化 CPU、内存及"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/os/common/1.html/" /><link rel="prev" href="https://zhengyua.cn/posts/search_engine/es/1.html/" /><link rel="next" href="https://zhengyua.cn/posts/search_engine/es/1.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "HelloOs",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/os\/common\/1.html\/"
+        },"genre": "posts","keywords": "os, note, 汇编","wordcount":  2261 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/os\/common\/1.html\/","datePublished": "2022-03-05T09:58:26+08:00","dateModified": "2022-03-05T09:58:26+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">HelloOs</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/os/"><i class="far fa-folder fa-fw"></i>os</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-05">2022-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2261 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#引导汇编部分">引导汇编部分</a></li>
+        <li><a href="#hello-os-的主函数">Hello OS 的主函数</a></li>
+        <li><a href="#控制计算机屏幕">控制计算机屏幕</a></li>
+        <li><a href="#make">make</a></li>
+        <li><a href="#编译">编译</a></li>
+        <li><a href="#安装">安装</a></li>
+        <li><a href="#参考">参考</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>Hello OS 是基于硬件，一个最小的操作系统内核</p>
+</blockquote>
+<p>Hello OS 的引导流程如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220305093741.png"
+        data-srcset="https://img.zhengyua.cn/img/20220305093741.png, https://img.zhengyua.cn/img/20220305093741.png 1.5x, https://img.zhengyua.cn/img/20220305093741.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220305093741.png"
+        title="https://img.zhengyua.cn/img/20220305093741.png" /></p>
+<blockquote>
+<p>BIOS 固件是固化在 PC 机主板上的 ROM 芯片中的，可掉电保存，它负责<strong>检测和初始化 CPU、内存及主板平台</strong>。
+PC 机上电后的第一条指令就是 BIOS 固件中的，然后加载引导设备（大概率是硬盘）中的第一个扇区数据，到 0x7c00 地址开始的内存空间，再接着跳转到 0x7c00 处执行指令。</p>
+</blockquote>
+<h2 id="引导汇编部分">引导汇编部分</h2>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm">MBT<span class="err">_HDR_FLAGS</span> <span class="err">EQU</span> <span class="err">0</span><span class="nc">x00</span><span class="err">010003</span>
+MBT<span class="err">_HDR_MAGIC</span> <span class="err">EQU</span> <span class="err">0</span><span class="nc">x1</span><span class="err">BADB002</span> <span class="c1">;多引导协议头魔数
+</span><span class="c1"></span>MBT<span class="err">_HDR2_MAGIC</span> <span class="err">EQU</span> <span class="err">0xe85250</span><span class="nc">d6</span> <span class="c1">;第二版多引导协议头魔数
+</span><span class="c1"></span>global <span class="err">_start</span> <span class="c1">;导出_start符号
+</span><span class="c1"></span>extern <span class="err">main</span> <span class="c1">;导入外部的main函数符号
+</span><span class="c1"></span><span class="err">[</span>section <span class="err">.start.text]</span> <span class="c1">;定义.start.text代码节
+</span><span class="c1"></span><span class="err">[</span>bits <span class="err">32]</span> <span class="c1">;汇编成32位代码
+</span><span class="c1"></span><span class="nl">_start</span><span class="p">:</span>
+jmp <span class="err">_entry</span>
+ALIGN <span class="err">8</span>
+<span class="nl">mbt_hdr</span><span class="p">:</span>
+dd <span class="err">MBT_HDR_MAGIC</span>
+dd <span class="err">MBT_HDR_FLAGS</span>
+dd <span class="err">-(MBT_HDR_MAGIC+MBT_HDR_FLAGS)</span>
+dd <span class="err">mbt_hdr</span>
+dd <span class="err">_start</span>
+dd <span class="err">0</span>
+dd <span class="err">0</span>
+dd <span class="err">_entry</span>
+<span class="c1">;以上是GRUB所需要的头
+</span><span class="c1"></span>ALIGN <span class="err">8</span>
+<span class="nl">mbt2_hdr</span><span class="p">:</span>
+DD <span class="err">MBT_HDR2_MAGIC</span>
+DD <span class="err">0</span>
+DD <span class="err">mbt2_hdr_end</span> <span class="err">-</span> <span class="err">mbt2_hdr</span>
+DD <span class="err">-(MBT_HDR2_MAGIC</span> <span class="err">+</span> <span class="err">0</span> <span class="err">+</span> <span class="err">(mbt2_hdr_end</span> <span class="err">-</span> <span class="err">mbt2_hdr))</span>
+DW <span class="err">2</span>, <span class="err">0</span>
+DD <span class="err">24</span>
+DD <span class="err">mbt2_hdr</span>
+DD <span class="err">_start</span>
+DD <span class="err">0</span>
+DD <span class="err">0</span>
+DW <span class="err">3</span>, <span class="err">0</span>
+DD <span class="err">12</span>
+DD <span class="err">_entry</span>
+DD <span class="err">0</span>
+DW <span class="err">0</span>, <span class="err">0</span>
+DD <span class="err">8</span>
+<span class="nl">mbt2_hdr_end</span><span class="p">:</span>
+<span class="c1">;以上是GRUB2所需要的头
+</span><span class="c1">;包含两个头是为了同时兼容GRUB、GRUB2
+</span></code></pre></td></tr></table>
+</div>
+</div><p>上述汇编代码是<strong>用汇编定义的 GRUB 的多引导协议头，即一定格式的数据</strong>，通过实现该协议标准让 GRUB 能识别 Hello OS。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm">ALIGN <span class="err">8</span>
+<span class="nl">_entry</span><span class="p">:</span>
+<span class="c1">;关中断
+</span><span class="c1"></span>cli
+<span class="c1">;关不可屏蔽中断
+</span><span class="c1"></span>in <span class="err">al</span>, <span class="err">0</span><span class="nc">x70</span>
+or <span class="err">al</span>, <span class="err">0</span><span class="nc">x80</span>
+out <span class="err">0</span><span class="nc">x70</span>,<span class="err">al</span>
+<span class="c1">;重新加载GDT
+</span><span class="c1"></span>lgdt <span class="err">[GDT_PTR]</span>
+jmp <span class="err">dword</span> <span class="err">0</span><span class="nc">x8</span> <span class="err">:_32bits_mode</span>
+<span class="nl">_32bits_mode</span><span class="p">:</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>上述汇编代码作用于<strong>关掉中断，设定 CPU 的工作模式</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="c1">;下面初始化C语言可能会用到的寄存器
+</span><span class="c1"></span>mov <span class="err">ax</span>, <span class="err">0</span><span class="nc">x10</span>
+mov <span class="err">ds</span>, <span class="err">ax</span>
+mov <span class="err">ss</span>, <span class="err">ax</span>
+mov <span class="err">es</span>, <span class="err">ax</span>
+mov <span class="err">fs</span>, <span class="err">ax</span>
+mov <span class="err">gs</span>, <span class="err">ax</span>
+xor <span class="err">eax</span>,<span class="err">eax</span>
+xor <span class="err">ebx</span>,<span class="err">ebx</span>
+xor <span class="err">ecx</span>,<span class="err">ecx</span>
+xor <span class="err">edx</span>,<span class="err">edx</span>
+xor <span class="err">edi</span>,<span class="err">edi</span>
+xor <span class="err">esi</span>,<span class="err">esi</span>
+xor <span class="err">ebp</span>,<span class="err">ebp</span>
+xor <span class="err">esp</span>,<span class="err">esp</span>
+<span class="c1">;初始化栈，C语言需要栈才能工作
+</span><span class="c1"></span>mov <span class="err">esp</span>,<span class="err">0</span><span class="nc">x90</span><span class="err">00</span>
+<span class="c1">;调用C语言函数main
+</span><span class="c1"></span>call <span class="err">main</span>
+<span class="c1">;让CPU停止执行指令
+</span><span class="c1"></span><span class="nl">halt_step</span><span class="p">:</span>
+halt
+jmp <span class="err">halt_step</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该部分汇编代码是<strong>初始化 CPU 的寄存器和 C 语言的运行环境</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="nl">GDT_START</span><span class="p">:</span>
+<span class="nl">knull_dsc</span><span class="p">:</span> dq <span class="err">0</span>
+<span class="nl">kcode_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">c</span><span class="nc">f9</span><span class="err">e000000ffff</span>
+<span class="nl">kdata_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">c</span><span class="nc">f92</span><span class="err">000000ffff</span>
+<span class="nl">k16cd_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">009e000000ffff</span>
+<span class="nl">k16da_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">0092000000ffff</span>
+<span class="nl">GDT_END</span><span class="p">:</span>
+<span class="nl">GDT_PTR</span><span class="p">:</span>
+GDTLEN <span class="err">dw</span> <span class="err">GDT_END-GDT_START-1</span>
+GDTBASE <span class="err">dd</span> <span class="err">GDT_START</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>该部分汇编代码是服务 <strong>CPU 工作模式所需要的数据</strong>。</p>
+<h2 id="hello-os-的主函数">Hello OS 的主函数</h2>
+<p>上述汇编代码调用的 main 函数，是由下面 C 语言代码<strong>分别由 nasm 和 GCC 编译可链接模块，由 LD 连接器链接在一起，形成可执行程序文件</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&#34;vgastr.h&#34;</span><span class="cp">
+</span><span class="cp"></span><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Hello OS!&#34;</span><span class="p">);</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span> 
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="控制计算机屏幕">控制计算机屏幕</h2>
+<p>屏幕上显示字符，就要编程操作显卡。</p>
+<p><strong>显卡都会支持 VESA 的标准</strong>，该标准下有两种工作模式（字符和图形），且为支持该标准还会<strong>提供 VGABIOS 的固件程序</strong>。</p>
+<p>下图即显卡的字符模式工作细节，可以看到主要的特点是在于<strong>会每两个字节（ASCII码和字符颜色值）对应一个字符</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220305095902.png"
+        data-srcset="https://img.zhengyua.cn/img/20220305095902.png, https://img.zhengyua.cn/img/20220305095902.png 1.5x, https://img.zhengyua.cn/img/20220305095902.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220305095902.png"
+        title="https://img.zhengyua.cn/img/20220305095902.png" /></p>
+<p>上述主函数中<code>printf</code>控制输出代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">_strwrite</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">string</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">char</span><span class="o">*</span> <span class="n">p_strdst</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="mh">0xb8000</span><span class="p">);</span><span class="c1">//指向显存的开始地址
+</span><span class="c1"></span>  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">string</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="o">*</span><span class="n">p_strdst</span> <span class="o">=</span> <span class="o">*</span><span class="n">string</span><span class="o">++</span><span class="p">;</span>
+    <span class="c1">// 这里省略了字符颜色信息
+</span><span class="c1"></span>    <span class="n">p_strdst</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="nf">printf</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">fmt</span><span class="p">,</span> <span class="p">...)</span>
+<span class="p">{</span>
+  <span class="n">_strwrite</span><span class="p">(</span><span class="n">fmt</span><span class="p">);</span>
+  <span class="k">return</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="make">make</h2>
+<p>make 即工具程序，会读取makefile文件中的规则自动化构建软件。</p>
+<p>makefile文件中的规则：</p>
+<ul>
+<li>首先有一个或者多个构建目标称为<code>target</code></li>
+<li>目标后面紧跟着用于构建该目标所需要的文件</li>
+<li>目标下面是构建该目标所需要的命令及参数</li>
+<li>同时检查文件的依赖关系</li>
+</ul>
+<p>demo如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">CC</span> <span class="o">=</span> gcc <span class="c1">#定义一个宏CC 等于gcc</span>
+<span class="nv">CFLAGS</span> <span class="o">=</span> -c <span class="c1">#定义一个宏 CFLAGS 等于-c</span>
+<span class="nv">OBJS_FILE</span> <span class="o">=</span> file.o file1.o file2.o file3.o file4.o <span class="c1">#定义一个宏</span>
+<span class="nf">.PHONY </span><span class="o">:</span> <span class="n">all</span> <span class="n">everything</span> <span class="c">#定义两个伪目标all、everything
+</span><span class="c"></span><span class="nf">all</span><span class="o">:</span><span class="n">everything</span> <span class="c">#伪目标all依赖于伪目标everything
+</span><span class="c"></span><span class="nf">everything </span><span class="o">:</span><span class="k">$(</span><span class="nv">OBJS_FILE</span><span class="k">)</span> <span class="c">#伪目标everything依赖于OBJS_FILE，而OBJS_FILE是宏会被
+</span><span class="c">#替换成file.o file1.o file2.o file3.o file4.o
+</span><span class="c"></span><span class="nf">%.o </span><span class="o">:</span> %.<span class="n">c</span>
+   <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="nv">$@</span> $&lt;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>#</code>后面为注释</li>
+<li><code>:=</code>或<code>=</code>可定义宏，引用宏时要用<code>$(宏名)</code>，宏最终会在宏出现的地方替换成相应的字符串</li>
+<li><code>PHONY</code> 表示定义伪目标（不代表一个真正的文件名），在执行 make 时可以指定这个目标来执行其所在规则定义的命令</li>
+<li>伪目标可以依赖于另一个伪目标或者文件</li>
+<li><code>%.o : %.c</code>，其中%表示通配符，表示所有以“.o”结尾的文件依赖于所有以“.c”结尾的文件</li>
+</ul>
+<blockquote>
+<p>这里补充下上面 GCC 编译的过程，我们可以手动控制该流程来得到相应的中间文件：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220305102135.png"
+        data-srcset="https://img.zhengyua.cn/img/20220305102135.png, https://img.zhengyua.cn/img/20220305102135.png 1.5x, https://img.zhengyua.cn/img/20220305102135.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220305102135.png"
+        title="https://img.zhengyua.cn/img/20220305102135.png" /></p>
+<p><code>gcc HelloWorld.c -E -o  HelloWorld.i</code>预处理：加入头文件，替换宏</p>
+<p><code>gcc HelloWorld.c -S -c -o HelloWorld.s</code>编译：包含预处理，将 C 程序转换成汇编程序</p>
+<p><code>gcc HelloWorld.c -c -o HelloWorld.o</code>汇编：包含预处理和编译，将汇编程序转换成可链接的二进制程序</p>
+<p><code>gcc HelloWorld.c -o HelloWorld</code>链接：包含以上所有操作，将可链接的二进制程序和其它别的库链接在一起，形成可执行的程序文件</p>
+</blockquote>
+<h2 id="编译">编译</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220305100940.png"
+        data-srcset="https://img.zhengyua.cn/img/20220305100940.png, https://img.zhengyua.cn/img/20220305100940.png 1.5x, https://img.zhengyua.cn/img/20220305100940.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220305100940.png"
+        title="https://img.zhengyua.cn/img/20220305100940.png" /></p>
+<h2 id="安装">安装</h2>
+<p><strong>当<code>Hello OS.bin</code>生成之后，需要让 GRUB 能够发现才能在启动时被加载，该过程称之为安装。</strong></p>
+<p>我们通过 GRUB 启动时的规整，即加载一个<code>grub.cfg</code>的文本文件，根据其中的内容执行相应的操作，其中一部分内容就是启动项。在启动时<strong>可选择不同的启动项后根据选择的启动项信息来加载 OS 文件到内存</strong>。</p>
+<p>下面即 Hello OS 的启动项：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-PYTHON" data-lang="PYTHON"><span class="n">menuentry</span> <span class="s1">&#39;HelloOS&#39;</span> <span class="p">{</span>
+     <span class="n">insmod</span> <span class="n">part_msdos</span> <span class="c1">#GRUB加载分区模块识别分区</span>
+     <span class="n">insmod</span> <span class="n">ext2</span> <span class="c1">#GRUB加载ext文件系统模块识别ext文件系统</span>
+     <span class="nb">set</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;hd0,msdos4&#39;</span> <span class="c1">#注意boot目录挂载的分区，</span>
+     <span class="n">multiboot2</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">HelloOS</span><span class="o">.</span><span class="n">bin</span> <span class="c1">#GRUB以multiboot2协议加载HelloOS.bin</span>
+     <span class="n">boot</span> <span class="c1">#GRUB启动HelloOS.bin</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>上面Boot目录挂载分区可通过<code>df /boot/</code>命令查询，并且需要由特殊 GRUB 的命名方式。
+eg:<code>“hd0,msdos4”</code>，代表sda4就是硬盘的第四个分区（硬件分区选择 MBR），hd0 表示第一块硬盘，结合起来就是第一块硬盘的第四个分区。</p>
+</blockquote>
+<p>把上面启动项的代码追加到 Linux 机器上的<code>/boot/grub/grub.cfg</code>文件末尾，并且把上面生成的<code>Hello OS.bin</code>文件复制到<code>/boot/</code>目录下。</p>
+<blockquote>
+<p>需要注意的是，Ubuntu或者其他操作系统进入 GRUB 引导界面可能也需要进行设置，比如 Ubuntu 默认就是关闭和隐藏的，需要修改<code>/etc/default/grub</code>配置才能够看到。</p>
+</blockquote>
+<p>最后重启计算机，你就可以看到 Hello OS 的启动选项了。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220305114135.png"
+        data-srcset="https://img.zhengyua.cn/img/20220305114135.png, https://img.zhengyua.cn/img/20220305114135.png 1.5x, https://img.zhengyua.cn/img/20220305114135.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220305114135.png"
+        title="https://img.zhengyua.cn/img/20220305114135.png" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/20220305114059.png"
+        data-srcset="https://img.zhengyua.cn/img/20220305114059.png, https://img.zhengyua.cn/img/20220305114059.png 1.5x, https://img.zhengyua.cn/img/20220305114059.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/20220305114059.png"
+        title="https://img.zhengyua.cn/img/20220305114059.png" /></p>
+<h2 id="参考">参考</h2>
+<p><a href="https://time.geekbang.org/column/intro/100078401?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/column/intro/100078401?tab=catalog</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-05</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/os/common/1.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-title="HelloOs" data-hashtags="os,note,汇编"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-hashtag="os"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-title="HelloOs" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-title="HelloOs"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-title="HelloOs"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-title="HelloOs" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-title="HelloOs" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/os/common/1.html/" data-title="HelloOs"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/os/">os</a>,&nbsp;<a href="/tags/note/">note</a>,&nbsp;<a href="/tags/%E6%B1%87%E7%BC%96/">汇编</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/search_engine/es/1.html/" class="prev" rel="prev" title="ElasticSearch基本概念"><i class="fas fa-angle-left fa-fw"></i>ElasticSearch基本概念</a>
+            <a href="/posts/search_engine/es/1.html/" class="next" rel="next" title="ElasticSearch倒排索引&amp;Analysis分词">ElasticSearch倒排索引&amp;Analysis分词<i class="fas fa-angle-right fa-fw"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

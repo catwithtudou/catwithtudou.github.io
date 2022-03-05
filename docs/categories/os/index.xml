@@ -4,7 +4,14 @@
         <link>https://zhengyua.cn/categories/os/</link>
         <description>os - 分类 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 28 Jan 2022 20:58:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/os/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 05 Mar 2022 09:58:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/os/" rel="self" type="application/rss+xml" /><item>
+    <title>HelloOs</title>
+    <link>https://zhengyua.cn/posts/os/common/1.html/</link>
+    <pubDate>Sat, 05 Mar 2022 09:58:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/os/common/1.html/</guid>
+    <description><![CDATA[Hello OS 是基于硬件，一个最小的操作系统内核 Hello OS 的引导流程如下： BIOS 固件是固化在 PC 机主板上的 ROM 芯片中的，可掉电保存，它负责检测和初始化 CPU、内存及]]></description>
+</item><item>
     <title>程序运行原理Thinking</title>
     <link>https://zhengyua.cn/posts/os/common/0.html/</link>
     <pubDate>Fri, 28 Jan 2022 20:58:26 &#43;0800</pubDate>
