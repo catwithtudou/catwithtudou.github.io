@@ -4,7 +4,21 @@
         <link>https://zhengyua.cn/posts/</link>
         <description>所有文章 | </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sat, 05 Mar 2022 14:38:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Mon, 07 Mar 2022 10:50:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>os中的内核</title>
+    <link>https://zhengyua.cn/posts/os/common/2.html/</link>
+    <pubDate>Mon, 07 Mar 2022 10:50:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/os/common/2.html/</guid>
+    <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 计算机中的资源管理——内核 计算机中资源主要分为： 硬件资源（如总线、CPU、内存、硬盘、网卡、显卡]]></description>
+</item><item>
+    <title>ElasticSearchSearchAPI</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/3.html/</link>
+    <pubDate>Sun, 06 Mar 2022 20:25:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/3.html/</guid>
+    <description><![CDATA[Search API 概览 主要包含两部分： URL Search 在 URL 中使用查询参数 Request Body Search 使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的QueryDomainSpecificLanguag]]></description>
+</item><item>
     <title>ElasticSearch倒排索引&amp;Analysis分词</title>
     <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
     <pubDate>Sat, 05 Mar 2022 14:38:00 &#43;0800</pubDate>
@@ -60,19 +74,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/distributed_structure/structure/3.html/</guid>
     <description><![CDATA[MIT6824LEC1笔记:Map Reduce 课程地址 代码实现repo地址 即课程Lab1。]]></description>
-</item><item>
-    <title>MIT6824LEC3笔记:GFS</title>
-    <link>https://zhengyua.cn/posts/distributed_structure/structure/5.html/</link>
-    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/distributed_structure/structure/5.html/</guid>
-    <description><![CDATA[GFS 课程地址 Before gfs why is distributed storage hard High performance -&gt; shard data over many servers Many servers -&gt; constant faults Fault tolerance -&gt; replication replication -&gt; potential inconsistencies Better consistency -&gt; low performance it can sum up the all thinking points like: performance fault tolerance replication consistency these points have connection and influence each other. what would we like for consistency? There are two conditions]]></description>
-</item><item>
-    <title>MIT6824LEC4笔记:Primary-Backup Replication</title>
-    <link>https://zhengyua.cn/posts/distributed_structure/structure/1.html/</link>
-    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/distributed_structure/structure/1.html/</guid>
-    <description><![CDATA[Primary/Backup Replication 课程地址 the note from the lecture Primary/Backup Replication for Fault Tolerance Case study of VMware FT, an extreme version of the idea fault tolerance to provide availability despite server and network failures using replication What kinds of failures can replication deal with? &ldquo;fail-stop&rdquo; failure of a single replica fan stops working, CPU overheats and shuts itself down someone trips over replica&rsquo;s power cord or network]]></description>
 </item></channel>
 </rss>

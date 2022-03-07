@@ -1,11 +1,5 @@
----
-title: "ElasticSearchSearchAPI"
-date: 2022-03-06T20:25:00+08:00
-draft: false
-tags: ["search_engine","note","es"]
-categories: ["search engine"]
-slug: /search_engine/es/3
----
+# ElasticSearchSearchAPI
+
 
 ## Search API 概览
 
