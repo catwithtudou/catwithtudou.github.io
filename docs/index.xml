@@ -4,22 +4,50 @@
         <link>https://zhengyua.cn/</link>
         <description>一直是阵雨🌦️&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Mon, 07 Mar 2022 10:50:26 &#43;0800</lastBuildDate>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Tue, 08 Mar 2022 10:42:00 &#43;0800</lastBuildDate>
             <atom:link href="https://zhengyua.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>ElasticSearch聚合简介</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/7.html/</link>
+    <pubDate>Tue, 08 Mar 2022 10:42:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/7.html/</guid>
+    <description><![CDATA[简介 聚合是 Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析功能。通过聚合，我们可以得到数据的概览，是分析和总结全套的数据，而不是寻找单个文档。 Elasticsearch 的]]></description>
+</item><item>
+    <title>ElasticSearchTemplate使用</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/6.html/</link>
+    <pubDate>Tue, 08 Mar 2022 09:59:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/6.html/</guid>
+    <description><![CDATA[Index Template Index Template 可以设定 Mappings 和 Settings，并按照一定的规则自动匹配到新创建的索引上。 这里需要注意的是： 模板仅在一个索引被新创建时才会生效 修改模板]]></description>
+</item><item>
+    <title>ElasticSearch多字段特性&amp;自定义Analyzer</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/5.html/</link>
+    <pubDate>Tue, 08 Mar 2022 09:27:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/5.html/</guid>
+    <description><![CDATA[多字段特性 以不同的特性索引字段来实现不同的需求，即多字段的特性。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 PUT products { &#34;mappings&#34;:{ &#34;properties&#34;:{ &#34;company&#34;:{ &#34;type&#34;:&#34;text&#34;, &#34;fields&#34;:{ &#34;keyword&#34;:{ &#34;type&#34;:&#34;keyword&#34;, &#34;ignore_above&#34;:256, }]]></description>
+</item><item>
+    <title>ElasticSearchMapping</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/4.html/</link>
+    <pubDate>Mon, 07 Mar 2022 20:34:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/4.html/</guid>
+    <description><![CDATA[字段的数据类型 字段的数据类型主要如下： 简单类型 Text/Keyword Date Integer/Floating Boolean IPv4&amp;IPv6 复杂类型-对象和嵌套对象 对象类型/嵌套类型 特殊类型 geo_point&amp;geo_shape/percolator Mapping Mapping 类似数据库中的 Schema 的定义，作用]]></description>
+</item><item>
+    <title>ElasticSearchSearchAPI</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/3.html/</link>
+    <pubDate>Mon, 07 Mar 2022 20:20:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/3.html/</guid>
+    <description><![CDATA[Search API 概览 主要包含两部分： URL Search 在 URL 中使用查询参数 Request Body Search 使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的QueryDomainSpecificLanguag]]></description>
+</item><item>
     <title>os中的内核</title>
     <link>https://zhengyua.cn/posts/os/common/2.html/</link>
     <pubDate>Mon, 07 Mar 2022 10:50:26 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/os/common/2.html/</guid>
     <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 计算机中的资源管理——内核 计算机中资源主要分为： 硬件资源（如总线、CPU、内存、硬盘、网卡、显卡]]></description>
-</item><item>
-    <title>ElasticSearchSearchAPI</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/3.html/</link>
-    <pubDate>Sun, 06 Mar 2022 20:25:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/3.html/</guid>
-    <description><![CDATA[Search API 概览 主要包含两部分： URL Search 在 URL 中使用查询参数 Request Body Search 使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的QueryDomainSpecificLanguag]]></description>
 </item><item>
     <title>ElasticSearch倒排索引&amp;Analysis分词</title>
     <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
@@ -48,33 +76,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/search_engine/es/0.html/</guid>
     <description><![CDATA[ElasticSearch 简介 开源分布式搜索分析引擎 近实时（Near Real Time） 分布式存储/搜索/分析引擎 Elastic Search 起源是基于 Lucene 。Lucene 是基于 Java 开发的搜索引擎类库，]]></description>
-</item><item>
-    <title>《白话机器学习的数学》阅读笔记</title>
-    <link>https://zhengyua.cn/posts/ai/machine_learning/0.html/</link>
-    <pubDate>Sat, 26 Feb 2022 18:18:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/ai/machine_learning/0.html/</guid>
-    <description><![CDATA[概述 通过读取大量的数据、学习数据的特征并从中找出数据的模式。 这样的任务也被称为机器学习或者模式识别。 机器学习中比较擅长的任务： 回归（regr]]></description>
-</item><item>
-    <title>apm组件选型</title>
-    <link>https://zhengyua.cn/posts/distributed_structure/structure/8.html/</link>
-    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/distributed_structure/structure/8.html/</guid>
-    <description><![CDATA[APM组件选型 探针的性能 重点在agent对服务的吞吐量、CPU和内存的影响。 微服务的规模和动态性使数据收集的成本提高。 collector的可]]></description>
-</item><item>
-    <title>Git中的工作流</title>
-    <link>https://zhengyua.cn/posts/common_tech/git/0.html/</link>
-    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/common_tech/git/0.html/</guid>
-    <description><![CDATA[Git中的工作流 中心式协同工作流 一般过程如下： 从服务器上git pull origin master同步代码； 修改完后git commit到本地仓库中； 然后git push]]></description>
-</item><item>
-    <title>MIT6824LEC1笔记:Map Reduce</title>
-    <link>https://zhengyua.cn/posts/distributed_structure/structure/3.html/</link>
-    <pubDate>Sat, 29 Jan 2022 17:00:06 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/distributed_structure/structure/3.html/</guid>
-    <description><![CDATA[MIT6824LEC1笔记:Map Reduce 课程地址 代码实现repo地址 即课程Lab1。]]></description>
 </item></channel>
 </rss>

@@ -4,10 +4,38 @@
         <link>https://zhengyua.cn/tags/search_engine/</link>
         <description>search_engine - 标签 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 06 Mar 2022 20:25:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/search_engine/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Tue, 08 Mar 2022 10:42:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/search_engine/" rel="self" type="application/rss+xml" /><item>
+    <title>ElasticSearch聚合简介</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/7.html/</link>
+    <pubDate>Tue, 08 Mar 2022 10:42:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/7.html/</guid>
+    <description><![CDATA[简介 聚合是 Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析功能。通过聚合，我们可以得到数据的概览，是分析和总结全套的数据，而不是寻找单个文档。 Elasticsearch 的]]></description>
+</item><item>
+    <title>ElasticSearchTemplate使用</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/6.html/</link>
+    <pubDate>Tue, 08 Mar 2022 09:59:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/6.html/</guid>
+    <description><![CDATA[Index Template Index Template 可以设定 Mappings 和 Settings，并按照一定的规则自动匹配到新创建的索引上。 这里需要注意的是： 模板仅在一个索引被新创建时才会生效 修改模板]]></description>
+</item><item>
+    <title>ElasticSearch多字段特性&amp;自定义Analyzer</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/5.html/</link>
+    <pubDate>Tue, 08 Mar 2022 09:27:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/5.html/</guid>
+    <description><![CDATA[多字段特性 以不同的特性索引字段来实现不同的需求，即多字段的特性。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 PUT products { &#34;mappings&#34;:{ &#34;properties&#34;:{ &#34;company&#34;:{ &#34;type&#34;:&#34;text&#34;, &#34;fields&#34;:{ &#34;keyword&#34;:{ &#34;type&#34;:&#34;keyword&#34;, &#34;ignore_above&#34;:256, }]]></description>
+</item><item>
+    <title>ElasticSearchMapping</title>
+    <link>https://zhengyua.cn/posts/search_engine/es/4.html/</link>
+    <pubDate>Mon, 07 Mar 2022 20:34:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/es/4.html/</guid>
+    <description><![CDATA[字段的数据类型 字段的数据类型主要如下： 简单类型 Text/Keyword Date Integer/Floating Boolean IPv4&amp;IPv6 复杂类型-对象和嵌套对象 对象类型/嵌套类型 特殊类型 geo_point&amp;geo_shape/percolator Mapping Mapping 类似数据库中的 Schema 的定义，作用]]></description>
+</item><item>
     <title>ElasticSearchSearchAPI</title>
     <link>https://zhengyua.cn/posts/search_engine/es/3.html/</link>
-    <pubDate>Sun, 06 Mar 2022 20:25:00 &#43;0800</pubDate>
+    <pubDate>Mon, 07 Mar 2022 20:20:00 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/search_engine/es/3.html/</guid>
     <description><![CDATA[Search API 概览 主要包含两部分： URL Search 在 URL 中使用查询参数 Request Body Search 使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的QueryDomainSpecificLanguag]]></description>
