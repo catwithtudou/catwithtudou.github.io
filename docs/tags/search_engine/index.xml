@@ -60,5 +60,12 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/search_engine/es/0.html/</guid>
     <description><![CDATA[ElasticSearch 简介 开源分布式搜索分析引擎 近实时（Near Real Time） 分布式存储/搜索/分析引擎 Elastic Search 起源是基于 Lucene 。Lucene 是基于 Java 开发的搜索引擎类库，]]></description>
+</item><item>
+    <title>（WIP）《这就是搜索引擎》阅读笔记</title>
+    <link>https://zhengyua.cn/posts/search_engine/common/0.html/</link>
+    <pubDate>Sat, 26 Feb 2022 20:18:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/search_engine/common/0.html/</guid>
+    <description><![CDATA[第一章 搜索引擎及其技术架构 搜索引擎为何重要 搜索是目前解决信息过载的相对有效方式，在没有更有效的替代解决方式出来之前，搜索引擎作为互联网网站和]]></description>
 </item></channel>
 </rss>

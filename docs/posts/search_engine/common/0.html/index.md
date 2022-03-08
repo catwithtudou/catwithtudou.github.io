@@ -1,11 +1,5 @@
----
-title: "（WIP）《这就是搜索引擎》阅读笔记"
-date: 2022-02-26T20:18:00+08:00
-draft: false
-tags: ["search_engine","note"]
-categories: ["search engine"]
-slug: /search_engine/common/0
----
+# （WIP）《这就是搜索引擎》阅读笔记
+
 
 ## 第一章 搜索引擎及其技术架构
 
