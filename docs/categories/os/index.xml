@@ -4,7 +4,14 @@
         <link>https://zhengyua.cn/categories/os/</link>
         <description>os - 分类 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Mon, 07 Mar 2022 10:50:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/os/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/os/" rel="self" type="application/rss+xml" /><item>
+    <title>cpu工作模式</title>
+    <link>https://zhengyua.cn/posts/os/common/3.html/</link>
+    <pubDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/os/common/3.html/</guid>
+    <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 按照 CPU 功能升级迭代的顺序，CPU 的工作模式有： 实模式 保护模式 长模式 实模式 实模式又称实地址模式： 运]]></description>
+</item><item>
     <title>os中的内核</title>
     <link>https://zhengyua.cn/posts/os/common/2.html/</link>
     <pubDate>Mon, 07 Mar 2022 10:50:26 &#43;0800</pubDate>

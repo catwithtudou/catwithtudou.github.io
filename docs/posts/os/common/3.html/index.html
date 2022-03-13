@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>cpu工作模式 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="cpu工作模式" />
+<meta property="og:description" content="以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 按照 CPU 功能升级迭代的顺序，CPU 的工作模式有： 实模式 保护模式 长模式 实模式 实模式又称实地址模式： 运" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zhengyua.cn/posts/os/common/3.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-13T11:58:26+08:00" />
+<meta property="article:modified_time" content="2022-03-13T11:58:26+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
+
+<meta name="twitter:title" content="cpu工作模式"/>
+<meta name="twitter:description" content="以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 按照 CPU 功能升级迭代的顺序，CPU 的工作模式有： 实模式 保护模式 长模式 实模式 实模式又称实地址模式： 运"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/os/common/3.html/" /><link rel="prev" href="https://zhengyua.cn/posts/search_engine/es/7.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "cpu工作模式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/zhengyua.cn\/posts\/os\/common\/3.html\/"
+        },"genre": "posts","keywords": "os","wordcount":  3724 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/os\/common\/3.html\/","datePublished": "2022-03-13T11:58:26+08:00","dateModified": "2022-03-13T11:58:26+08:00","publisher": {
+            "@type": "Organization",
+            "name": "一直是阵雨🌦️"},"author": {
+                "@type": "Person",
+                "name": "一直是阵雨🌦️"
+            },"description": ""
+    }
+    </script></head>
+    <body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title=""><span id="id-1" class="typeit"></span></a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title=""><span id="id-2" class="typeit"></span></a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animated flipInX">cpu工作模式</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/os/"><i class="far fa-folder fa-fw"></i>os</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-13">2022-03-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3724 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#实模式">实模式</a>
+          <ul>
+            <li><a href="#实模式寄存器">实模式寄存器</a></li>
+            <li><a href="#实模式下访问内存">实模式下访问内存</a></li>
+            <li><a href="#实模式中断">实模式中断</a></li>
+          </ul>
+        </li>
+        <li><a href="#保护模式">保护模式</a>
+          <ul>
+            <li><a href="#保护模式寄存器">保护模式寄存器</a></li>
+            <li><a href="#保护模式特权级">保护模式特权级</a></li>
+            <li><a href="#保护模式段描述符">保护模式段描述符</a></li>
+            <li><a href="#保护模式段选择子">保护模式段选择子</a></li>
+            <li><a href="#保护模式平坦模型">保护模式平坦模型</a></li>
+            <li><a href="#保护模式中断">保护模式中断</a></li>
+            <li><a href="#切换到保护模式">切换到保护模式</a></li>
+          </ul>
+        </li>
+        <li><a href="#长模式">长模式</a>
+          <ul>
+            <li><a href="#长模式寄存器">长模式寄存器</a></li>
+            <li><a href="#长模式段描述符">长模式段描述符</a></li>
+            <li><a href="#长模式中断">长模式中断</a></li>
+            <li><a href="#切换到长模式">切换到长模式</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>以下主要来自 LMOS 大佬的操作系统课程中记录的笔记</p>
+</blockquote>
+<p>按照 CPU 功能升级迭代的顺序，CPU 的工作模式有：</p>
+<ul>
+<li>实模式</li>
+<li>保护模式</li>
+<li>长模式</li>
+</ul>
+<h2 id="实模式">实模式</h2>
+<p>实模式又称实地址模式：</p>
+<ul>
+<li>运行真实的指令，<strong>不区分直接执行</strong></li>
+<li>发往内存的地址是真实的，<strong>对任何地址不加限制地发往内存</strong></li>
+</ul>
+<h3 id="实模式寄存器">实模式寄存器</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203130951830.png"
+        data-srcset="https://img.zhengyua.cn/img/202203130951830.png, https://img.zhengyua.cn/img/202203130951830.png 1.5x, https://img.zhengyua.cn/img/202203130951830.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203130951830.png"
+        title="https://img.zhengyua.cn/img/202203130951830.png" /></p>
+<h3 id="实模式下访问内存">实模式下访问内存</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203130952433.png"
+        data-srcset="https://img.zhengyua.cn/img/202203130952433.png, https://img.zhengyua.cn/img/202203130952433.png 1.5x, https://img.zhengyua.cn/img/202203130952433.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203130952433.png"
+        title="https://img.zhengyua.cn/img/202203130952433.png" /></p>
+<p>可以发现所有的内存地址都是：</p>
+<ul>
+<li>段寄存器左移 4 位</li>
+<li>再加上一个通用寄存器中的值或者常数形成地址</li>
+<li>最后由这个地址去访问内存</li>
+</ul>
+<p>这就是<strong>分段内存管理模型</strong>。</p>
+<blockquote>
+<p>代码段是由 CS 和 IP 确定的，而栈段是由 SS 和 SP 段确定的。</p>
+</blockquote>
+<p>实模式下的汇编代码，共 16 位：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">data</span> <span class="no">SEGMENT</span> <span class="c">;定义一个数据段存放Hello World!
+</span><span class="c"></span>    <span class="no">hello</span>  <span class="no">DB</span> <span class="err">&#39;</span><span class="no">Hello</span> <span class="no">World</span><span class="p">!</span><span class="no">$</span><span class="err">&#39;</span> <span class="c">;注意要以$结束
+</span><span class="c"></span><span class="no">data</span> <span class="no">ENDS</span>
+<span class="nf">code</span> <span class="no">SEGMENT</span> <span class="c">;定义一个代码段存放程序指令
+</span><span class="c"></span>    <span class="no">ASSUME</span> <span class="no">CS</span><span class="p">:</span><span class="no">CODE</span><span class="p">,</span><span class="no">DS</span><span class="p">:</span><span class="no">DATA</span> <span class="c">;告诉汇编程序，DS指向数据段，CS指向代码段
+</span><span class="c"></span><span class="no">start</span><span class="p">:</span>
+    <span class="nf">MOV</span> <span class="no">AX</span><span class="p">,</span><span class="no">data</span>  <span class="c">;将data段首地址赋值给AX                
+</span><span class="c"></span>    <span class="no">MOV</span> <span class="no">DS</span><span class="p">,</span><span class="no">AX</span>    <span class="c">;将AX赋值给DS，使DS指向data段
+</span><span class="c"></span>    <span class="no">LEA</span> <span class="no">DX</span><span class="p">,</span><span class="no">hello</span> <span class="c">;使DX指向hello首地址
+</span><span class="c"></span>    <span class="no">MOV</span> <span class="no">AH</span><span class="p">,</span><span class="mi">09</span><span class="no">h</span>   <span class="c">;给AH设置参数09H，AH是AX高8位，AL是AX低8位，其它类似
+</span><span class="c"></span>    <span class="no">INT</span> <span class="mi">21</span><span class="no">h</span>      <span class="c">;执行DOS中断输出DS指向的DX指向的字符串hello
+</span><span class="c"></span>    <span class="no">MOV</span> <span class="no">AX</span><span class="p">,</span><span class="mi">4</span><span class="no">C00h</span> <span class="c">;给AX设置参数4C00h
+</span><span class="c"></span>    <span class="no">INT</span> <span class="mi">21</span><span class="no">h</span>      <span class="c">;调用4C00h号功能，结束程序
+</span><span class="c"></span><span class="no">code</span> <span class="no">ENDS</span>
+<span class="nf">END</span> <span class="no">start</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="实模式中断">实模式中断</h3>
+<p>实模式下的中断实现过程是<strong>先保存 CS 和 IP 寄存器，然后装载新的 CS 和 IP 寄存器</strong>。</p>
+<p>中断的产生分为两种：</p>
+<ul>
+<li><strong>硬件中断</strong>（中断控制器给 CPU 发送了一个电子信号，CPU 会对这个信号作出应答。随后中断控制器会将中断号发送给 CPU）</li>
+<li><strong>软件中断</strong>（ CPU 执行了<code>INT</code>指令，这个指令后面会跟随一个常数，这个常数即是软中断号）</li>
+</ul>
+<p>实现中断需要：</p>
+<ul>
+<li>内存中放一个<strong>中断向量表</strong></li>
+<li>中断向量表的地址和长度<strong>由 CPU 的特定寄存器 IDTR 指向</strong></li>
+</ul>
+<p>实模式下，<strong>表中的一个条目由代码段地址和段内偏移组成</strong>。CPU 根据 IDTR 通过中断号计算中断向量条目，进而装载 CS（装入代码段基地址）、IP（装入代码段内偏移）寄存器，最终响应中断。</p>
+<h2 id="保护模式">保护模式</h2>
+<p>为解决实模式中 CPU ：</p>
+<ul>
+<li><strong>对任何指令都不加区分</strong></li>
+<li><strong>对内存的访问都不加限制</strong></li>
+</ul>
+<p>基于上述问题 CPU 实现了保护模式。</p>
+<p>同时为了解决软件规模增大带来的寻址问题，<strong>保护模式下的寄存器和运算单位都要扩展成 32 位</strong>。</p>
+<h3 id="保护模式寄存器">保护模式寄存器</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131006244.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131006244.png, https://img.zhengyua.cn/img/202203131006244.png 1.5x, https://img.zhengyua.cn/img/202203131006244.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131006244.png"
+        title="https://img.zhengyua.cn/img/202203131006244.png" /></p>
+<blockquote>
+<p>保护模式相比于实模式，增加了一些控制寄存器和段寄存器，扩展通用寄存器的位宽，所有的通用寄存器都是 32 位的，还可以单独使用低 16 位，这个低 16 位又可以拆分成两个 8 位寄存器。</p>
+</blockquote>
+<h3 id="保护模式特权级">保护模式特权级</h3>
+<p><strong>为区分指令和资源可以被访问</strong>，CPU 实现了 特权级。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131007908.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131007908.png, https://img.zhengyua.cn/img/202203131007908.png 1.5x, https://img.zhengyua.cn/img/202203131007908.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131007908.png"
+        title="https://img.zhengyua.cn/img/202203131007908.png" /></p>
+<p>可以看到从外到内各权级之间的联系与区别。如 R0 拥有最大权力，可以访问低特权级的资源。</p>
+<h3 id="保护模式段描述符">保护模式段描述符</h3>
+<p>保护模式下内存还是分段模型，<strong>要对内存进行保护，就可以转换成对段的保护</strong>。</p>
+<ol>
+<li><strong>段描述符</strong></li>
+</ol>
+<p>保护模式下 16 位的段寄存器放不下 32位的段基地址和段内偏移，通过借内存空间，把描述一个段的信息封装成<strong>特定格式的段描述符，放在内存中</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131014669.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131014669.png, https://img.zhengyua.cn/img/202203131014669.png 1.5x, https://img.zhengyua.cn/img/202203131014669.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131014669.png"
+        title="https://img.zhengyua.cn/img/202203131014669.png" /></p>
+<ol start="2">
+<li><strong>全局描述符</strong></li>
+</ol>
+<p>多个段描述符在内存中形成全局段描述符表，<strong>该表的基地址和长度由 CPU 和 GDTR 寄存器指示</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131016813.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131016813.png, https://img.zhengyua.cn/img/202203131016813.png 1.5x, https://img.zhengyua.cn/img/202203131016813.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131016813.png"
+        title="https://img.zhengyua.cn/img/202203131016813.png" /></p>
+<ol start="3">
+<li><strong>访问段</strong></li>
+</ol>
+<ul>
+<li>保护模式下<strong>段寄存器会存放段描述符索引</strong>（而不是段基地址）</li>
+</ul>
+<p>访问内存地址时，段寄存器中的索引结合 GDTR 寄存器找到内存中的段描述符，再根据其中段信息判断是否能访问成功。</p>
+<h3 id="保护模式段选择子">保护模式段选择子</h3>
+<p>保护模式下的段寄存器存放的有<strong>影子寄存器、段描述符索引、描述符表索引、权限级别组成的</strong>：</p>
+<ul>
+<li>影子寄存器：硬件操作，高速缓存提升性能，64位适配段描述符数据</li>
+<li>低三位的 TI 和 RPL：对齐段描述符的8字节，每个索引低3位都为0</li>
+<li>CPL（当前权限级别）：通常由 CS 和 SS 中 RPL 组成，当 CPL 大于目标段 DPL 则禁止访问</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131021155.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131021155.png, https://img.zhengyua.cn/img/202203131021155.png 1.5x, https://img.zhengyua.cn/img/202203131021155.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131021155.png"
+        title="https://img.zhengyua.cn/img/202203131021155.png" /></p>
+<h3 id="保护模式平坦模型">保护模式平坦模型</h3>
+<blockquote>
+<p>分段模型有很多权限，现代操作系统大多使用分页模型。</p>
+</blockquote>
+<p>在 x86 CPU 中不能直接使用分页模型，需要在分段模型的前提下，根据需要决定是否要开启分页。因为硬件的规定，<strong>我们只能简化设计，来使分段成为一种“虚设”，即保护模式的平坦模型</strong>。</p>
+<p>CPU 32 位的寄存器最多只能产生 4GB 大小的地址，而一个段长度也只能是 4GB，所以我们把：</p>
+<ul>
+<li>所有段的基地址设为 0</li>
+<li>段的长度设为 0xFFFFF</li>
+<li>段长度的粒度设为 4KB</li>
+</ul>
+<p>这样所有的<strong>段都指向同一个（0~4GB-1）字节大小的地址空间</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">
+<span class="nl">GDT_START:</span>
+<span class="nl">knull_dsc:</span> <span class="nf">dq</span> <span class="mi">0</span>
+<span class="c">;第一个段描述符CPU硬件规定必须为0
+</span><span class="c"></span><span class="nl">kcode_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf9e000000ffff</span>
+<span class="c">;段基地址=0，段长度=0xfffff
+</span><span class="c">;G=1,D/B=1,L=0,AVL=0 
+</span><span class="c">;P=1,DPL=0,S=1
+</span><span class="c">;T=1,C=1,R=1,A=0
+</span><span class="c">;（段基址31:24） 0000 0000
+</span><span class="c">;（G、D/B、L、AVL）1100
+</span><span class="c">;（段长度19:16）1111
+</span><span class="c">;（P、DPL、DPL、S、T、C、R、A）1001 1110
+</span><span class="c">;（段基址23:0）0000 0000 0000 0000 0000 0000
+</span><span class="c">;（段长度15:0）1111 1111 1111 1111
+</span><span class="c"></span><span class="nl">kdata_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf92000000ffff</span>
+<span class="c">;段基地址=0，段长度=0xfffff
+</span><span class="c">;G=1,D/B=1,L=0,AVL=0 
+</span><span class="c">;P=1,DPL=0,S=1
+</span><span class="c">;T=0,C=0,R=1,A=0
+</span><span class="c"></span><span class="nl">GDT_END:</span>
+
+<span class="nl">GDT_PTR:</span>
+<span class="nf">GDTLEN</span>  <span class="no">dw</span> <span class="no">GDT_END-GDT_START-1</span>
+<span class="nf">GDTBASE</span>  <span class="no">dd</span> <span class="no">GDT_START</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="保护模式中断">保护模式中断</h3>
+<ul>
+<li>实模式下 CPU 不需要做权限检查，所以可直接通过中断向量表中的值装载 CS:IP 寄存器</li>
+<li>保护模式下的中断需要权限检查和特权级的切换，所以<strong>需要扩展中断向量表的信息</strong>，即每个中断用一个中断门描述符来表示（简称为中断门）</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131042594.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131042594.png, https://img.zhengyua.cn/img/202203131042594.png 1.5x, https://img.zhengyua.cn/img/202203131042594.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131042594.png"
+        title="https://img.zhengyua.cn/img/202203131042594.png" /></p>
+<p>保护模式下中断实现与实模式大致相同，<strong>区别在于条目换成了中断门描述符</strong>。其产生中断的主要过程如下：</p>
+<ul>
+<li>检查<strong>中断门描述符</strong></li>
+<li>检查中断门描述符中的<strong>段选择子指向的段描述符</strong></li>
+<li><strong>权限检查</strong>：
+<ul>
+<li>若 CPL &lt;= 中断门的 DPL（有权限能执行中断）</li>
+<li>且 CPL &gt;= 中断门中的段选择子所指向的段描述符的 DPL（能够进入相应的服务程序），就指向段描述符的 DPL（此时 CPL 等于 DPL）</li>
+<li>若 CPL &gt; 中断门中的段选择子指向的段描述符的 DPL，则进行栈切换（需要从 TSS 中加载具体权限的 SS、ESP，也要对 SS 中段选择子指向的段描述符进行检查）</li>
+</ul>
+</li>
+<li>检查后加载中断门描述符中：
+<ul>
+<li><strong>目标代码段选择子到 CS 寄存器中</strong></li>
+<li><strong>目标代码段偏移加载到 EIP 寄存器中</strong></li>
+</ul>
+</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131044009.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131044009.png, https://img.zhengyua.cn/img/202203131044009.png 1.5x, https://img.zhengyua.cn/img/202203131044009.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131044009.png"
+        title="https://img.zhengyua.cn/img/202203131044009.png" /></p>
+<h3 id="切换到保护模式">切换到保护模式</h3>
+<p>x86 CPU 在<strong>第一次加电和每次 reset 后，都会自动进入实模式</strong>，若要进入保护模式，则需要通过代码实现切换,其步骤如下:</p>
+<ol>
+<li><strong>准备全局段描述符表</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">GDT_START:</span>
+<span class="nl">knull_dsc:</span> <span class="nf">dq</span> <span class="mi">0</span>
+<span class="nl">kcode_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf9e000000ffff</span>
+<span class="nl">kdata_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf92000000ffff</span>
+<span class="nl">GDT_END:</span>
+<span class="nl">GDT_PTR:</span>
+<span class="nf">GDTLEN</span>  <span class="no">dw</span> <span class="no">GDT_END-GDT_START-1</span>
+<span class="nf">GDTBASE</span>  <span class="no">dd</span> <span class="no">GDT_START</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li><strong>加载设置 GDTR 寄存器，使之指向全局段描述符表</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">lgdt</span> <span class="p">[</span><span class="no">GDT_PTR</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li><strong>设置 CR0 寄存器，开启保护模式</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="c">;开启 PE
+</span><span class="c"></span><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr0</span>
+<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span>                      
+<span class="c">;CR0.PE =1
+</span><span class="c">;bts指令的意思是 bit test and set 位测试并设置
+</span><span class="c">;判断 eax 与0，若 eax == 0，bts 会将 CF = 1，并将eax置位（即设置为1）
+</span><span class="c">;然后把 CR0 的最低位设为1之后，即开启了保护模式
+</span><span class="c"></span><span class="no">mov</span> <span class="no">cr0</span><span class="p">,</span> <span class="no">eax</span>         
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li><strong>进行长跳转，加载 CS 段寄存器，即段选择子</strong></li>
+</ol>
+<p>长跳转的目的在于无法直接或间接 mov 一个数据到 CS 寄存器中，因为刚刚开启保护模式时，CS 的影子寄存器还是实模式下的值，所以需要告诉 CPU 加载新的段信息。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">jmp</span> <span class="no">dword</span> <span class="mi">0x8</span> <span class="p">:</span><span class="no">_32bits_mode</span>
+<span class="c">;_32bits_mode为32位代码标号即段偏移
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>这里填入CS的值是0x8，根据段选择子的格式定义：</p>
+<p>0x8： INDEX TI CPL 0000 0000 1 00 0</p>
+<ul>
+<li>INDEX代表GDT中的索引</li>
+<li>TI代表使用GDTR中的GDT</li>
+<li>CPL代表处于特权级，即GDT表中的第1个（index从0开始）描述符</li>
+</ul>
+<p>_32bits_mode作为段内偏移，然后得 GDT第一个1段描述符 + _32bits_mode的内存地址 = 段基址 + 段内偏移地址</p>
+</blockquote>
+<ol start="5">
+<li><strong>进入保护模式</strong></li>
+</ol>
+<ul>
+<li>CPU 发现了 CRO 寄存器第 0 位的值是 1</li>
+<li>按 GDTR 的指示找到全局描述符表</li>
+<li>然后根据索引值 8，进行一系列合法检查</li>
+<li>把新的段描述符信息加载到 CS 影子寄存器</li>
+</ul>
+<h2 id="长模式">长模式</h2>
+<p>长模式又名 AMD64（该标准是 AMD 公司最早定义的），<strong>它使 CPU 在现有的基础上有了 64 位的处理能力</strong>（完成 64 位数据运算和寻址 64 位的地址空间）。</p>
+<h3 id="长模式寄存器">长模式寄存器</h3>
+<p>长模式相比于保护模式，增加了一些通用寄存器，并扩展通用寄存器的位宽，所有的通用寄存器都是 64 位，还可以单独使用低 32 位。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131113440.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131113440.png, https://img.zhengyua.cn/img/202203131113440.png 1.5x, https://img.zhengyua.cn/img/202203131113440.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131113440.png"
+        title="https://img.zhengyua.cn/img/202203131113440.png" /></p>
+<h3 id="长模式段描述符">长模式段描述符</h3>
+<p>与保护模式绝大多数特性相同，如特权级和权限检查。</p>
+<p>长模式下的段描述符格式如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131114066.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131114066.png, https://img.zhengyua.cn/img/202203131114066.png 1.5x, https://img.zhengyua.cn/img/202203131114066.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131114066.png"
+        title="https://img.zhengyua.cn/img/202203131114066.png" /></p>
+<p>在长模式下，<strong>弱化段模式管理，CPU 不再对段基址和段长度进行检查（地址检查交给 MMU），只对 DPL 进行相关的检查</strong>。同样也有全局段描述符，且由 CPU 的 GDTR 寄存器指向。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">ex64_GDT:</span>
+<span class="nl">null_dsc:</span>  <span class="nf">dq</span> <span class="mi">0</span>
+<span class="c">;第一个段描述符CPU硬件规定必须为0
+</span><span class="c"></span><span class="nl">c64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0020980000000000</span>  <span class="c">;64位代码段
+</span><span class="c">;无效位填0
+</span><span class="c">;D/B=0,L=1,AVL=0 
+</span><span class="c">;P=1,DPL=0,S=1
+</span><span class="c">;T=1,C=0,R=0,A=0
+</span><span class="c"></span><span class="no">d64_dsc</span><span class="p">:</span><span class="no">dq</span> <span class="mi">0x0000920000000000</span>  <span class="c">;64位数据段
+</span><span class="c">;无效位填0
+</span><span class="c">;P=1,DPL=0,S=1
+</span><span class="c">;T=0,C/E=0,R/W=1,A=0
+</span><span class="c"></span><span class="no">eGdtLen</span>   <span class="no">equ</span> <span class="no">$</span> <span class="p">-</span> <span class="no">null_dsc</span>  <span class="c">;GDT长度
+</span><span class="c"></span><span class="no">eGdtPtr</span><span class="p">:</span><span class="no">dw</span> <span class="no">eGdtLen</span> <span class="p">-</span> <span class="mi">1</span>  <span class="c">;GDT界限
+</span><span class="c"></span>     <span class="no">dq</span> <span class="no">ex64_GDT</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>段描述符的 DPL=0，这说明需要最高权限即 CPL=0 才能访问。
+若是数据段的话，G、D/B、L 位都是无效的。</p>
+</blockquote>
+<h3 id="长模式中断">长模式中断</h3>
+<p>长模式的中断与保护模式的中断过程大致相同，主要区别在于中断门描述符格式为适应64位进行了修改和扩展：</p>
+<ul>
+<li>在原有基础上增加 8 字节，用于存放目标段偏移的高 32 位值（支持 64 位寻址）</li>
+<li>目标代码段选择子对应的代码段描述符必须是 64 位的代码段</li>
+<li>IST 是 64 位 TSS 中的 IST 指针</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img.zhengyua.cn/img/202203131120421.png"
+        data-srcset="https://img.zhengyua.cn/img/202203131120421.png, https://img.zhengyua.cn/img/202203131120421.png 1.5x, https://img.zhengyua.cn/img/202203131120421.png 2x"
+        data-sizes="auto"
+        alt="https://img.zhengyua.cn/img/202203131120421.png"
+        title="https://img.zhengyua.cn/img/202203131120421.png" /></p>
+<h3 id="切换到长模式">切换到长模式</h3>
+<p>切换到长模式的步骤如下：</p>
+<ol>
+<li><strong>准备长模式全局段描述符表</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">
+<span class="nl">ex64_GDT:</span>
+<span class="nl">null_dsc:</span>  <span class="nf">dq</span> <span class="mi">0</span>
+<span class="c">;第一个段描述符CPU硬件规定必须为0
+</span><span class="c"></span><span class="nl">c64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0020980000000000</span>  <span class="c">;64位代码段
+</span><span class="c"></span><span class="no">d64_dsc</span><span class="p">:</span><span class="no">dq</span> <span class="mi">0x0000920000000000</span>  <span class="c">;64位数据段
+</span><span class="c"></span><span class="no">eGdtLen</span>   <span class="no">equ</span> <span class="no">$</span> <span class="p">-</span> <span class="no">null_dsc</span>  <span class="c">;GDT长度
+</span><span class="c"></span><span class="no">eGdtPtr</span><span class="p">:</span><span class="no">dw</span> <span class="no">eGdtLen</span> <span class="p">-</span> <span class="mi">1</span>  <span class="c">;GDT界限
+</span><span class="c"></span>     <span class="no">dq</span> <span class="no">ex64_GDT</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li><strong>准备 MMU 页表开启分页</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">
+<span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr4</span>
+<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">5</span>   <span class="c">;CR4.PAE = 1
+</span><span class="c"></span><span class="no">mov</span> <span class="no">cr4</span><span class="p">,</span> <span class="no">eax</span> <span class="c">;开启 PAE
+</span><span class="c"></span><span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">PAGE_TLB_BADR</span> <span class="c">;页表物理地址
+</span><span class="c"></span><span class="no">mov</span> <span class="no">cr3</span><span class="p">,</span> <span class="no">eax</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>长模式下内存地址空间的保护交给了 MMU，MMU 依赖页表对地址进行转换，页表有特定的格式存放在内存中，其地址由 CPU 的 CR3 寄存器指向</p>
+</blockquote>
+<ol start="3">
+<li><strong>加载 GDTR 寄存器，使之指向全局段描述表</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">lgdt</span> <span class="p">[</span><span class="no">eGdtPtr</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><ol start="4">
+<li><strong>开启长模式同时开启保护模式和分页模式</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="c">;开启 64位长模式
+</span><span class="c"></span><span class="nf">mov</span> <span class="no">ecx</span><span class="p">,</span> <span class="no">IA32_EFER</span>
+<span class="nf">rdmsr</span>
+<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">8</span>  <span class="c">;IA32_EFER.LME =1
+</span><span class="c"></span><span class="no">wrmsr</span>
+<span class="c">;开启 保护模式和分页模式
+</span><span class="c"></span><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr0</span>
+<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span>    <span class="c">;CR0.PE =1
+</span><span class="c"></span><span class="no">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">31</span>
+<span class="nf">mov</span> <span class="no">cr0</span><span class="p">,</span> <span class="no">eax</span> 
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>在实现长模式时定义了 MSR 寄存器，需要用专用的指令 rdmsr、wrmsr 进行读写，IA32_EFER 寄存器的地址为 0xC0000080，它的第 8 位决定了是否开启长模式。</p>
+</blockquote>
+<ol start="5">
+<li><strong>进行跳转，加载 CS 段寄存器，刷新其影子寄存器</strong></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">jmp</span> <span class="mi">08</span><span class="p">:</span><span class="no">entry64</span> <span class="c">;entry64为程序标号即64位偏移地址
+</span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-13</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"><span>
+                            <a class="link-to-markdown" href="/posts/os/common/3.html/index.md" target="_blank">阅读原始文档</a>
+                        </span></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-title="cpu工作模式" data-hashtags="os"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-hashtag="os"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-title="cpu工作模式" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-title="cpu工作模式"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-title="cpu工作模式"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-title="cpu工作模式" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-title="cpu工作模式" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/os/common/3.html/" data-title="cpu工作模式"><i class="fab fa-evernote fa-fw"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/os/">os</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/search_engine/es/7.html/" class="prev" rel="prev" title="ElasticSearch聚合简介"><i class="fas fa-angle-left fa-fw"></i>ElasticSearch聚合简介</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container">
+            <div class="footer-line">
+                <span id="run-time"></span>
+            </div>
+            <span id="busuanzi_container_site_pv">
+                本站访问量：<span id="busuanzi_value_site_pv"></span>次
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">渝ICP备19012006号-1</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw"></i>
+            </a>
+        </div><link rel="stylesheet" href="/lib/lightgallery/lightgallery.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script type="text/javascript" src="/lib/smooth-scroll/smooth-scroll.min.js"></script><script type="text/javascript" src="/lib/autocomplete/autocomplete.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.stemmer.support.min.js"></script><script type="text/javascript" src="/lib/lunr/lunr.zh.min.js"></script><script type="text/javascript" src="/lib/lazysizes/lazysizes.min.js"></script><script type="text/javascript" src="/lib/twemoji/twemoji.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lightgallery.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-thumbnail.min.js"></script><script type="text/javascript" src="/lib/lightgallery/lg-zoom.min.js"></script><script type="text/javascript" src="/lib/clipboard/clipboard.min.js"></script><script type="text/javascript" src="/lib/sharer/sharer.min.js"></script><script type="text/javascript" src="/lib/typeit/typeit.min.js"></script><script type="text/javascript" src="/lib/katex/katex.min.js"></script><script type="text/javascript" src="/lib/katex/auto-render.min.js"></script><script type="text/javascript" src="/lib/katex/copy-tex.min.js"></script><script type="text/javascript" src="/lib/katex/mhchem.min.js"></script><script type="text/javascript" src="/lib/cookieconsent/cookieconsent.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":10},"comment":{},"cookieconsent":{"content":{"dismiss":"同意","link":"了解更多","message":"本网站使用 Cookies 来改善您的浏览体验."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"data":{"id-1":"一直是阵雨🌦️'s blog","id-2":"一直是阵雨🌦️'s blog"},"lightGallery":{"actualSize":false,"exThumbImage":"data-thumbnail","hideBarsDelay":2000,"selector":".lightgallery","speed":400,"thumbContHeight":80,"thumbWidth":80,"thumbnail":true},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"$$","right":"$$"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"},{"display":false,"left":"$","right":"$"}],"strict":false},"search":{"highlightTag":"em","lunrIndexURL":"/index.json","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"lunr"},"twemoji":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"],"id-2":["id-2"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@2.1.3/dist/jquery.min.js"></script><script type="text/javascript" src="/js/custom.js"></script><script type="text/javascript">
+            window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());
+            gtag('config', 'G-J45YPF1TLY', { 'anonymize_ip': true });
+        </script><script type="text/javascript" src="https://www.googletagmanager.com/gtag/js?id=G-J45YPF1TLY" async></script><script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a129553334cecc8d46914f193ead738b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id: "Ja18LNgLATVSfW2h",ck: "Ja18LNgLATVSfW2h"})</script></body>
+</html>

@@ -1,11 +1,5 @@
----
-title: "cpu工作模式"
-date: 2022-03-13T11:58:26+08:00
-draft: false
-tags: ["os"]
-categories: ["os"]
-slug: /os/common/3
----
+# cpu工作模式
+
 
 > 以下主要来自 LMOS 大佬的操作系统课程中记录的笔记
 
