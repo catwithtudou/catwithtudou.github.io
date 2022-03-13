@@ -4,9 +4,16 @@
         <link>https://zhengyua.cn/</link>
         <description>一直是阵雨🌦️&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</lastBuildDate>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 13 Mar 2022 20:00:06 &#43;0800</lastBuildDate>
             <atom:link href="https://zhengyua.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>思维导图的使用</title>
+    <link>https://zhengyua.cn/posts/common_tech/study_way/0.html/</link>
+    <pubDate>Sun, 13 Mar 2022 20:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/common_tech/study_way/0.html/</guid>
+    <description><![CDATA[在讲述如何使用思维导图之前，我们不妨先思考为什么在一开始我们需要思维导图？ 带着这一问题，我们首先来简单了解下思维导图的本质。 思维导图的本质 简]]></description>
+</item><item>
     <title>cpu工作模式</title>
     <link>https://zhengyua.cn/posts/os/common/3.html/</link>
     <pubDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/os/common/1.html/</guid>
     <description><![CDATA[Hello OS 是基于硬件，一个最小的操作系统内核 Hello OS 的引导流程如下： BIOS 固件是固化在 PC 机主板上的 ROM 芯片中的，可掉电保存，它负责检测和初始化 CPU、内存及]]></description>
-</item><item>
-    <title>ElasticSearch基本概念</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
-    <pubDate>Thu, 03 Mar 2022 09:24:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/1.html/</guid>
-    <description><![CDATA[文档（Document） Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位 文档会被序列化成 JSON 格式，保存在 Elasticsearch 中 JSON 对象由字段构成 每个字段都有对应的字]]></description>
 </item></channel>
 </rss>

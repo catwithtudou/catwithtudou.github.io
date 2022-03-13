@@ -2,13 +2,17 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://zhengyua.cn/</loc><lastmod>2022-03-13T11:58:26&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/categories/</loc><lastmod>2022-03-13T11:58:26&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/categories/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/posts/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/tags/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/tags/%E5%AD%A6%E4%B9%A0%E6%95%88%E7%8E%87/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/posts/common_tech/study_way/0.html/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/tags/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
+            <loc>https://zhengyua.cn/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</loc><lastmod>2022-03-13T20:00:06&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/posts/os/common/3.html/</loc><lastmod>2022-03-13T11:58:26&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/os/</loc><lastmod>2022-03-13T11:58:26&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/categories/os/</loc><lastmod>2022-03-13T11:58:26&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/posts/</loc><lastmod>2022-03-13T11:58:26&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/tags/</loc><lastmod>2022-03-13T11:58:26&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/posts/search_engine/es/7.html/</loc><lastmod>2022-03-08T10:42:00&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/es/</loc><lastmod>2022-03-08T10:42:00&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/note/</loc><lastmod>2022-03-08T10:42:00&#43;08:00</lastmod></url><url>
@@ -50,8 +54,6 @@
             <loc>https://zhengyua.cn/tags/%E6%9E%B6%E6%9E%84%E6%9C%AC%E8%B4%A8/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/%E7%86%94%E6%96%AD/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/posts/common_tech/error/0.html/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/tags/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>
-            <loc>https://zhengyua.cn/categories/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</loc><lastmod>2022-01-29T17:00:06&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/tags/go/</loc><lastmod>2022-01-29T02:28:06&#43;08:00</lastmod></url><url>
             <loc>https://zhengyua.cn/categories/go/</loc><lastmod>2022-01-29T02:28:06&#43;08:00</lastmod></url><url>
