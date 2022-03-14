@@ -2,7 +2,7 @@
 title: "cpu工作模式"
 date: 2022-03-13T11:58:26+08:00
 draft: false
-tags: ["os"]
+tags: ["os","note"]
 categories: ["os"]
 slug: /os/common/3
 ---
@@ -371,3 +371,7 @@ mov cr0, eax
 ```asm
 jmp 08:entry64 ;entry64为程序标号即64位偏移地址
 ```
+
+## 参考
+
+https://time.geekbang.org/column/intro/100078401?tab=catalog

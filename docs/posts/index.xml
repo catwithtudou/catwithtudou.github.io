@@ -62,10 +62,10 @@
     <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 计算机中的资源管理——内核 计算机中资源主要分为： 硬件资源（如总线、CPU、内存、硬盘、网卡、显卡]]></description>
 </item><item>
     <title>ElasticSearch倒排索引&amp;Analysis分词</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
+    <link>https://zhengyua.cn/posts/search_engine/es/2.html/</link>
     <pubDate>Sat, 05 Mar 2022 14:38:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/1.html/</guid>
+    <guid>https://zhengyua.cn/posts/search_engine/es/2.html/</guid>
     <description><![CDATA[正排索引和倒排索引 书籍的目录也是生活中常见的正排索引。 倒排索引核心组成 其主要包含两个部分： 单词词典（Term Dictionary） 记录所有的]]></description>
 </item><item>
     <title>HelloOs</title>

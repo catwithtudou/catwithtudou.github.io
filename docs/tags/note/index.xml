@@ -4,7 +4,14 @@
         <link>https://zhengyua.cn/tags/note/</link>
         <description>note - 标签 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Tue, 08 Mar 2022 10:42:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/note/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/note/" rel="self" type="application/rss+xml" /><item>
+    <title>cpu工作模式</title>
+    <link>https://zhengyua.cn/posts/os/common/3.html/</link>
+    <pubDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/os/common/3.html/</guid>
+    <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 按照 CPU 功能升级迭代的顺序，CPU 的工作模式有： 实模式 保护模式 长模式 实模式 实模式又称实地址模式： 运]]></description>
+</item><item>
     <title>ElasticSearch聚合简介</title>
     <link>https://zhengyua.cn/posts/search_engine/es/7.html/</link>
     <pubDate>Tue, 08 Mar 2022 10:42:00 &#43;0800</pubDate>
@@ -48,10 +55,10 @@
     <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 计算机中的资源管理——内核 计算机中资源主要分为： 硬件资源（如总线、CPU、内存、硬盘、网卡、显卡]]></description>
 </item><item>
     <title>ElasticSearch倒排索引&amp;Analysis分词</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
+    <link>https://zhengyua.cn/posts/search_engine/es/2.html/</link>
     <pubDate>Sat, 05 Mar 2022 14:38:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/1.html/</guid>
+    <guid>https://zhengyua.cn/posts/search_engine/es/2.html/</guid>
     <description><![CDATA[正排索引和倒排索引 书籍的目录也是生活中常见的正排索引。 倒排索引核心组成 其主要包含两个部分： 单词词典（Term Dictionary） 记录所有的]]></description>
 </item><item>
     <title>HelloOs</title>
@@ -67,12 +74,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/search_engine/es/1.html/</guid>
     <description><![CDATA[文档（Document） Elasticsearch 是面向文档的，文档是所有可搜索数据的最小单位 文档会被序列化成 JSON 格式，保存在 Elasticsearch 中 JSON 对象由字段构成 每个字段都有对应的字]]></description>
-</item><item>
-    <title>ElasticSearch初识</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/0.html/</link>
-    <pubDate>Mon, 28 Feb 2022 09:24:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/0.html/</guid>
-    <description><![CDATA[ElasticSearch 简介 开源分布式搜索分析引擎 近实时（Near Real Time） 分布式存储/搜索/分析引擎 Elastic Search 起源是基于 Lucene 。Lucene 是基于 Java 开发的搜索引擎类库，]]></description>
 </item></channel>
 </rss>

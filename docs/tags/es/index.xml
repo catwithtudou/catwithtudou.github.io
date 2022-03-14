@@ -41,10 +41,10 @@
     <description><![CDATA[Search API 概览 主要包含两部分： URL Search 在 URL 中使用查询参数 Request Body Search 使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的QueryDomainSpecificLanguag]]></description>
 </item><item>
     <title>ElasticSearch倒排索引&amp;Analysis分词</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/1.html/</link>
+    <link>https://zhengyua.cn/posts/search_engine/es/2.html/</link>
     <pubDate>Sat, 05 Mar 2022 14:38:00 &#43;0800</pubDate>
     <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/1.html/</guid>
+    <guid>https://zhengyua.cn/posts/search_engine/es/2.html/</guid>
     <description><![CDATA[正排索引和倒排索引 书籍的目录也是生活中常见的正排索引。 倒排索引核心组成 其主要包含两个部分： 单词词典（Term Dictionary） 记录所有的]]></description>
 </item><item>
     <title>ElasticSearch基本概念</title>

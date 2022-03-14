@@ -1,11 +1,5 @@
----
-title: "ElasticSearch倒排索引&Analysis分词"
-date: 2022-03-05T14:38:00+08:00
-draft: false
-tags: ["search_engine","note","es"]
-categories: ["search engine"]
-slug: /search_engine/es/2
----
+# ElasticSearch倒排索引&Analysis分词
+
 
 ## 正排索引和倒排索引
 
@@ -912,5 +906,6 @@ POST _analyze
 ## 参考
 
 https://time.geekbang.org/course/intro/100030501?tab=catalog
+
 
 
