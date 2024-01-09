@@ -167,16 +167,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 把一个节点选举为主节点且会设置一个值
-</span><span class="c1">// 这是一个阻塞方法，在调用它的时候会被阻塞，直到满足下面的三个条件之一，才会取消阻塞。成功当选为主；此方法返回错误；ctx 被取消
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Campaign</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="nx">val</span> <span class="kt">string</span><span class="p">)</span><span class="kt">error</span>
-
-<span class="c1">// 重新设置 Leader 的值，但是不会重新选主，这个方法会返回新值设置成功或者失败的信息
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Proclaim</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
-
-<span class="c1">// 开始新一次选举。这个方法会返回新的选举成功或者失败的信息
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Resign</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 把一个节点选举为主节点且会设置一个值
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 这是一个阻塞方法，在调用它的时候会被阻塞，直到满足下面的三个条件之一，才会取消阻塞。成功当选为主；此方法返回错误；ctx 被取消
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Campaign</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span><span class="nx">val</span> <span class="kt">string</span><span class="p">)</span><span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 重新设置 Leader 的值，但是不会重新选主，这个方法会返回新值设置成功或者失败的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Proclaim</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">val</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 开始新一次选举。这个方法会返回新的选举成功或者失败的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Resign</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="查询">查询</h3>
 <p>有以下和查询相关的提供的方法：</p>
@@ -190,13 +190,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 查询当前 Leader 的方法 Leader，如果当前还没有 Leader，就返回一个错误
-</span><span class="c1">// 可以使用这个方法来查询主节点信息。
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Leader</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">v3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
-
-<span class="c1">// 每次主节点的变动都会生成一个新的版本号，你还可以查询版本号信息（Rev 方法），了解主节点变动情况
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Rev</span><span class="p">()</span> <span class="kt">int64</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 查询当前 Leader 的方法 Leader，如果当前还没有 Leader，就返回一个错误
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 可以使用这个方法来查询主节点信息。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Leader</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">v3</span><span class="p">.</span><span class="nx">GetResponse</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 每次主节点的变动都会生成一个新的版本号，你还可以查询版本号信息（Rev 方法），了解主节点变动情况
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Rev</span><span class="p">()</span> <span class="kt">int64</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="监控">监控</h3>
 <p>有以下和监控相关的提供的方法：</p>
@@ -208,11 +208,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 监控主节点的变化
-</span><span class="c1">// 它会返回一个 chan，显示主节点的变动信息
-</span><span class="c1">// 需要注意的是它不会返回主节点的全部历史变动信息，而是只返回最近的一条变动信息以及之后的变动信息
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Observe</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">v3</span><span class="p">.</span><span class="nx">GetResponse</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 监控主节点的变化
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 它会返回一个 chan，显示主节点的变动信息
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 需要注意的是它不会返回主节点的全部历史变动信息，而是只返回最近的一条变动信息以及之后的变动信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Election</span><span class="p">)</span> <span class="nf">Observe</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">v3</span><span class="p">.</span><span class="nx">GetResponse</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="互斥锁">互斥锁</h2>
 <p>主要关注在分布在不同机器中的不同进程内的 goroutine，如何利用分布式互斥锁来保护共享资源。</p>
@@ -224,8 +224,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">NewLocker</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Session</span><span class="p">,</span><span class="nx">pfx</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Locker</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">NewLocker</span><span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Session</span><span class="p">,</span><span class="nx">pfx</span> <span class="kt">string</span><span class="p">)</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Locker</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="mutex">Mutex</h3>
 <p>Mutex 并没有实现 sync.Locker 接口，它的 Lock/Unlock 方法需要提供一个 context.Context 实例做参数，可以得知在请求锁的时候，你可以设置超时时间，或者主动取消请求。</p>
@@ -272,7 +272,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

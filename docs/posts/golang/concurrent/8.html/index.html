@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/8.html\/"
-        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  1673 ,
+        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  1672 ,
         "url": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/8.html\/","datePublished": "2022-01-29T02:28:06+08:00","dateModified": "2022-01-29T02:28:06+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Go并发编程实战课笔记—Once</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1673 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1672 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -154,8 +154,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>标准库中较为常见的比如在标准库内部cache的实现上就使用了Once初始化Cache资源，包括defaultDir的获取，还有一些测试的时候初始化测试的资源。</p>
@@ -176,19 +176,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 值是3.0或者0.0的一个数据结构
-</span><span class="c1"></span><span class="kd">var</span> <span class="nx">threeOnce</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
-	<span class="nx">v</span> <span class="o">*</span><span class="nx">Float</span>
-<span class="p">}</span>
-<span class="c1">// 返回此数据结构的值，如果还没有初始化为3.0，则初始化
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">three</span><span class="p">()</span> <span class="o">*</span><span class="nx">Float</span> <span class="p">{</span>
-	<span class="nx">threeOnce</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// 使用Once初始化
-</span><span class="c1"></span>		<span class="nx">threeOnce</span><span class="p">.</span><span class="nx">v</span> <span class="p">=</span> <span class="nf">NewFloat</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
-	<span class="p">})</span>
-	<span class="k">return</span> <span class="nx">threeOnce</span><span class="p">.</span><span class="nx">v</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 值是3.0或者0.0的一个数据结构
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">var</span> <span class="nx">threeOnce</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">v</span> <span class="o">*</span><span class="nx">Float</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 返回此数据结构的值，如果还没有初始化为3.0，则初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">three</span><span class="p">()</span> <span class="o">*</span><span class="nx">Float</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">threeOnce</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="c1">// 使用Once初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">threeOnce</span><span class="p">.</span><span class="nx">v</span> <span class="p">=</span> <span class="nf">NewFloat</span><span class="p">(</span><span class="mf">3.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">threeOnce</span><span class="p">.</span><span class="nx">v</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></blockquote>
 <h2 id="实现once">实现Once</h2>
@@ -215,25 +215,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Once</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">done</span> <span class="kt">uint32</span>
-	<span class="nx">m</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="nx">o</span><span class="p">.</span><span class="nf">doSlow</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">doSlow</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
-	<span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-	<span class="k">defer</span> <span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-	<span class="c1">// 双检查
-</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">o</span><span class="p">.</span><span class="nx">done</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="k">defer</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-		<span class="nf">f</span><span class="p">()</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Once</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">done</span> <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">o</span><span class="p">.</span><span class="nf">doSlow</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">doSlow</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">())</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 双检查
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">o</span><span class="p">.</span><span class="nx">done</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="可能出现的错误">可能出现的错误</h2>
 <h3 id="死锁">死锁</h3>
@@ -248,13 +248,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">once</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
-<span class="nx">once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;初始化&#34;</span><span class="p">)</span>
-	<span class="p">})</span>
-<span class="p">})</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">once</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
+</span></span><span class="line"><span class="cl"><span class="nx">once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;初始化&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="未初始化">未初始化</h3>
 <p>如果f方法执行的时候panic，或者f执行初始化资源的时候失败了，这个时候，Once还是会认为初次执行已经成功了，即使再次调用Do方法，也不会再次执行f。</p>
@@ -291,33 +291,33 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">
-<span class="kd">type</span> <span class="nx">ReOnce</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">m</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
-	<span class="nx">done</span> <span class="kt">uint32</span>
-<span class="p">}</span>
-<span class="c1">// 传入的函数f有返回值error，如果初始化失败，需要返回失败的error
-</span><span class="c1">// Do方法会把这个error返回给调用者
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">ReOnce</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span> <span class="c1">//fast path
-</span><span class="c1"></span>		<span class="k">return</span> <span class="kc">nil</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nf">slowDo</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="c1">// 如果还没有初始化
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">ReOnce</span><span class="p">)</span> <span class="nf">slowDo</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
-	<span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-	<span class="k">defer</span> <span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
-	<span class="k">if</span> <span class="nx">o</span><span class="p">.</span><span class="nx">done</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 双检查，还没有初始化
-</span><span class="c1"></span>		<span class="nx">err</span> <span class="p">=</span> <span class="nf">f</span><span class="p">()</span>
-		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span> <span class="c1">// 初始化成功才将标记置为已初始化
-</span><span class="c1"></span>			<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="nx">err</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">ReOnce</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">done</span> <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 传入的函数f有返回值error，如果初始化失败，需要返回失败的error
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Do方法会把这个error返回给调用者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">ReOnce</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span> <span class="c1">//fast path
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nf">slowDo</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 如果还没有初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">ReOnce</span><span class="p">)</span> <span class="nf">slowDo</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span> <span class="kt">error</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">o</span><span class="p">.</span><span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">err</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">o</span><span class="p">.</span><span class="nx">done</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 双检查，还没有初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">err</span> <span class="p">=</span> <span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span> <span class="c1">// 初始化成功才将标记置为已初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">done</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">err</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>若想要查询初始化过的情况则还需要一个辅助变量来检查</li>
@@ -342,23 +342,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">AnimalStore</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">once</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
-	<span class="nx">inited</span> <span class="kt">uint32</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">AnimalStore</span><span class="p">)</span> <span class="nf">Init</span><span class="p">(){</span> <span class="c1">// 可以被并发调用
-</span><span class="c1"></span>	<span class="nx">a</span><span class="p">.</span><span class="nx">once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-		<span class="nf">longOperationSetupDbOpenFilesQueuesEtc</span><span class="p">()</span>
-		<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">.</span><span class="nx">inited</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-	<span class="p">})</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">AnimalStore</span><span class="p">)</span> <span class="nf">CountOfCats</span><span class="p">()</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 另外一个goroutine
-</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">.</span><span class="nx">inited</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 初始化后才会执行真正的业务逻辑
-</span><span class="c1"></span>		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">NotYetInitedError</span>
-	<span class="p">}</span>
-	<span class="c1">//Real operation
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">AnimalStore</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">once</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">inited</span> <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">AnimalStore</span><span class="p">)</span> <span class="nf">Init</span><span class="p">(){</span> <span class="c1">// 可以被并发调用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">a</span><span class="p">.</span><span class="nx">once</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">longOperationSetupDbOpenFilesQueuesEtc</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">atomic</span><span class="p">.</span><span class="nf">StoreUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">.</span><span class="nx">inited</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">AnimalStore</span><span class="p">)</span> <span class="nf">CountOfCats</span><span class="p">()</span> <span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 另外一个goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">a</span><span class="p">.</span><span class="nx">inited</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 初始化后才会执行真正的业务逻辑
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">NotYetInitedError</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//Real operation
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>但若是有一个Done方法直接使用判断是否初始化过则更为简便</li>
@@ -377,17 +377,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// Once 是一个扩展的sync.Once类型，提供了一个Done方法
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Once</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
-<span class="p">}</span>
-<span class="c1">// Done 返回此Once是否执行过
-</span><span class="c1">// 如果执行过则返回true
-</span><span class="c1">// 如果没有执行过或者正在执行，返回false
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Done</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">((</span><span class="o">*</span><span class="kt">uint32</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">Once</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">1</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// Once 是一个扩展的sync.Once类型，提供了一个Done方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Once</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Done 返回此Once是否执行过
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 如果执行过则返回true
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 如果没有执行过或者正在执行，返回false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">o</span> <span class="o">*</span><span class="nx">Once</span><span class="p">)</span> <span class="nf">Done</span><span class="p">()</span> <span class="kt">bool</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint32</span><span class="p">((</span><span class="o">*</span><span class="kt">uint32</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">o</span><span class="p">.</span><span class="nx">Once</span><span class="p">)))</span> <span class="o">==</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="重复初始化">重复初始化</h3>
 <p>若类似于想要实现增加一个Reset方法来重新初始化Once，使之能够重新使用。</p>
@@ -423,37 +423,35 @@
 </span><span class="lnt">24
 </span><span class="lnt">25
 </span><span class="lnt">26
-</span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">MuOnce</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
-	<span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
-	<span class="nx">mtime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
-	<span class="nx">vals</span> <span class="p">[]</span><span class="kt">string</span>
-<span class="p">}</span>
-
-<span class="c1">// 相当于reset方法，会将m.Once重新复制一个Once
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">MuOnce</span><span class="p">)</span> <span class="nf">refresh</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-	<span class="k">defer</span> <span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-	<span class="nx">m</span><span class="p">.</span><span class="nx">Once</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span><span class="p">{}</span>
-	<span class="nx">m</span><span class="p">.</span><span class="nx">mtime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-	<span class="nx">m</span><span class="p">.</span><span class="nx">vals</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="nx">m</span><span class="p">.</span><span class="nx">mtime</span><span class="p">.</span><span class="nf">String</span><span class="p">()}</span>
-<span class="p">}</span>
-<span class="c1">// 获取某个初始化的值，如果超过某个时间，会reset Once
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">MuOnce</span><span class="p">)</span> <span class="nf">strings</span><span class="p">()</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
-	<span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
-	<span class="nx">m</span><span class="p">.</span><span class="nf">RLock</span><span class="p">()</span>
-	<span class="k">if</span> <span class="nx">now</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">mtime</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">defer</span> <span class="nx">m</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">refresh</span><span class="p">)</span> <span class="c1">// 使用refresh函数重新初始化
-</span><span class="c1"></span>	<span class="p">}</span>
-	<span class="nx">vals</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">vals</span>
-	<span class="nx">m</span><span class="p">.</span><span class="nf">RUnlock</span><span class="p">()</span>
-	<span class="k">return</span> <span class="nx">vals</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">MuOnce</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">mtime</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">vals</span> <span class="p">[]</span><span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 相当于reset方法，会将m.Once重新复制一个Once
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">MuOnce</span><span class="p">)</span> <span class="nf">refresh</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">m</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">Once</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Once</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">mtime</span> <span class="p">=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nx">vals</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="nx">m</span><span class="p">.</span><span class="nx">mtime</span><span class="p">.</span><span class="nf">String</span><span class="p">()}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 获取某个初始化的值，如果超过某个时间，会reset Once
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">MuOnce</span><span class="p">)</span> <span class="nf">strings</span><span class="p">()</span> <span class="p">[]</span><span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">now</span> <span class="o">:=</span> <span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nf">RLock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">now</span><span class="p">.</span><span class="nf">After</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">mtime</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">defer</span> <span class="nx">m</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">m</span><span class="p">.</span><span class="nx">refresh</span><span class="p">)</span> <span class="c1">// 使用refresh函数重新初始化
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">vals</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">vals</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">.</span><span class="nf">RUnlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">vals</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们需要注意从once的实现原理中的lock，若更改了Once的指针则会影响该lock也重新生成即初始化，则defer之后的unlock就会释放未加锁的mutex，所以最后就会报错。</p>
 </div><div class="post-footer" id="post-footer">
@@ -492,7 +490,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

@@ -228,67 +228,67 @@
 </span><span class="lnt">60
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">
-  <span class="c1">// 代表一个正在处理的请求，或者已经处理完的请求
-</span><span class="c1"></span>  <span class="kd">type</span> <span class="nx">call</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-  
-
-    <span class="c1">// 这个字段代表处理完的值，在waitgroup完成之前只会写一次
-</span><span class="c1"></span>        <span class="c1">// waitgroup完成之后就读取这个值
-</span><span class="c1"></span>    <span class="nx">val</span> <span class="kd">interface</span><span class="p">{}</span>
-    <span class="nx">err</span> <span class="kt">error</span>
-  
-        <span class="c1">// 指示当call在处理时是否要忘掉这个key
-</span><span class="c1"></span>    <span class="nx">forgotten</span> <span class="kt">bool</span>
-    <span class="nx">dups</span>  <span class="kt">int</span>
-    <span class="nx">chans</span> <span class="p">[]</span><span class="kd">chan</span><span class="o">&lt;-</span> <span class="nx">Result</span>
-  <span class="p">}</span>
-  
-    <span class="c1">// group代表一个singleflight对象
-</span><span class="c1"></span>  <span class="kd">type</span> <span class="nx">Group</span> <span class="kd">struct</span> <span class="p">{</span>
-    <span class="nx">mu</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>       <span class="c1">// protects m
-</span><span class="c1"></span>    <span class="nx">m</span>  <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">call</span> <span class="c1">// lazily initialized
-</span><span class="c1"></span>  <span class="p">}</span>
-
-
-  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">))</span> <span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">,</span> <span class="nx">shared</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-    <span class="k">if</span> <span class="nx">g</span><span class="p">.</span><span class="nx">m</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
-      <span class="nx">g</span><span class="p">.</span><span class="nx">m</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">call</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span><span class="c1">//如果已经存在相同的key
-</span><span class="c1"></span>      <span class="nx">c</span><span class="p">.</span><span class="nx">dups</span><span class="o">++</span>
-      <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-      <span class="nx">c</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span> <span class="c1">//等待这个key的第一个请求完成
-</span><span class="c1"></span>      <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span><span class="p">,</span> <span class="kc">true</span> <span class="c1">//使用第一个key的请求结果
-</span><span class="c1"></span>    <span class="p">}</span>
-    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="c1">// 第一个请求，创建一个call
-</span><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-    <span class="nx">g</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="p">=</span> <span class="nx">c</span> <span class="c1">//加入到key map中
-</span><span class="c1"></span>    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-  
-
-    <span class="nx">g</span><span class="p">.</span><span class="nf">doCall</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span> <span class="c1">// 调用方法
-</span><span class="c1"></span>    <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dups</span> <span class="p">&gt;</span> <span class="mi">0</span>
-  <span class="p">}</span>
-
-
-  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">doCall</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">call</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span> <span class="p">=</span> <span class="nf">fn</span><span class="p">()</span>
-    <span class="nx">c</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-  
-
-    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-    <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">forgotten</span> <span class="p">{</span> <span class="c1">// 已调用完，删除这个key // 在默认情况下 forgotten == false
-</span><span class="c1"></span>      <span class="nb">delete</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">m</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
-    <span class="p">}</span>
-    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span><span class="p">.</span><span class="nx">chans</span> <span class="p">{</span>
-      <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">Result</span><span class="p">{</span><span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dups</span> <span class="p">&gt;</span> <span class="mi">0</span><span class="p">}</span>
-    <span class="p">}</span>
-    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-  <span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="c1">// 代表一个正在处理的请求，或者已经处理完的请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">type</span> <span class="nx">call</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 这个字段代表处理完的值，在waitgroup完成之前只会写一次
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="c1">// waitgroup完成之后就读取这个值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">val</span> <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">err</span> <span class="kt">error</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">        <span class="c1">// 指示当call在处理时是否要忘掉这个key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">forgotten</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dups</span>  <span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">chans</span> <span class="p">[]</span><span class="kd">chan</span><span class="o">&lt;-</span> <span class="nx">Result</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">    <span class="c1">// group代表一个singleflight对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">type</span> <span class="nx">Group</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mu</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span>       <span class="c1">// protects m
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">m</span>  <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">call</span> <span class="c1">// lazily initialized
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Do</span><span class="p">(</span><span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">))</span> <span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">,</span> <span class="nx">shared</span> <span class="kt">bool</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">g</span><span class="p">.</span><span class="nx">m</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">g</span><span class="p">.</span><span class="nx">m</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">call</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">g</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span><span class="c1">//如果已经存在相同的key
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nx">c</span><span class="p">.</span><span class="nx">dups</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">c</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span> <span class="c1">//等待这个key的第一个请求完成
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span><span class="p">,</span> <span class="kc">true</span> <span class="c1">//使用第一个key的请求结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="nx">call</span><span class="p">)</span> <span class="c1">// 第一个请求，创建一个call
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">c</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nx">m</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="p">=</span> <span class="nx">c</span> <span class="c1">//加入到key map中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nf">doCall</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">key</span><span class="p">,</span> <span class="nx">fn</span><span class="p">)</span> <span class="c1">// 调用方法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dups</span> <span class="p">&gt;</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">doCall</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">call</span><span class="p">,</span> <span class="nx">key</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span> <span class="p">=</span> <span class="nf">fn</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="p">.</span><span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">!</span><span class="nx">c</span><span class="p">.</span><span class="nx">forgotten</span> <span class="p">{</span> <span class="c1">// 已调用完，删除这个key // 在默认情况下 forgotten == false
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="nb">delete</span><span class="p">(</span><span class="nx">g</span><span class="p">.</span><span class="nx">m</span><span class="p">,</span> <span class="nx">key</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">c</span><span class="p">.</span><span class="nx">chans</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">Result</span><span class="p">{</span><span class="nx">c</span><span class="p">.</span><span class="nx">val</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">err</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">dups</span> <span class="p">&gt;</span> <span class="mi">0</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">g</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="应用场景">应用场景</h3>
 <p>Go 代码库中有两个地方用到了 SingleFlight：</p>
@@ -319,26 +319,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">
-<span class="kd">func</span> <span class="nf">metaImportsForPrefix</span><span class="p">(</span><span class="nx">importPrefix</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">mod</span> <span class="nx">ModuleMode</span><span class="p">,</span> <span class="nx">security</span> <span class="nx">web</span><span class="p">.</span><span class="nx">SecurityMode</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">urlpkg</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span> <span class="p">[]</span><span class="nx">metaImport</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 使用缓存保存请求结果
-</span><span class="c1"></span>    <span class="nx">setCache</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">res</span> <span class="nx">fetchResult</span><span class="p">)</span> <span class="p">(</span><span class="nx">fetchResult</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-      <span class="k">defer</span> <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-      <span class="nx">fetchCache</span><span class="p">[</span><span class="nx">importPrefix</span><span class="p">]</span> <span class="p">=</span> <span class="nx">res</span>
-      <span class="k">return</span> <span class="nx">res</span><span class="p">,</span> <span class="kc">nil</span>
-    
-        <span class="c1">// 使用 SingleFlight请求
-</span><span class="c1"></span>    <span class="nx">resi</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">fetchGroup</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">importPrefix</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="nx">resi</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
-      <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-            <span class="c1">// 如果缓存中有数据，那么直接从缓存中取
-</span><span class="c1"></span>      <span class="k">if</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">fetchCache</span><span class="p">[</span><span class="nx">importPrefix</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
-        <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-        <span class="k">return</span> <span class="nx">res</span><span class="p">,</span> <span class="kc">nil</span>
-      <span class="p">}</span>
-      <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-            <span class="o">......</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">metaImportsForPrefix</span><span class="p">(</span><span class="nx">importPrefix</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">mod</span> <span class="nx">ModuleMode</span><span class="p">,</span> <span class="nx">security</span> <span class="nx">web</span><span class="p">.</span><span class="nx">SecurityMode</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">urlpkg</span><span class="p">.</span><span class="nx">URL</span><span class="p">,</span> <span class="p">[]</span><span class="nx">metaImport</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 使用缓存保存请求结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">setCache</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">res</span> <span class="nx">fetchResult</span><span class="p">)</span> <span class="p">(</span><span class="nx">fetchResult</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="k">defer</span> <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">fetchCache</span><span class="p">[</span><span class="nx">importPrefix</span><span class="p">]</span> <span class="p">=</span> <span class="nx">res</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="nx">res</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">        <span class="c1">// 使用 SingleFlight请求
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">resi</span><span class="p">,</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">fetchGroup</span><span class="p">.</span><span class="nf">Do</span><span class="p">(</span><span class="nx">importPrefix</span><span class="p">,</span> <span class="kd">func</span><span class="p">()</span> <span class="p">(</span><span class="nx">resi</span> <span class="kd">interface</span><span class="p">{},</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// 如果缓存中有数据，那么直接从缓存中取
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>      <span class="k">if</span> <span class="nx">res</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">fetchCache</span><span class="p">[</span><span class="nx">importPrefix</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">res</span><span class="p">,</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="nx">fetchCacheMu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="o">......</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中都涉及到了缓存的问题。用 SingleFlight 来解决缓存击穿问题较为合适，并发的请求可以共享同一个查询结构，且因为为缓存查询不用考虑其幂等性问题。</p>
 <p>SingleFilght 时<strong>可以通过合并请求的方式降低对下游服务的并发压力，从而提高系统的性能，常常用于缓存系统中</strong>。</p>
@@ -361,9 +361,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">parties</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">CyclicBarrier</span> <span class="c1">//指定循环栅栏参与者的数量
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewWithAction</span><span class="p">(</span><span class="nx">parties</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">barrierAction</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span> <span class="nx">CyclicBarrier</span> <span class="c1">//提供一个函数可以在每一次到达执行点的时候执行一次
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">parties</span> <span class="kt">int</span><span class="p">)</span> <span class="nx">CyclicBarrier</span> <span class="c1">//指定循环栅栏参与者的数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">NewWithAction</span><span class="p">(</span><span class="nx">parties</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">barrierAction</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span> <span class="nx">CyclicBarrier</span> <span class="c1">//提供一个函数可以在每一次到达执行点的时候执行一次
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中第二个方法中具体的时间点是在最后一个参与者到达之后，但是其它的参与者还未被放行之前，我们可以利用它，做放行之前的一些共享状态的更新等操作。</p>
 <p>使用的时候循环栅栏的参与者只需要调用 Await() 方法等待，等所有的参与者到达后再执行下一步，同时循环栅栏的状态恢复到初始的状态，可迎接下一轮同样多的参与者。</p>
@@ -405,7 +405,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

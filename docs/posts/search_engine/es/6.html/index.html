@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/6.html\/"
-        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  1570 ,
+        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  1569 ,
         "url": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/6.html\/","datePublished": "2022-03-08T09:59:00+08:00","dateModified": "2022-03-08T09:59:00+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ElasticSearchTemplate使用</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/search-engine/"><i class="far fa-folder fa-fw"></i>search engine</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-08">2022-03-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1570 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-08">2022-03-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1569 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -344,214 +344,212 @@
 </span><span class="lnt">201
 </span><span class="lnt">202
 </span><span class="lnt">203
-</span><span class="lnt">204
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#Create</span> <span class="err">a</span> <span class="err">default</span> <span class="err">template</span>
-<span class="err">PUT</span> <span class="err">_template/template_default</span>
-<span class="p">{</span>
-  <span class="nt">&#34;index_patterns&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;*&#34;</span><span class="p">],</span>
-  <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;number_of_shards&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;number_of_replicas&#34;</span><span class="p">:</span><span class="mi">1</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">PUT</span> <span class="err">_template/template_test</span>
-<span class="p">{</span>
-    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&#34;test*&#34;</span><span class="p">],</span>
-    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    	<span class="nt">&#34;number_of_shards&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    	<span class="nt">&#34;date_detection&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    	<span class="nt">&#34;numeric_detection&#34;</span><span class="p">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#查看template信息</span>
-<span class="err">GET</span> <span class="err">/_template/template_default</span>
-
-<span class="err">#</span> <span class="err">返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;template_default&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&#34;*&#34;</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
-    <span class="nt">&#34;aliases&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#使用通配符查看template信息</span>
-<span class="err">GET</span> <span class="err">/_template/temp*</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;template_test&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&#34;test*&#34;</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;numeric_detection&#34;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&#34;date_detection&#34;</span> <span class="p">:</span> <span class="kc">false</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;aliases&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;template_default&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="s2">&#34;*&#34;</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span>
-      <span class="p">}</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
-    <span class="nt">&#34;aliases&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#数字字符串被映射成text，日期字符串被映射成日期</span>
-<span class="err">PUT</span> <span class="err">ttemplate/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-	<span class="nt">&#34;someNumber&#34;</span><span class="p">:</span><span class="s2">&#34;1&#34;</span><span class="p">,</span>
-	<span class="nt">&#34;someDate&#34;</span><span class="p">:</span><span class="s2">&#34;2019/01/01&#34;</span>
-<span class="p">}</span>
-<span class="err">GET</span> <span class="err">ttemplate/_mapping</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;ttemplate&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;someDate&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;date&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;format&#34;</span> <span class="p">:</span> <span class="s2">&#34;yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;someNumber&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#写入新的数据，index以test开头</span>
-<span class="err">PUT</span> <span class="err">testtemplate/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-	<span class="nt">&#34;someNumber&#34;</span><span class="p">:</span><span class="s2">&#34;1&#34;</span><span class="p">,</span>
-	<span class="nt">&#34;someDate&#34;</span><span class="p">:</span><span class="s2">&#34;2019/01/01&#34;</span>
-<span class="p">}</span>
-<span class="err">GET</span> <span class="err">testtemplate/_mapping</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;testtemplate&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;date_detection&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-      <span class="nt">&#34;numeric_detection&#34;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;someDate&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="err">#可以看到这里并没有命中字段类型日期匹配</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;someNumber&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;long&#34;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">get</span> <span class="err">testtemplate/_settings</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;testtemplate&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;creation_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;1646703465756&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;wLIqiv5VToSVKctGSbT1Kg&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;created&#34;</span> <span class="p">:</span> <span class="s2">&#34;7010099&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;provided_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;testtemplate&#34;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">PUT</span> <span class="err">testmy</span>
-<span class="p">{</span>
-	<span class="nt">&#34;settings&#34;</span><span class="p">:{</span>
-		<span class="nt">&#34;number_of_replicas&#34;</span><span class="p">:</span><span class="mi">5</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">put</span> <span class="err">testmy/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;key&#34;</span><span class="p">:</span><span class="s2">&#34;value&#34;</span>
-<span class="p">}</span>
-
-<span class="err">get</span> <span class="err">testmy/_settings</span>
-
-<span class="err">#返回如下</span>
-<span class="p">{</span>
-  <span class="nt">&#34;testmy&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;creation_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;1646703533380&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;5&#34;</span><span class="p">,</span> <span class="err">#可以看到模板被覆盖</span>
-        <span class="nt">&#34;uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;EAS7QZZtSTGcYSN-8MlEEA&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;created&#34;</span> <span class="p">:</span> <span class="s2">&#34;7010099&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;provided_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;testmy&#34;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#Create</span> <span class="err">a</span> <span class="err">default</span> <span class="err">template</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">_template/template_default</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;index_patterns&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;*&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;settings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;number_of_shards&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;number_of_replicas&#34;</span><span class="p">:</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">_template/template_test</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&#34;test*&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="nt">&#34;number_of_shards&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="nt">&#34;date_detection&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    	<span class="nt">&#34;numeric_detection&#34;</span><span class="p">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#查看template信息</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/_template/template_default</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;template_default&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;aliases&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#使用通配符查看template信息</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/_template/temp*</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;template_test&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;test*&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;numeric_detection&#34;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;date_detection&#34;</span> <span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;aliases&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;template_default&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;order&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;index_patterns&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="s2">&#34;*&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;aliases&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#数字字符串被映射成text，日期字符串被映射成日期</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">ttemplate/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;someNumber&#34;</span><span class="p">:</span><span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;someDate&#34;</span><span class="p">:</span><span class="s2">&#34;2019/01/01&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">ttemplate/_mapping</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;ttemplate&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;someDate&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;date&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;format&#34;</span> <span class="p">:</span> <span class="s2">&#34;yyyy/MM/dd HH:mm:ss||yyyy/MM/dd||epoch_millis&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;someNumber&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#写入新的数据，index以test开头</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">testtemplate/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;someNumber&#34;</span><span class="p">:</span><span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;someDate&#34;</span><span class="p">:</span><span class="s2">&#34;2019/01/01&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">testtemplate/_mapping</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;testtemplate&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;date_detection&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;numeric_detection&#34;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;someDate&#34;</span> <span class="p">:</span> <span class="p">{</span> <span class="err">#可以看到这里并没有命中字段类型日期匹配</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;someNumber&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;long&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">get</span> <span class="err">testtemplate/_settings</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;testtemplate&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;creation_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;1646703465756&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;wLIqiv5VToSVKctGSbT1Kg&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;created&#34;</span> <span class="p">:</span> <span class="s2">&#34;7010099&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;provided_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;testtemplate&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">testmy</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;settings&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;number_of_replicas&#34;</span><span class="p">:</span><span class="mi">5</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">put</span> <span class="err">testmy/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;key&#34;</span><span class="p">:</span><span class="s2">&#34;value&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">get</span> <span class="err">testmy/_settings</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;testmy&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;settings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;index&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;creation_date&#34;</span> <span class="p">:</span> <span class="s2">&#34;1646703533380&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_shards&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;number_of_replicas&#34;</span> <span class="p">:</span> <span class="s2">&#34;5&#34;</span><span class="p">,</span> <span class="err">#可以看到模板被覆盖</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;uuid&#34;</span> <span class="p">:</span> <span class="s2">&#34;EAS7QZZtSTGcYSN-8MlEEA&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;version&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;created&#34;</span> <span class="p">:</span> <span class="s2">&#34;7010099&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;provided_name&#34;</span> <span class="p">:</span> <span class="s2">&#34;testmy&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="dynamic-template">Dynamic Template</h2>
 <p>根据 Elasticsearch 识别的数据类型，结合字段名称，来动态设定字段类型。</p>
@@ -741,179 +739,179 @@
 </span><span class="lnt">172
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">PUT</span> <span class="err">my_index/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;isVIP&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">my_index/_mapping</span>
-
-<span class="err">#返回如下</span>
-<span class="p">{</span>
-  <span class="nt">&#34;my_index&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;isVIP&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">DELETE</span> <span class="err">my_index</span>
-<span class="err">PUT</span> <span class="err">my_index</span>
-<span class="p">{</span>
-  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;dynamic_templates&#34;</span><span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-        <span class="nt">&#34;strings_as_boolean&#34;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;match_mapping_type&#34;</span><span class="p">:</span>   <span class="s2">&#34;string&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;match&#34;</span><span class="p">:</span><span class="s2">&#34;is*&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;mapping&#34;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">},</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;strings_as_keywords&#34;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;match_mapping_type&#34;</span><span class="p">:</span>   <span class="s2">&#34;string&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;mapping&#34;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">PUT</span> <span class="err">my_index/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;isVIP&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-
-
-<span class="err">#</span> <span class="err">GET</span> <span class="err">my_index/_mapping</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;my_index&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;dynamic_templates&#34;</span> <span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;strings_as_boolean&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;match&#34;</span> <span class="p">:</span> <span class="s2">&#34;is*&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;match_mapping_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;mapping&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;strings_as_keywords&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;match_mapping_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;mapping&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">],</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;isVIP&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">DELETE</span> <span class="err">my_index</span>
-<span class="err">#结合路径</span>
-<span class="err">PUT</span> <span class="err">my_index</span>
-<span class="p">{</span>
-  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;dynamic_templates&#34;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;full_name&#34;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;path_match&#34;</span><span class="p">:</span>   <span class="s2">&#34;name.*&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;path_unmatch&#34;</span><span class="p">:</span> <span class="s2">&#34;*.middle&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;mapping&#34;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;type&#34;</span><span class="p">:</span>       <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;copy_to&#34;</span><span class="p">:</span>    <span class="s2">&#34;full_name&#34;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">PUT</span> <span class="err">my_index/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;first&#34;</span><span class="p">:</span>  <span class="s2">&#34;John&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;middle&#34;</span><span class="p">:</span> <span class="s2">&#34;Winston&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;last&#34;</span><span class="p">:</span>   <span class="s2">&#34;Lennon&#34;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">my_index/_search?q=full_name:John</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">92</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;my_index&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
-        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;first&#34;</span> <span class="p">:</span> <span class="s2">&#34;John&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;middle&#34;</span> <span class="p">:</span> <span class="s2">&#34;Winston&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;last&#34;</span> <span class="p">:</span> <span class="s2">&#34;Lennon&#34;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>   
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">my_index/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;isVIP&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_index/_mapping</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;my_index&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;isVIP&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">DELETE</span> <span class="err">my_index</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">my_index</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dynamic_templates&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;strings_as_boolean&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;match_mapping_type&#34;</span><span class="p">:</span>   <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;match&#34;</span><span class="p">:</span><span class="s2">&#34;is*&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;mapping&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;strings_as_keywords&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;match_mapping_type&#34;</span><span class="p">:</span>   <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;mapping&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">my_index/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;isVIP&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">GET</span> <span class="err">my_index/_mapping</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;my_index&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;dynamic_templates&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;strings_as_boolean&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;match&#34;</span> <span class="p">:</span> <span class="s2">&#34;is*&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;match_mapping_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;mapping&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;strings_as_keywords&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;match_mapping_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;mapping&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;isVIP&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">DELETE</span> <span class="err">my_index</span>
+</span></span><span class="line"><span class="cl"><span class="err">#结合路径</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">my_index</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;dynamic_templates&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;full_name&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;path_match&#34;</span><span class="p">:</span>   <span class="s2">&#34;name.*&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;path_unmatch&#34;</span><span class="p">:</span> <span class="s2">&#34;*.middle&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;mapping&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;type&#34;</span><span class="p">:</span>       <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;copy_to&#34;</span><span class="p">:</span>    <span class="s2">&#34;full_name&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">my_index/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;first&#34;</span><span class="p">:</span>  <span class="s2">&#34;John&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;middle&#34;</span><span class="p">:</span> <span class="s2">&#34;Winston&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;last&#34;</span><span class="p">:</span>   <span class="s2">&#34;Lennon&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">my_index/_search?q=full_name:John</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">92</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;my_index&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;first&#34;</span> <span class="p">:</span> <span class="s2">&#34;John&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;middle&#34;</span> <span class="p">:</span> <span class="s2">&#34;Winston&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;last&#34;</span> <span class="p">:</span> <span class="s2">&#34;Lennon&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>   
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
 <p><a href="https://time.geekbang.org/course/intro/100030501?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/course/intro/100030501?tab=catalog</a></p>
@@ -953,7 +951,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

@@ -1,7 +1,7 @@
-# （WIP）Rust学习笔记
+# 《Rust 实战课》学习笔记
 
 
-# （WIP）Rust学习笔记
+# 《Rust 实战课》学习笔记
 
 > 以下是学习张汉东大神的[Rust课程](https://time.geekbang.org/course/intro/100060601) 中摘录的笔记
 > 

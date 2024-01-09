@@ -5,11 +5,11 @@
         <description>rust - 分类 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
             <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 28 Jan 2022 20:59:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/categories/rust/" rel="self" type="application/rss+xml" /><item>
-    <title>（WIP）Rust学习笔记</title>
+    <title>《Rust 实战课》学习笔记</title>
     <link>https://zhengyua.cn/posts/rust/0.html/</link>
     <pubDate>Fri, 28 Jan 2022 20:59:26 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/rust/0.html/</guid>
-    <description><![CDATA[（WIP）Rust学习笔记 以下是学习张汉东大神的Rust课程 中摘录的笔记 后续会持续更新 Rust语言版本说明 Rust语言的版本包括以下三个相互]]></description>
+    <description><![CDATA[《Rust 实战课》学习笔记 以下是学习张汉东大神的Rust课程 中摘录的笔记 后续会持续更新 Rust语言版本说明 Rust语言的版本包括以下三个相互]]></description>
 </item></channel>
 </rss>

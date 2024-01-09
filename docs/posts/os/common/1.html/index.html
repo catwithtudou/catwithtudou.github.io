@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/os\/common\/1.html\/"
-        },"genre": "posts","keywords": "os, note, 汇编","wordcount":  2261 ,
+        },"genre": "posts","keywords": "os, note, 汇编","wordcount":  2262 ,
         "url": "https:\/\/zhengyua.cn\/posts\/os\/common\/1.html\/","datePublished": "2022-03-05T09:58:26+08:00","dateModified": "2022-03-05T09:58:26+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">HelloOs</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/os/"><i class="far fa-folder fa-fw"></i>os</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-05">2022-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2261 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-05">2022-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2262 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -189,48 +189,48 @@ PC 机上电后的第一条指令就是 BIOS 固件中的，然后加载引导�
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm">MBT<span class="err">_HDR_FLAGS</span> <span class="err">EQU</span> <span class="err">0</span><span class="nc">x00</span><span class="err">010003</span>
-MBT<span class="err">_HDR_MAGIC</span> <span class="err">EQU</span> <span class="err">0</span><span class="nc">x1</span><span class="err">BADB002</span> <span class="c1">;多引导协议头魔数
-</span><span class="c1"></span>MBT<span class="err">_HDR2_MAGIC</span> <span class="err">EQU</span> <span class="err">0xe85250</span><span class="nc">d6</span> <span class="c1">;第二版多引导协议头魔数
-</span><span class="c1"></span>global <span class="err">_start</span> <span class="c1">;导出_start符号
-</span><span class="c1"></span>extern <span class="err">main</span> <span class="c1">;导入外部的main函数符号
-</span><span class="c1"></span><span class="err">[</span>section <span class="err">.start.text]</span> <span class="c1">;定义.start.text代码节
-</span><span class="c1"></span><span class="err">[</span>bits <span class="err">32]</span> <span class="c1">;汇编成32位代码
-</span><span class="c1"></span><span class="nl">_start</span><span class="p">:</span>
-jmp <span class="err">_entry</span>
-ALIGN <span class="err">8</span>
-<span class="nl">mbt_hdr</span><span class="p">:</span>
-dd <span class="err">MBT_HDR_MAGIC</span>
-dd <span class="err">MBT_HDR_FLAGS</span>
-dd <span class="err">-(MBT_HDR_MAGIC+MBT_HDR_FLAGS)</span>
-dd <span class="err">mbt_hdr</span>
-dd <span class="err">_start</span>
-dd <span class="err">0</span>
-dd <span class="err">0</span>
-dd <span class="err">_entry</span>
-<span class="c1">;以上是GRUB所需要的头
-</span><span class="c1"></span>ALIGN <span class="err">8</span>
-<span class="nl">mbt2_hdr</span><span class="p">:</span>
-DD <span class="err">MBT_HDR2_MAGIC</span>
-DD <span class="err">0</span>
-DD <span class="err">mbt2_hdr_end</span> <span class="err">-</span> <span class="err">mbt2_hdr</span>
-DD <span class="err">-(MBT_HDR2_MAGIC</span> <span class="err">+</span> <span class="err">0</span> <span class="err">+</span> <span class="err">(mbt2_hdr_end</span> <span class="err">-</span> <span class="err">mbt2_hdr))</span>
-DW <span class="err">2</span>, <span class="err">0</span>
-DD <span class="err">24</span>
-DD <span class="err">mbt2_hdr</span>
-DD <span class="err">_start</span>
-DD <span class="err">0</span>
-DD <span class="err">0</span>
-DW <span class="err">3</span>, <span class="err">0</span>
-DD <span class="err">12</span>
-DD <span class="err">_entry</span>
-DD <span class="err">0</span>
-DW <span class="err">0</span>, <span class="err">0</span>
-DD <span class="err">8</span>
-<span class="nl">mbt2_hdr_end</span><span class="p">:</span>
-<span class="c1">;以上是GRUB2所需要的头
-</span><span class="c1">;包含两个头是为了同时兼容GRUB、GRUB2
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">MBT<span class="err">_HDR_FLAGS</span> <span class="err">EQU</span> <span class="err">0</span><span class="nc">x00</span><span class="err">010003</span>
+</span></span><span class="line"><span class="cl">MBT<span class="err">_HDR_MAGIC</span> <span class="err">EQU</span> <span class="err">0</span><span class="nc">x1</span><span class="err">BADB002</span> <span class="c1">;多引导协议头魔数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>MBT<span class="err">_HDR2_MAGIC</span> <span class="err">EQU</span> <span class="err">0xe85250</span><span class="nc">d6</span> <span class="c1">;第二版多引导协议头魔数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>global <span class="err">_start</span> <span class="c1">;导出_start符号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>extern <span class="err">main</span> <span class="c1">;导入外部的main函数符号
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">[</span>section <span class="err">.start.text]</span> <span class="c1">;定义.start.text代码节
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">[</span>bits <span class="err">32]</span> <span class="c1">;汇编成32位代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">_start</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">jmp <span class="err">_entry</span>
+</span></span><span class="line"><span class="cl">ALIGN <span class="err">8</span>
+</span></span><span class="line"><span class="cl"><span class="nl">mbt_hdr</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">MBT_HDR_MAGIC</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">MBT_HDR_FLAGS</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">-(MBT_HDR_MAGIC+MBT_HDR_FLAGS)</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">mbt_hdr</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">_start</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">0</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">0</span>
+</span></span><span class="line"><span class="cl">dd <span class="err">_entry</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;以上是GRUB所需要的头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>ALIGN <span class="err">8</span>
+</span></span><span class="line"><span class="cl"><span class="nl">mbt2_hdr</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">MBT_HDR2_MAGIC</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">0</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">mbt2_hdr_end</span> <span class="err">-</span> <span class="err">mbt2_hdr</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">-(MBT_HDR2_MAGIC</span> <span class="err">+</span> <span class="err">0</span> <span class="err">+</span> <span class="err">(mbt2_hdr_end</span> <span class="err">-</span> <span class="err">mbt2_hdr))</span>
+</span></span><span class="line"><span class="cl">DW <span class="err">2</span>, <span class="err">0</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">24</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">mbt2_hdr</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">_start</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">0</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">0</span>
+</span></span><span class="line"><span class="cl">DW <span class="err">3</span>, <span class="err">0</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">12</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">_entry</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">0</span>
+</span></span><span class="line"><span class="cl">DW <span class="err">0</span>, <span class="err">0</span>
+</span></span><span class="line"><span class="cl">DD <span class="err">8</span>
+</span></span><span class="line"><span class="cl"><span class="nl">mbt2_hdr_end</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;以上是GRUB2所需要的头
+</span></span></span><span class="line"><span class="cl"><span class="c1">;包含两个头是为了同时兼容GRUB、GRUB2
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述汇编代码是<strong>用汇编定义的 GRUB 的多引导协议头，即一定格式的数据</strong>，通过实现该协议标准让 GRUB 能识别 Hello OS。</p>
 <div class="highlight"><div class="chroma">
@@ -249,19 +249,19 @@ DD <span class="err">8</span>
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm">ALIGN <span class="err">8</span>
-<span class="nl">_entry</span><span class="p">:</span>
-<span class="c1">;关中断
-</span><span class="c1"></span>cli
-<span class="c1">;关不可屏蔽中断
-</span><span class="c1"></span>in <span class="err">al</span>, <span class="err">0</span><span class="nc">x70</span>
-or <span class="err">al</span>, <span class="err">0</span><span class="nc">x80</span>
-out <span class="err">0</span><span class="nc">x70</span>,<span class="err">al</span>
-<span class="c1">;重新加载GDT
-</span><span class="c1"></span>lgdt <span class="err">[GDT_PTR]</span>
-jmp <span class="err">dword</span> <span class="err">0</span><span class="nc">x8</span> <span class="err">:_32bits_mode</span>
-<span class="nl">_32bits_mode</span><span class="p">:</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl">ALIGN <span class="err">8</span>
+</span></span><span class="line"><span class="cl"><span class="nl">_entry</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;关中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>cli
+</span></span><span class="line"><span class="cl"><span class="c1">;关不可屏蔽中断
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>in <span class="err">al</span>, <span class="err">0</span><span class="nc">x70</span>
+</span></span><span class="line"><span class="cl">or <span class="err">al</span>, <span class="err">0</span><span class="nc">x80</span>
+</span></span><span class="line"><span class="cl">out <span class="err">0</span><span class="nc">x70</span>,<span class="err">al</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;重新加载GDT
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>lgdt <span class="err">[GDT_PTR]</span>
+</span></span><span class="line"><span class="cl">jmp <span class="err">dword</span> <span class="err">0</span><span class="nc">x8</span> <span class="err">:_32bits_mode</span>
+</span></span><span class="line"><span class="cl"><span class="nl">_32bits_mode</span><span class="p">:</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>上述汇编代码作用于<strong>关掉中断，设定 CPU 的工作模式</strong>。</p>
 <div class="highlight"><div class="chroma">
@@ -291,30 +291,30 @@ jmp <span class="err">dword</span> <span class="err">0</span><span class="nc">x8
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="c1">;下面初始化C语言可能会用到的寄存器
-</span><span class="c1"></span>mov <span class="err">ax</span>, <span class="err">0</span><span class="nc">x10</span>
-mov <span class="err">ds</span>, <span class="err">ax</span>
-mov <span class="err">ss</span>, <span class="err">ax</span>
-mov <span class="err">es</span>, <span class="err">ax</span>
-mov <span class="err">fs</span>, <span class="err">ax</span>
-mov <span class="err">gs</span>, <span class="err">ax</span>
-xor <span class="err">eax</span>,<span class="err">eax</span>
-xor <span class="err">ebx</span>,<span class="err">ebx</span>
-xor <span class="err">ecx</span>,<span class="err">ecx</span>
-xor <span class="err">edx</span>,<span class="err">edx</span>
-xor <span class="err">edi</span>,<span class="err">edi</span>
-xor <span class="err">esi</span>,<span class="err">esi</span>
-xor <span class="err">ebp</span>,<span class="err">ebp</span>
-xor <span class="err">esp</span>,<span class="err">esp</span>
-<span class="c1">;初始化栈，C语言需要栈才能工作
-</span><span class="c1"></span>mov <span class="err">esp</span>,<span class="err">0</span><span class="nc">x90</span><span class="err">00</span>
-<span class="c1">;调用C语言函数main
-</span><span class="c1"></span>call <span class="err">main</span>
-<span class="c1">;让CPU停止执行指令
-</span><span class="c1"></span><span class="nl">halt_step</span><span class="p">:</span>
-halt
-jmp <span class="err">halt_step</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl"><span class="c1">;下面初始化C语言可能会用到的寄存器
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>mov <span class="err">ax</span>, <span class="err">0</span><span class="nc">x10</span>
+</span></span><span class="line"><span class="cl">mov <span class="err">ds</span>, <span class="err">ax</span>
+</span></span><span class="line"><span class="cl">mov <span class="err">ss</span>, <span class="err">ax</span>
+</span></span><span class="line"><span class="cl">mov <span class="err">es</span>, <span class="err">ax</span>
+</span></span><span class="line"><span class="cl">mov <span class="err">fs</span>, <span class="err">ax</span>
+</span></span><span class="line"><span class="cl">mov <span class="err">gs</span>, <span class="err">ax</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">eax</span>,<span class="err">eax</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">ebx</span>,<span class="err">ebx</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">ecx</span>,<span class="err">ecx</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">edx</span>,<span class="err">edx</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">edi</span>,<span class="err">edi</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">esi</span>,<span class="err">esi</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">ebp</span>,<span class="err">ebp</span>
+</span></span><span class="line"><span class="cl">xor <span class="err">esp</span>,<span class="err">esp</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;初始化栈，C语言需要栈才能工作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>mov <span class="err">esp</span>,<span class="err">0</span><span class="nc">x90</span><span class="err">00</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;调用C语言函数main
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>call <span class="err">main</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;让CPU停止执行指令
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">halt_step</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">halt
+</span></span><span class="line"><span class="cl">jmp <span class="err">halt_step</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该部分汇编代码是<strong>初始化 CPU 的寄存器和 C 语言的运行环境</strong>。</p>
 <div class="highlight"><div class="chroma">
@@ -331,17 +331,17 @@ jmp <span class="err">halt_step</span>
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="nl">GDT_START</span><span class="p">:</span>
-<span class="nl">knull_dsc</span><span class="p">:</span> dq <span class="err">0</span>
-<span class="nl">kcode_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">c</span><span class="nc">f9</span><span class="err">e000000ffff</span>
-<span class="nl">kdata_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">c</span><span class="nc">f92</span><span class="err">000000ffff</span>
-<span class="nl">k16cd_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">009e000000ffff</span>
-<span class="nl">k16da_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">0092000000ffff</span>
-<span class="nl">GDT_END</span><span class="p">:</span>
-<span class="nl">GDT_PTR</span><span class="p">:</span>
-GDTLEN <span class="err">dw</span> <span class="err">GDT_END-GDT_START-1</span>
-GDTBASE <span class="err">dd</span> <span class="err">GDT_START</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-armasm" data-lang="armasm"><span class="line"><span class="cl"><span class="nl">GDT_START</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">knull_dsc</span><span class="p">:</span> dq <span class="err">0</span>
+</span></span><span class="line"><span class="cl"><span class="nl">kcode_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">c</span><span class="nc">f9</span><span class="err">e000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="nl">kdata_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">c</span><span class="nc">f92</span><span class="err">000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="nl">k16cd_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">009e000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="nl">k16da_dsc</span><span class="p">:</span> dq <span class="err">0</span><span class="nc">x00</span><span class="err">0092000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="nl">GDT_END</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">GDT_PTR</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">GDTLEN <span class="err">dw</span> <span class="err">GDT_END-GDT_START-1</span>
+</span></span><span class="line"><span class="cl">GDTBASE <span class="err">dd</span> <span class="err">GDT_START</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>该部分汇编代码是服务 <strong>CPU 工作模式所需要的数据</strong>。</p>
 <h2 id="hello-os-的主函数">Hello OS 的主函数</h2>
@@ -356,13 +356,13 @@ GDTBASE <span class="err">dd</span> <span class="err">GDT_START</span>
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="cp">#include</span> <span class="cpf">&#34;vgastr.h&#34;</span><span class="cp">
-</span><span class="cp"></span><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="n">printf</span><span class="p">(</span><span class="s">&#34;Hello OS!&#34;</span><span class="p">);</span>
-  <span class="k">return</span><span class="p">;</span>
-<span class="p">}</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&#34;vgastr.h&#34;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">void</span> <span class="nf">main</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Hello OS!&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="控制计算机屏幕">控制计算机屏幕</h2>
 <p>屏幕上显示字符，就要编程操作显卡。</p>
@@ -398,24 +398,24 @@ GDTBASE <span class="err">dd</span> <span class="err">GDT_START</span>
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="kt">void</span> <span class="nf">_strwrite</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">string</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">char</span><span class="o">*</span> <span class="n">p_strdst</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="mh">0xb8000</span><span class="p">);</span><span class="c1">//指向显存的开始地址
-</span><span class="c1"></span>  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">string</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="o">*</span><span class="n">p_strdst</span> <span class="o">=</span> <span class="o">*</span><span class="n">string</span><span class="o">++</span><span class="p">;</span>
-    <span class="c1">// 这里省略了字符颜色信息
-</span><span class="c1"></span>    <span class="n">p_strdst</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="k">return</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">void</span> <span class="nf">printf</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">fmt</span><span class="p">,</span> <span class="p">...)</span>
-<span class="p">{</span>
-  <span class="n">_strwrite</span><span class="p">(</span><span class="n">fmt</span><span class="p">);</span>
-  <span class="k">return</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">_strwrite</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span><span class="o">*</span> <span class="n">p_strdst</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="o">*</span><span class="p">)(</span><span class="mh">0xb8000</span><span class="p">);</span><span class="c1">//指向显存的开始地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">string</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="n">p_strdst</span> <span class="o">=</span> <span class="o">*</span><span class="n">string</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 这里省略了字符颜色信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">p_strdst</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">printf</span><span class="p">(</span><span class="kt">char</span><span class="o">*</span> <span class="n">fmt</span><span class="p">,</span> <span class="p">...)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nf">_strwrite</span><span class="p">(</span><span class="n">fmt</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="make">make</h2>
 <p>make 即工具程序，会读取makefile文件中的规则自动化构建软件。</p>
@@ -440,16 +440,16 @@ GDTBASE <span class="err">dd</span> <span class="err">GDT_START</span>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="nv">CC</span> <span class="o">=</span> gcc <span class="c1">#定义一个宏CC 等于gcc</span>
-<span class="nv">CFLAGS</span> <span class="o">=</span> -c <span class="c1">#定义一个宏 CFLAGS 等于-c</span>
-<span class="nv">OBJS_FILE</span> <span class="o">=</span> file.o file1.o file2.o file3.o file4.o <span class="c1">#定义一个宏</span>
-<span class="nf">.PHONY </span><span class="o">:</span> <span class="n">all</span> <span class="n">everything</span> <span class="c">#定义两个伪目标all、everything
-</span><span class="c"></span><span class="nf">all</span><span class="o">:</span><span class="n">everything</span> <span class="c">#伪目标all依赖于伪目标everything
-</span><span class="c"></span><span class="nf">everything </span><span class="o">:</span><span class="k">$(</span><span class="nv">OBJS_FILE</span><span class="k">)</span> <span class="c">#伪目标everything依赖于OBJS_FILE，而OBJS_FILE是宏会被
-</span><span class="c">#替换成file.o file1.o file2.o file3.o file4.o
-</span><span class="c"></span><span class="nf">%.o </span><span class="o">:</span> %.<span class="n">c</span>
-   <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="nv">$@</span> $&lt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-makefile" data-lang="makefile"><span class="line"><span class="cl"><span class="nv">CC</span> <span class="o">=</span> gcc <span class="c1">#定义一个宏CC 等于gcc</span>
+</span></span><span class="line"><span class="cl"><span class="nv">CFLAGS</span> <span class="o">=</span> -c <span class="c1">#定义一个宏 CFLAGS 等于-c</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OBJS_FILE</span> <span class="o">=</span> file.o file1.o file2.o file3.o file4.o <span class="c1">#定义一个宏</span>
+</span></span><span class="line"><span class="cl"><span class="nf">.PHONY </span><span class="o">:</span> <span class="n">all</span> <span class="n">everything</span> <span class="c">#定义两个伪目标all、everything
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">all</span><span class="o">:</span><span class="n">everything</span> <span class="c">#伪目标all依赖于伪目标everything
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">everything </span><span class="o">:</span><span class="k">$(</span><span class="nv">OBJS_FILE</span><span class="k">)</span> <span class="c">#伪目标everything依赖于OBJS_FILE，而OBJS_FILE是宏会被
+</span></span></span><span class="line"><span class="cl"><span class="c">#替换成file.o file1.o file2.o file3.o file4.o
+</span></span></span><span class="line"><span class="cl"><span class="c"></span><span class="nf">%.o </span><span class="o">:</span> %.<span class="n">c</span>
+</span></span><span class="line"><span class="cl">   <span class="k">$(</span>CC<span class="k">)</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> -o <span class="nv">$@</span> $&lt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><code>#</code>后面为注释</li>
@@ -497,14 +497,14 @@ GDTBASE <span class="err">dd</span> <span class="err">GDT_START</span>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-PYTHON" data-lang="PYTHON"><span class="n">menuentry</span> <span class="s1">&#39;HelloOS&#39;</span> <span class="p">{</span>
-     <span class="n">insmod</span> <span class="n">part_msdos</span> <span class="c1">#GRUB加载分区模块识别分区</span>
-     <span class="n">insmod</span> <span class="n">ext2</span> <span class="c1">#GRUB加载ext文件系统模块识别ext文件系统</span>
-     <span class="nb">set</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;hd0,msdos4&#39;</span> <span class="c1">#注意boot目录挂载的分区，</span>
-     <span class="n">multiboot2</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">HelloOS</span><span class="o">.</span><span class="n">bin</span> <span class="c1">#GRUB以multiboot2协议加载HelloOS.bin</span>
-     <span class="n">boot</span> <span class="c1">#GRUB启动HelloOS.bin</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-PYTHON" data-lang="PYTHON"><span class="line"><span class="cl"><span class="n">menuentry</span> <span class="s1">&#39;HelloOS&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">     <span class="n">insmod</span> <span class="n">part_msdos</span> <span class="c1">#GRUB加载分区模块识别分区</span>
+</span></span><span class="line"><span class="cl">     <span class="n">insmod</span> <span class="n">ext2</span> <span class="c1">#GRUB加载ext文件系统模块识别ext文件系统</span>
+</span></span><span class="line"><span class="cl">     <span class="nb">set</span> <span class="n">root</span><span class="o">=</span><span class="s1">&#39;hd0,msdos4&#39;</span> <span class="c1">#注意boot目录挂载的分区，</span>
+</span></span><span class="line"><span class="cl">     <span class="n">multiboot2</span> <span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">HelloOS</span><span class="o">.</span><span class="n">bin</span> <span class="c1">#GRUB以multiboot2协议加载HelloOS.bin</span>
+</span></span><span class="line"><span class="cl">     <span class="n">boot</span> <span class="c1">#GRUB启动HelloOS.bin</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>上面Boot目录挂载分区可通过<code>df /boot/</code>命令查询，并且需要由特殊 GRUB 的命名方式。
@@ -569,7 +569,7 @@ eg:<code>“hd0,msdos4”</code>，代表sda4就是硬盘的第四个分区（�
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

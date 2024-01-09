@@ -158,10 +158,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">delta</span> <span class="kt">int</span><span class="p">)</span> <span class="c1">//设置计数值
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Done</span><span class="p">()</span> <span class="c1">//Add(-1)
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="c1">//阻塞直至计数值为0
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">delta</span> <span class="kt">int</span><span class="p">)</span> <span class="c1">//设置计数值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Done</span><span class="p">()</span> <span class="c1">//Add(-1)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="c1">//阻塞直至计数值为0
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="waitgroup实现">WaitGroup实现</h2>
 <h3 id="数据结构定义">数据结构定义</h3>
@@ -191,26 +191,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">WaitGroup</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="c1">// 避免复制使用的一个技巧，可以告诉vet工具违反了复制使用的规则
-</span><span class="c1"></span>	<span class="nx">noCopy</span> <span class="nx">noCopy</span>
-	<span class="c1">// 64bit(8bytes)的值分成两段，高32bit是计数值，低32bit是waiter的计数
-</span><span class="c1"></span>	<span class="c1">// 另外32bit是用作信号量的
-</span><span class="c1"></span>	<span class="c1">// 因为64bit值的原子操作需要64bit对齐，但是32bit编译器不支持，所以数组中的元素在不同的
-</span><span class="c1"></span>	<span class="c1">// 总之，会找到对齐的那64bit作为state，其余的32bit做信号量
-</span><span class="c1"></span>	<span class="nx">state1</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">uint32</span>
-<span class="p">}</span>
-<span class="c1">// 得到state的地址和信号量的地址
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">state</span><span class="p">()</span> <span class="p">(</span><span class="nx">statep</span> <span class="o">*</span><span class="kt">uint64</span><span class="p">,</span> <span class="nx">semap</span> <span class="o">*</span><span class="kt">uint32</span><span class="p">)</span> <span class="p">{</span>
-	<span class="k">if</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">))</span><span class="o">%</span><span class="mi">8</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="c1">// 如果地址是64bit对齐的，数组前两个元素做state，后一个元素做信号量
-</span><span class="c1"></span>		<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint64</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">)),</span> <span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-		<span class="c1">// 如果地址是32bit对齐的，数组后两个元素用来做state，它可以用来做64bit的原子操作
-</span><span class="c1"></span>		<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint64</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">WaitGroup</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 避免复制使用的一个技巧，可以告诉vet工具违反了复制使用的规则
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">noCopy</span> <span class="nx">noCopy</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 64bit(8bytes)的值分成两段，高32bit是计数值，低32bit是waiter的计数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 另外32bit是用作信号量的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 因为64bit值的原子操作需要64bit对齐，但是32bit编译器不支持，所以数组中的元素在不同的
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 总之，会找到对齐的那64bit作为state，其余的32bit做信号量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">state1</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 得到state的地址和信号量的地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">state</span><span class="p">()</span> <span class="p">(</span><span class="nx">statep</span> <span class="o">*</span><span class="kt">uint64</span><span class="p">,</span> <span class="nx">semap</span> <span class="o">*</span><span class="kt">uint32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nb">uintptr</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">))</span><span class="o">%</span><span class="mi">8</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 如果地址是64bit对齐的，数组前两个元素做state，后一个元素做信号量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint64</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">)),</span> <span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 如果地址是32bit对齐的，数组后两个元素用来做state，它可以用来做64bit的原子操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="kt">uint64</span><span class="p">)(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">[</span><span class="mi">1</span><span class="p">])),</span> <span class="o">&amp;</span><span class="nx">wg</span><span class="p">.</span><span class="nx">state1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>其中在64位环境和32位环境中的state字段组成是不一样的：</p>
 <p><img
@@ -258,27 +258,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">delta</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nx">statep</span><span class="p">,</span> <span class="nx">semap</span> <span class="o">:=</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">state</span><span class="p">()</span>
-	<span class="c1">// 高32bit是计数值v，所以把delta左移32，增加到计数上
-</span><span class="c1"></span>	<span class="nx">state</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="nx">statep</span><span class="p">,</span> <span class="nb">uint64</span><span class="p">(</span><span class="nx">delta</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">32</span><span class="p">)</span>
-	<span class="nx">v</span> <span class="o">:=</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">state</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">)</span> <span class="c1">// 当前计数值
-</span><span class="c1"></span>	<span class="nx">w</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="c1">// waiter count
-</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">v</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">w</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-		<span class="k">return</span>
-	<span class="p">}</span>
-	<span class="c1">// 如果计数值v为0并且waiter的数量w不为0，那么state的值就是waiter的数量。
-</span><span class="c1"></span>	<span class="c1">// 将waiter的数量设置为0，因为计数值v也是0,所以它们俩的组合*statep直接设置为0即可。
-</span><span class="c1"></span>	<span class="o">*</span><span class="nx">statep</span> <span class="p">=</span> <span class="mi">0</span>
-	<span class="k">for</span> <span class="p">;</span> <span class="nx">w</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">w</span><span class="o">--</span> <span class="p">{</span>
-		<span class="nf">runtime_Semrelease</span><span class="p">(</span><span class="nx">semap</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">// Done方法实际就是计数器减1
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Done</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">delta</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">statep</span><span class="p">,</span> <span class="nx">semap</span> <span class="o">:=</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">state</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 高32bit是计数值v，所以把delta左移32，增加到计数上
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">state</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint64</span><span class="p">(</span><span class="nx">statep</span><span class="p">,</span> <span class="nb">uint64</span><span class="p">(</span><span class="nx">delta</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="mi">32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">v</span> <span class="o">:=</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">state</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">)</span> <span class="c1">// 当前计数值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">w</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="c1">// waiter count
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="k">if</span> <span class="nx">v</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">w</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 如果计数值v为0并且waiter的数量w不为0，那么state的值就是waiter的数量。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="c1">// 将waiter的数量设置为0，因为计数值v也是0,所以它们俩的组合*statep直接设置为0即可。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="o">*</span><span class="nx">statep</span> <span class="p">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">;</span> <span class="nx">w</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">w</span><span class="o">--</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nf">runtime_Semrelease</span><span class="p">(</span><span class="nx">semap</span><span class="p">,</span> <span class="kc">false</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Done方法实际就是计数器减1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Done</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="wait方法">Wait方法</h3>
 <p>该方法的试下逻辑即不断检查state的值：</p>
@@ -309,26 +309,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">statep</span><span class="p">,</span> <span class="nx">semap</span> <span class="o">:=</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">state</span><span class="p">()</span>
-	<span class="k">for</span> <span class="p">{</span>
-		<span class="nx">state</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint64</span><span class="p">(</span><span class="nx">statep</span><span class="p">)</span>
-		<span class="nx">v</span> <span class="o">:=</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">state</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">)</span> <span class="c1">// 当前计数值
-</span><span class="c1"></span>		<span class="nx">w</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="c1">// waiter的数量
-</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">v</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-			<span class="c1">// 如果计数值为0, 调用这个方法的goroutine不必再等待，继续执行它后面的逻辑即可
-</span><span class="c1"></span>			<span class="k">return</span>
-		<span class="p">}</span>
-		<span class="c1">// 否则把waiter数量加1。期间可能有并发调用Wait的情况，所以最外层使用了一个for循环
-</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapUint64</span><span class="p">(</span><span class="nx">statep</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">state</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-			<span class="c1">// 阻塞休眠等待
-</span><span class="c1"></span>			<span class="nf">runtime_Semacquire</span><span class="p">(</span><span class="nx">semap</span><span class="p">)</span>
-			<span class="c1">// 被唤醒，不再阻塞，返回
-</span><span class="c1"></span>			<span class="k">return</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">wg</span> <span class="o">*</span><span class="nx">WaitGroup</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">statep</span><span class="p">,</span> <span class="nx">semap</span> <span class="o">:=</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">state</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">state</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadUint64</span><span class="p">(</span><span class="nx">statep</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">v</span> <span class="o">:=</span> <span class="nb">int32</span><span class="p">(</span><span class="nx">state</span> <span class="o">&gt;&gt;</span> <span class="mi">32</span><span class="p">)</span> <span class="c1">// 当前计数值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="nx">w</span> <span class="o">:=</span> <span class="nb">uint32</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="c1">// waiter的数量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="nx">v</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// 如果计数值为0, 调用这个方法的goroutine不必再等待，继续执行它后面的逻辑即可
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 否则把waiter数量加1。期间可能有并发调用Wait的情况，所以最外层使用了一个for循环
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>		<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapUint64</span><span class="p">(</span><span class="nx">statep</span><span class="p">,</span> <span class="nx">state</span><span class="p">,</span> <span class="nx">state</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// 阻塞休眠等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="nf">runtime_Semacquire</span><span class="p">(</span><span class="nx">semap</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="c1">// 被唤醒，不再阻塞，返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>			<span class="k">return</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="waitgroup常见错误">WaitGroup常见错误</h2>
 <h3 id="计数值设置为负值">计数值设置为负值</h3>
@@ -358,12 +358,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">noCopy</span> <span class="kd">struct</span><span class="p">{}</span>
-
-<span class="c1">// Lock is a no-op used by -copylocks checker from `go vet`.
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">noCopy</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">noCopy</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">noCopy</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// Lock is a no-op used by -copylocks checker from `go vet`.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">noCopy</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="o">*</span><span class="nx">noCopy</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过给WaitGroup添加一个noCopy字段，可以<strong>为WaitGroup实现 Locker接口</strong>，这样vet工具就可以做复制检查了，且因为<strong>noCopy 字段是未输出类型</strong>，所以WaitGroup不会暴露Lock/Unlock方法。</p>
 <p>如果想要自己定义的数据结构<strong>不被复制使用</strong>，或者说，<strong>不能通过 vet 工具检查出复制使用的报警</strong>，就可以通过嵌入 noCopy 这个数据类型来实现。</p>
@@ -412,7 +412,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

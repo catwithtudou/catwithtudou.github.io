@@ -3,10 +3,12 @@ title: "《哲学-死亡》notes"
 date: 2022-03-24T20:28:06+08:00
 lastmod: 2022-03-24T20:28:06+08:00
 draft: false
-tags: ["note","哲学","日常生活"]
+tags: ["note","哲学","日常生活","WIP"]
 categories: ["日常生活"]
 slug: /daily_life/reading/3
 ---
+
+> 以下为耶鲁大学[公开课](https://www.bilibili.com/video/BV1V3411k7Q1/?spm_id_from=333.999.0.0&vd_source=4093135839ad2123d61b9fae1ecd7a8f)「哲学——死亡」的笔记记录。
 
 对于死亡的普遍观点：
 

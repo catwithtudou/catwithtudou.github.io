@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/3.html\/"
-        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  1893 ,
+        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  1890 ,
         "url": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/3.html\/","datePublished": "2022-03-07T20:20:00+08:00","dateModified": "2022-03-07T20:20:00+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ElasticSearchSearchAPI</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/search-engine/"><i class="far fa-folder fa-fw"></i>search engine</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1893 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1890 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -161,8 +161,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">curl -XGET <span class="s2">&#34;http://localhost:9200/</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">/_search?q=</span><span class="si">${</span><span class="nv">search</span><span class="si">}</span><span class="s2">&#34;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">curl -XGET <span class="s2">&#34;http://localhost:9200/</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">/_search?q=</span><span class="si">${</span><span class="nv">search</span><span class="si">}</span><span class="s2">&#34;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -180,10 +180,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#支持POST和GET</span>
-<span class="c1">#&#39;match_all&#39;指返回所有的文档</span>
-curl -XGET <span class="s2">&#34;http://localhost:9200/</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">/_search&#34;</span> -H <span class="s1">&#39;Content-Type:application/json` -d &#39;</span><span class="o">{</span><span class="s2">&#34;query:{&#34;</span>match_all<span class="s2">&#34;:{}}}&#39;
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#支持POST和GET</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#&#39;match_all&#39;指返回所有的文档</span>
+</span></span><span class="line"><span class="cl">curl -XGET <span class="s2">&#34;http://localhost:9200/</span><span class="si">${</span><span class="nv">index</span><span class="si">}</span><span class="s2">/_search&#34;</span> -H <span class="s1">&#39;Content-Type:application/json` -d &#39;</span><span class="o">{</span><span class="s2">&#34;query:{&#34;</span>match_all<span class="s2">&#34;:{}}}&#39;
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -262,28 +262,28 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#基本查询</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=</span><span class="mi">2012</span><span class="err">&amp;df=title&amp;sort=year:desc&amp;from=</span><span class="mi">0</span><span class="err">&amp;size=</span><span class="mi">10</span><span class="err">&amp;timeout=</span><span class="mi">1</span><span class="err">s</span>
-
-<span class="err">#带profile</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=</span><span class="mi">2012</span><span class="err">&amp;df=title</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-
-<span class="err">#泛查询，正对_all,所有字段</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=</span><span class="mi">2012</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#指定字段</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="mi">2012</span><span class="err">&amp;sort=year:desc&amp;from=</span><span class="mi">0</span><span class="err">&amp;size=</span><span class="mi">10</span><span class="err">&amp;timeout=</span><span class="mi">1</span><span class="err">s</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#基本查询</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=</span><span class="mi">2012</span><span class="err">&amp;df=title&amp;sort=year:desc&amp;from=</span><span class="mi">0</span><span class="err">&amp;size=</span><span class="mi">10</span><span class="err">&amp;timeout=</span><span class="mi">1</span><span class="err">s</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#带profile</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=</span><span class="mi">2012</span><span class="err">&amp;df=title</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#泛查询，正对_all,所有字段</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=</span><span class="mi">2012</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#指定字段</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="mi">2012</span><span class="err">&amp;sort=year:desc&amp;from=</span><span class="mi">0</span><span class="err">&amp;size=</span><span class="mi">10</span><span class="err">&amp;timeout=</span><span class="mi">1</span><span class="err">s</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>指定字段和泛查询</strong>
@@ -330,34 +330,32 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">21
 </span><span class="lnt">22
 </span><span class="lnt">23
-</span><span class="lnt">24
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#</span> <span class="err">查找美丽心灵,</span> <span class="err">Mind为泛查询</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:Beautiful</span> <span class="err">Mind</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#</span> <span class="err">泛查询</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="mi">2012</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#使用引号，Phrase查询</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="s2">&#34;Beautiful Mind&#34;</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#分组，Bool查询</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">Mind)</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#</span> <span class="err">查找美丽心灵,</span> <span class="err">Mind为泛查询</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:Beautiful</span> <span class="err">Mind</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">泛查询</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="mi">2012</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#使用引号，Phrase查询</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="s2">&#34;Beautiful Mind&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#分组，Bool查询</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">Mind)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>布尔操作</strong>
@@ -400,25 +398,25 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#布尔操作符</span>
-<span class="err">#</span> <span class="err">查找美丽心灵</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">AND</span> <span class="err">Mind)</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#</span> <span class="err">查找美丽心灵</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">NOT</span> <span class="err">Mind)</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#</span> <span class="err">查找美丽心灵</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">%</span><span class="mi">2</span><span class="err">BMind)</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#布尔操作符</span>
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">查找美丽心灵</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">AND</span> <span class="err">Mind)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">查找美丽心灵</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">NOT</span> <span class="err">Mind)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">查找美丽心灵</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:(Beautiful</span> <span class="err">%</span><span class="mi">2</span><span class="err">BMind)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>范围查询</strong>
@@ -454,18 +452,18 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json">
-<span class="err">#范围查询</span> <span class="err">,区间写法</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:beautiful</span> <span class="err">AND</span> <span class="err">year:</span><span class="p">[</span><span class="mi">2002</span> <span class="err">TO</span> <span class="mi">2018</span><span class="p">]</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:year:&gt;</span><span class="mi">1980</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#范围查询</span> <span class="err">,区间写法</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:beautiful</span> <span class="err">AND</span> <span class="err">year:</span><span class="p">[</span><span class="mi">2002</span> <span class="err">TO</span> <span class="mi">2018</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:year:&gt;</span><span class="mi">1980</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>通配符查询</strong>（效率较低，占用内存大，不建议使用。特别是放在最前面）
@@ -510,23 +508,23 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#通配符查询</span>
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:b*</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="c1">//模糊匹配&amp;近似度匹配
-</span><span class="c1"></span><span class="err">GET</span> <span class="err">/movies/_search?q=title:beautifl~</span><span class="mi">1</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="s2">&#34;Lord Rings&#34;</span><span class="err">~</span><span class="mi">2</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#通配符查询</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:b*</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//模糊匹配&amp;近似度匹配
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="err">GET</span> <span class="err">/movies/_search?q=title:beautifl~</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search?q=title:</span><span class="s2">&#34;Lord Rings&#34;</span><span class="err">~</span><span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="request-body-search">Request Body Search</h2>
 <ul>
@@ -546,16 +544,16 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#ignore_unavailable=</span><span class="kc">true</span><span class="err">，可以忽略尝试访问不存在的索引“</span><span class="mi">404</span><span class="err">_idx”导致的报错</span>
-<span class="err">#查询movies分页</span>
-<span class="err">POST</span> <span class="err">/movies,</span><span class="mi">404</span><span class="err">_idx/_search?ignore_unavailable=</span><span class="kc">true</span>
-<span class="p">{</span>
-  <span class="nt">&#34;profile&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-		<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#ignore_unavailable=</span><span class="kc">true</span><span class="err">，可以忽略尝试访问不存在的索引“</span><span class="mi">404</span><span class="err">_idx”导致的报错</span>
+</span></span><span class="line"><span class="cl"><span class="err">#查询movies分页</span>
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">/movies,</span><span class="mi">404</span><span class="err">_idx/_search?ignore_unavailable=</span><span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;profile&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>分页</strong>
@@ -577,15 +575,15 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">/kibana_sample_data_ecommerce/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;from&#34;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
-  <span class="nt">&#34;size&#34;</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
-    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">/kibana_sample_data_ecommerce/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;from&#34;</span><span class="p">:</span><span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;size&#34;</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>排序</strong>
@@ -608,16 +606,16 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#对日期排序</span>
-<span class="err">POST</span> <span class="err">kibana_sample_data_ecommerce/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;sort&#34;</span><span class="p">:[{</span><span class="nt">&#34;order_date&#34;</span><span class="p">:</span><span class="s2">&#34;desc&#34;</span><span class="p">}],</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
-    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-  <span class="p">}</span>
-
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#对日期排序</span>
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">kibana_sample_data_ecommerce/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;sort&#34;</span><span class="p">:[{</span><span class="nt">&#34;order_date&#34;</span><span class="p">:</span><span class="s2">&#34;desc&#34;</span><span class="p">}],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>_source filtering</strong>
@@ -625,7 +623,7 @@ Recall = TP/TP+FN</p>
 <li>如果<code>_SOURCE</code>没有存储，那就只返回匹配的文档的元数据</li>
 <li><code>_source</code>支持使用通配符
 <ul>
-<li>`_souce[&ldquo;name*,&ldquo;desc*&quot;]</li>
+<li>`_souce[&ldquo;name*,&ldquo;desc*&rdquo;]</li>
 </ul>
 </li>
 </ul>
@@ -643,15 +641,15 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#source</span> <span class="err">filtering</span>
-<span class="err">POST</span> <span class="err">kibana_sample_data_ecommerce/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;_source&#34;</span><span class="p">:[</span><span class="s2">&#34;order_date&#34;</span><span class="p">],</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
-    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#source</span> <span class="err">filtering</span>
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">kibana_sample_data_ecommerce/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_source&#34;</span><span class="p">:[</span><span class="s2">&#34;order_date&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>脚本字段</strong>
@@ -679,22 +677,22 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#脚本字段</span>
-<span class="err">GET</span> <span class="err">kibana_sample_data_ecommerce/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;script_fields&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;new_field&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;script&#34;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;lang&#34;</span><span class="p">:</span> <span class="s2">&#34;painless&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;doc[&#39;order_date&#39;].value+&#39;hello&#39;&#34;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#脚本字段</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">kibana_sample_data_ecommerce/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;script_fields&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;new_field&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;script&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;lang&#34;</span><span class="p">:</span> <span class="s2">&#34;painless&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;source&#34;</span><span class="p">:</span> <span class="s2">&#34;doc[&#39;order_date&#39;].value+&#39;hello&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>使用查询表达式-Match</strong></li>
@@ -723,27 +721,27 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">movies/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;last christmas&#34;</span> <span class="err">#默认OR</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">POST</span> <span class="err">movies/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;last christmas&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;operator&#34;</span><span class="p">:</span> <span class="s2">&#34;and&#34;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">movies/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;last christmas&#34;</span> <span class="err">#默认OR</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">movies/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;last christmas&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;operator&#34;</span><span class="p">:</span> <span class="s2">&#34;and&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>短语搜索-Match Phrase</strong></li>
@@ -775,30 +773,30 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">23
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">movies/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match_phrase&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;title&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;one love&#34;</span> <span class="err">#默认AND</span>
-
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">POST</span> <span class="err">movies/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match_phrase&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;title&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;one love&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;slop&#34;</span><span class="p">:</span> <span class="mi">1</span> <span class="err">#指定数量的Term</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">movies/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match_phrase&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;one love&#34;</span> <span class="err">#默认AND</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">movies/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match_phrase&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;one love&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;slop&#34;</span><span class="p">:</span> <span class="mi">1</span> <span class="err">#指定数量的Term</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="query-string-query">Query String Query</h2>
 <ul>
@@ -842,49 +840,45 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">34
 </span><span class="lnt">35
 </span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;default_field&#34;</span><span class="p">:</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan AND Yiming&#34;</span> <span class="err">#</span> <span class="err">与操作</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">POST</span> <span class="err">users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;fields&#34;</span><span class="p">:[</span><span class="s2">&#34;name&#34;</span><span class="p">,</span><span class="s2">&#34;about&#34;</span><span class="p">],</span>
-      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;(Ruan AND Yiming) OR (Java AND Elasticsearch)&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">#</span> <span class="err">多fields</span>
-<span class="err">GET</span> <span class="err">/movies/_search</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-	<span class="nt">&#34;query&#34;</span><span class="p">:{</span>
-		<span class="nt">&#34;query_string&#34;</span><span class="p">:{</span>
-			<span class="nt">&#34;fields&#34;</span><span class="p">:[</span>
-				<span class="s2">&#34;title&#34;</span><span class="p">,</span>
-				<span class="s2">&#34;year&#34;</span>
-			<span class="p">],</span>
-			<span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;2012&#34;</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;default_field&#34;</span><span class="p">:</span> <span class="s2">&#34;name&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan AND Yiming&#34;</span> <span class="err">#</span> <span class="err">与操作</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;fields&#34;</span><span class="p">:[</span><span class="s2">&#34;name&#34;</span><span class="p">,</span><span class="s2">&#34;about&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;(Ruan AND Yiming) OR (Java AND Elasticsearch)&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">多fields</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;query_string&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;fields&#34;</span><span class="p">:[</span>
+</span></span><span class="line"><span class="cl">				<span class="s2">&#34;title&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">				<span class="s2">&#34;year&#34;</span>
+</span></span><span class="line"><span class="cl">			<span class="p">],</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;2012&#34;</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="simple-query-string-query">Simple Query String Query</h2>
 <ul>
@@ -936,40 +930,40 @@ Recall = TP/TP+FN</p>
 </span><span class="lnt">33
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#Simple</span> <span class="err">Query</span> <span class="err">默认的operator是</span> <span class="err">Or</span>
-<span class="err">POST</span> <span class="err">users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;simple_query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan AND Yiming&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;fields&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">POST</span> <span class="err">users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;simple_query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan Yiming&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;fields&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">],</span>
-      <span class="nt">&#34;default_operator&#34;</span><span class="p">:</span> <span class="s2">&#34;AND&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">/movies/_search</span>
-<span class="p">{</span>
-	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
-	<span class="nt">&#34;query&#34;</span><span class="p">:{</span>
-		<span class="nt">&#34;simple_query_string&#34;</span><span class="p">:{</span>
-			<span class="nt">&#34;query&#34;</span><span class="p">:</span><span class="s2">&#34;Beautiful +mind&#34;</span><span class="p">,</span>
-			<span class="nt">&#34;fields&#34;</span><span class="p">:[</span><span class="s2">&#34;title&#34;</span><span class="p">]</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#Simple</span> <span class="err">Query</span> <span class="err">默认的operator是</span> <span class="err">Or</span>
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;simple_query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan AND Yiming&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;fields&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;simple_query_string&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan Yiming&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;fields&#34;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;default_operator&#34;</span><span class="p">:</span> <span class="s2">&#34;AND&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/movies/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;profile&#34;</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;simple_query_string&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;query&#34;</span><span class="p">:</span><span class="s2">&#34;Beautiful +mind&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">			<span class="nt">&#34;fields&#34;</span><span class="p">:[</span><span class="s2">&#34;title&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
 <p><a href="https://time.geekbang.org/course/intro/100030501?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/course/intro/100030501?tab=catalog</a></p>
@@ -1009,7 +1003,7 @@ Recall = TP/TP+FN</p>
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

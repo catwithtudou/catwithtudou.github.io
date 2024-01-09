@@ -154,12 +154,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Cond</span>
-	<span class="kd">func</span> <span class="nf">NeWCond</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Locker</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cond</span>
-	<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Broadcast</span><span class="p">()</span> <span class="c1">//允许调用者Caller唤醒所有等待此Cond的goroutine即清空Cond等待队列中所有的goroutine
-</span><span class="c1"></span>	<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Signal</span><span class="p">()</span> <span class="c1">//允许调用者Caller按等待队列顺序唤醒一个等待此Cond的goroutine
-</span><span class="c1"></span>	<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="c1">//会把调用者Caller放入Cond的等待队列中并阻塞，直到被Signal或者Broadcast方法从等待队列中唤醒。
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Cond</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">func</span> <span class="nf">NeWCond</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Locker</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cond</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Broadcast</span><span class="p">()</span> <span class="c1">//允许调用者Caller唤醒所有等待此Cond的goroutine即清空Cond等待队列中所有的goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Signal</span><span class="p">()</span> <span class="c1">//允许调用者Caller按等待队列顺序唤醒一个等待此Cond的goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="c1">//会把调用者Caller放入Cond的等待队列中并阻塞，直到被Signal或者Broadcast方法从等待队列中唤醒。
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>Go 实现的 sync.Cond 的方法名是 Wait、Signal 和 Broadcast，这是计算机科学中条件变量的通用方法名。</p>
@@ -198,36 +198,36 @@
 </span><span class="lnt">29
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Cond</span> <span class="kd">struct</span> <span class="p">{</span>
-	<span class="nx">noCopy</span> <span class="nx">noCopy</span>
-	<span class="c1">// 当观察或者修改等待条件的时候需要加锁
-</span><span class="c1"></span>	<span class="nx">L</span> <span class="nx">Locker</span>
-	<span class="c1">// 等待队列
-</span><span class="c1"></span>	<span class="nx">notify</span> <span class="nx">notifyList</span>
-    <span class="c1">// 辅助结构，在运行时检查Cond是否被复制使用
-</span><span class="c1"></span>	<span class="nx">checker</span> <span class="nx">copyChecker</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="nf">NewCond</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Locker</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cond</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Cond</span><span class="p">{</span><span class="nx">L</span><span class="p">:</span> <span class="nx">l</span><span class="p">}</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">checker</span><span class="p">.</span><span class="nf">check</span><span class="p">()</span>
-	<span class="c1">// 增加到等待队列中
-</span><span class="c1"></span>	<span class="nx">t</span> <span class="o">:=</span> <span class="nf">runtime_notifyListAdd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">)</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-	<span class="c1">// 阻塞休眠直到被唤醒
-</span><span class="c1"></span>	<span class="nf">runtime_notifyListWait</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Signal</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">checker</span><span class="p">.</span><span class="nf">check</span><span class="p">()</span>
-	<span class="nf">runtime_notifyListNotifyOne</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Broadcast</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">c</span><span class="p">.</span><span class="nx">checker</span><span class="p">.</span><span class="nf">check</span><span class="p">()</span>
-	<span class="nf">runtime_notifyListNotifyAll</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="err">）</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Cond</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">noCopy</span> <span class="nx">noCopy</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 当观察或者修改等待条件的时候需要加锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">L</span> <span class="nx">Locker</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 等待队列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">notify</span> <span class="nx">notifyList</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 辅助结构，在运行时检查Cond是否被复制使用
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">checker</span> <span class="nx">copyChecker</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">NewCond</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Locker</span><span class="p">)</span> <span class="o">*</span><span class="nx">Cond</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Cond</span><span class="p">{</span><span class="nx">L</span><span class="p">:</span> <span class="nx">l</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">checker</span><span class="p">.</span><span class="nf">check</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 增加到等待队列中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nx">t</span> <span class="o">:=</span> <span class="nf">runtime_notifyListAdd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 阻塞休眠直到被唤醒
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="nf">runtime_notifyListWait</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">,</span> <span class="nx">t</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Signal</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">checker</span><span class="p">.</span><span class="nf">check</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">runtime_notifyListNotifyOne</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">Cond</span><span class="p">)</span> <span class="nf">Broadcast</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span><span class="p">.</span><span class="nx">checker</span><span class="p">.</span><span class="nf">check</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">runtime_notifyListNotifyAll</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">.</span><span class="nx">notify</span><span class="err">）</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="使用注意">使用注意</h2>
 <ul>
@@ -270,7 +270,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

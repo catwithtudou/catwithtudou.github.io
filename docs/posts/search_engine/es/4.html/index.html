@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/4.html\/"
-        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  2991 ,
+        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  2987 ,
         "url": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/4.html\/","datePublished": "2022-03-07T20:34:00+08:00","dateModified": "2022-03-07T20:34:00+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ElasticSearchMapping</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/search-engine/"><i class="far fa-folder fa-fw"></i>search engine</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2991 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2987 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -193,13 +193,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">PUT</span> <span class="err">movies</span>
-<span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span><span class="p">:{</span>
-        <span class="c1">//define your mappings here
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">movies</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">//define your mappings here
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在自定义 Mappings 我们需要注意的是：</p>
 <ul>
@@ -284,76 +284,76 @@
 </span><span class="lnt">69
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">PUT</span> <span class="err">users</span>
-<span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;mobile&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="kc">false</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="s2">&#34;12345678&#34;</span>
-<span class="p">}</span>
-
-<span class="err">POST</span> <span class="err">/users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span><span class="s2">&#34;12345678&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;error&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;root_cause&#34;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;query_shard_exception&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;failed to create query: {\n  \&#34;match\&#34; : {\n    \&#34;mobile\&#34; : {\n      \&#34;query\&#34; : \&#34;12345678\&#34;,\n      \&#34;operator\&#34; : \&#34;OR\&#34;,\n      \&#34;prefix_length\&#34; : 0,\n      \&#34;max_expansions\&#34; : 50,\n      \&#34;fuzzy_transpositions\&#34; : true,\n      \&#34;lenient\&#34; : false,\n      \&#34;zero_terms_query\&#34; : \&#34;NONE\&#34;,\n      \&#34;auto_generate_synonyms_phrase_query\&#34; : true,\n      \&#34;boost\&#34; : 1.0\n    }\n  }\n}&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;index_uuid&#34;</span><span class="p">:</span> <span class="s2">&#34;SxPqkWdSSmqvEN1Fs1_VSQ&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span>
-      <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;search_phase_execution_exception&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;all shards failed&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;phase&#34;</span><span class="p">:</span> <span class="s2">&#34;query&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;grouped&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="nt">&#34;failed_shards&#34;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;shard&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;node&#34;</span><span class="p">:</span> <span class="s2">&#34;Ko9MGMaiQsqw-So5TLyBIg&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;query_shard_exception&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;failed to create query: {\n  \&#34;match\&#34; : {\n    \&#34;mobile\&#34; : {\n      \&#34;query\&#34; : \&#34;12345678\&#34;,\n      \&#34;operator\&#34; : \&#34;OR\&#34;,\n      \&#34;prefix_length\&#34; : 0,\n      \&#34;max_expansions\&#34; : 50,\n      \&#34;fuzzy_transpositions\&#34; : true,\n      \&#34;lenient\&#34; : false,\n      \&#34;zero_terms_query\&#34; : \&#34;NONE\&#34;,\n      \&#34;auto_generate_synonyms_phrase_query\&#34; : true,\n      \&#34;boost\&#34; : 1.0\n    }\n  }\n}&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;index_uuid&#34;</span><span class="p">:</span> <span class="s2">&#34;SxPqkWdSSmqvEN1Fs1_VSQ&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;caused_by&#34;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;illegal_argument_exception&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;Cannot search on field [mobile] since it is not indexed.&#34;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">400</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;mobile&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="s2">&#34;12345678&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">/users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span><span class="s2">&#34;12345678&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;error&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;root_cause&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;query_shard_exception&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;failed to create query: {\n  \&#34;match\&#34; : {\n    \&#34;mobile\&#34; : {\n      \&#34;query\&#34; : \&#34;12345678\&#34;,\n      \&#34;operator\&#34; : \&#34;OR\&#34;,\n      \&#34;prefix_length\&#34; : 0,\n      \&#34;max_expansions\&#34; : 50,\n      \&#34;fuzzy_transpositions\&#34; : true,\n      \&#34;lenient\&#34; : false,\n      \&#34;zero_terms_query\&#34; : \&#34;NONE\&#34;,\n      \&#34;auto_generate_synonyms_phrase_query\&#34; : true,\n      \&#34;boost\&#34; : 1.0\n    }\n  }\n}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;index_uuid&#34;</span><span class="p">:</span> <span class="s2">&#34;SxPqkWdSSmqvEN1Fs1_VSQ&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;search_phase_execution_exception&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;all shards failed&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;phase&#34;</span><span class="p">:</span> <span class="s2">&#34;query&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;grouped&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed_shards&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;shard&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;node&#34;</span><span class="p">:</span> <span class="s2">&#34;Ko9MGMaiQsqw-So5TLyBIg&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;query_shard_exception&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;failed to create query: {\n  \&#34;match\&#34; : {\n    \&#34;mobile\&#34; : {\n      \&#34;query\&#34; : \&#34;12345678\&#34;,\n      \&#34;operator\&#34; : \&#34;OR\&#34;,\n      \&#34;prefix_length\&#34; : 0,\n      \&#34;max_expansions\&#34; : 50,\n      \&#34;fuzzy_transpositions\&#34; : true,\n      \&#34;lenient\&#34; : false,\n      \&#34;zero_terms_query\&#34; : \&#34;NONE\&#34;,\n      \&#34;auto_generate_synonyms_phrase_query\&#34; : true,\n      \&#34;boost\&#34; : 1.0\n    }\n  }\n}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;index_uuid&#34;</span><span class="p">:</span> <span class="s2">&#34;SxPqkWdSSmqvEN1Fs1_VSQ&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;index&#34;</span><span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;caused_by&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;illegal_argument_exception&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;Cannot search on field [mobile] since it is not indexed.&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="index-options">index Options</h4>
 <ul>
@@ -447,77 +447,77 @@
 </span><span class="lnt">70
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#设定Null_value</span>
-
-<span class="err">DELETE</span> <span class="err">users</span>
-<span class="err">PUT</span> <span class="err">users</span>
-<span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;mobile&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;null_value&#34;</span><span class="p">:</span> <span class="s2">&#34;NULL&#34;</span>
-        <span class="p">}</span>
-
-      <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="kc">null</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span><span class="s2">&#34;NULL&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-
-<span class="p">}</span>
-
-<span class="err">#</span> <span class="err">返回内容：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
-        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;mobile&#34;</span> <span class="p">:</span> <span class="kc">null</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#设定Null_value</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">DELETE</span> <span class="err">users</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;mobile&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;null_value&#34;</span><span class="p">:</span> <span class="s2">&#34;NULL&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mobile&#34;</span><span class="p">:</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;mobile&#34;</span><span class="p">:</span><span class="s2">&#34;NULL&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">返回内容：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;mobile&#34;</span> <span class="p">:</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="copy_to-设置">copy_to 设置</h4>
 <ul>
@@ -598,84 +598,80 @@
 </span><span class="lnt">69
 </span><span class="lnt">70
 </span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#设置</span> <span class="err">Copy</span> <span class="err">to</span>
-<span class="err">DELETE</span> <span class="err">users</span>
-<span class="err">PUT</span> <span class="err">users</span>
-<span class="p">{</span>
-  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;firstName&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;copy_to&#34;</span><span class="p">:</span> <span class="s2">&#34;fullName&#34;</span>
-      <span class="p">},</span>
-      <span class="nt">&#34;lastName&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;copy_to&#34;</span><span class="p">:</span> <span class="s2">&#34;fullName&#34;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-<span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">users/_search?q=fullName:(Ruan</span> <span class="err">Yiming)</span>
-
-<span class="err">#以上等同</span>
-<span class="err">POST</span> <span class="err">users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
-       <span class="nt">&#34;fullName&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan Yiming&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;operator&#34;</span><span class="p">:</span> <span class="s2">&#34;and&#34;</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.5753642</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.5753642</span><span class="p">,</span>
-        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#设置</span> <span class="err">Copy</span> <span class="err">to</span>
+</span></span><span class="line"><span class="cl"><span class="err">DELETE</span> <span class="err">users</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;firstName&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;copy_to&#34;</span><span class="p">:</span> <span class="s2">&#34;fullName&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;lastName&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;copy_to&#34;</span><span class="p">:</span> <span class="s2">&#34;fullName&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">users/_search?q=fullName:(Ruan</span> <span class="err">Yiming)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#以上等同</span>
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="nt">&#34;fullName&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="s2">&#34;Ruan Yiming&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;operator&#34;</span><span class="p">:</span> <span class="s2">&#34;and&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.5753642</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.5753642</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Ruan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="s2">&#34;Yiming&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="数组类型">数组类型</h4>
 <p>Elasticsearch中不提供专门的数组类型，<strong>但任何字段都可以包含多个相同类型的数值</strong>。</p>
@@ -787,111 +783,111 @@
 </span><span class="lnt">104
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#数组类型</span>
-<span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;onebird&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;interests&#34;</span><span class="p">:</span><span class="s2">&#34;reading&#34;</span>
-<span class="p">}</span>
-
-<span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;twobirds&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;interests&#34;</span><span class="p">:[</span><span class="s2">&#34;reading&#34;</span><span class="p">,</span><span class="s2">&#34;music&#34;</span><span class="p">]</span>
-<span class="p">}</span>
-
-<span class="err">POST</span> <span class="err">users/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
-		<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">466</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
-        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="s2">&#34;twobirds&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;interests&#34;</span> <span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&#34;reading&#34;</span><span class="p">,</span>
-            <span class="s2">&#34;music&#34;</span>
-          <span class="p">]</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">GET</span> <span class="err">users/_mapping</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;users&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;copy_to&#34;</span> <span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&#34;fullName&#34;</span>
-          <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;fullName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;interests&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;copy_to&#34;</span> <span class="p">:</span> <span class="p">[</span>
-            <span class="s2">&#34;fullName&#34;</span>
-          <span class="p">]</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#数组类型</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;onebird&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;interests&#34;</span><span class="p">:</span><span class="s2">&#34;reading&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">users/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;name&#34;</span><span class="p">:</span><span class="s2">&#34;twobirds&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;interests&#34;</span><span class="p">:[</span><span class="s2">&#34;reading&#34;</span><span class="p">,</span><span class="s2">&#34;music&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">users/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nt">&#34;match_all&#34;</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">466</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;users&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="s2">&#34;twobirds&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;interests&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;reading&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;music&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">users/_mapping</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;users&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;copy_to&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;fullName&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;fullName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;interests&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;copy_to&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;fullName&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;name&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="dynamic-mapping">Dynamic Mapping</h3>
 <p>Dynamic Mapping 机制的作用在于：</p>
@@ -991,54 +987,52 @@
 </span><span class="lnt">41
 </span><span class="lnt">42
 </span><span class="lnt">43
-</span><span class="lnt">44
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json">
-<span class="err">#写入文档，查看</span> <span class="err">Mapping</span>
-<span class="err">PUT</span> <span class="err">mapping_test/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Chan&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Jackie&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;loginDate&#34;</span><span class="p">:</span><span class="s2">&#34;2018-07-24T10:29:48.103Z&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#查看</span> <span class="err">Mapping文件</span>
-<span class="err">GET</span> <span class="err">mapping_test/_mapping</span>
-
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;mapping_test&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;loginDate&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;date&#34;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#写入文档，查看</span> <span class="err">Mapping</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">mapping_test/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;firstName&#34;</span><span class="p">:</span><span class="s2">&#34;Chan&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;lastName&#34;</span><span class="p">:</span> <span class="s2">&#34;Jackie&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;loginDate&#34;</span><span class="p">:</span><span class="s2">&#34;2018-07-24T10:29:48.103Z&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#查看</span> <span class="err">Mapping文件</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">mapping_test/_mapping</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mapping_test&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;firstName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;lastName&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;loginDate&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;date&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1097,60 +1091,60 @@
 </span><span class="lnt">53
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#Delete</span> <span class="err">index</span>
-<span class="err">DELETE</span> <span class="err">mapping_test</span>
-
-<span class="err">#dynamic</span> <span class="err">mapping，推断字段的类型</span>
-<span class="err">PUT</span> <span class="err">mapping_test/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-    <span class="nt">&#34;uid&#34;</span> <span class="p">:</span> <span class="s2">&#34;123&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;isVip&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="nt">&#34;isAdmin&#34;</span><span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;age&#34;</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span>
-    <span class="nt">&#34;heigh&#34;</span><span class="p">:</span><span class="mi">180</span>
-<span class="p">}</span>
-
-<span class="err">#查看</span> <span class="err">Dynamic</span>
-<span class="err">GET</span> <span class="err">mapping_test/_mapping</span>
-
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;mapping_test&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&#34;age&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;long&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;heigh&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;long&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;isAdmin&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;isVip&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;uid&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
-              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
-              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
-            <span class="p">}</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#Delete</span> <span class="err">index</span>
+</span></span><span class="line"><span class="cl"><span class="err">DELETE</span> <span class="err">mapping_test</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#dynamic</span> <span class="err">mapping，推断字段的类型</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">mapping_test/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;uid&#34;</span> <span class="p">:</span> <span class="s2">&#34;123&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;isVip&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;isAdmin&#34;</span><span class="p">:</span> <span class="s2">&#34;true&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;age&#34;</span><span class="p">:</span><span class="mi">19</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;heigh&#34;</span><span class="p">:</span><span class="mi">180</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#查看</span> <span class="err">Dynamic</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">mapping_test/_mapping</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;mapping_test&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;mappings&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;properties&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;age&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;long&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;heigh&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;long&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;isAdmin&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;isVip&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;boolean&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;uid&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;fields&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;keyword&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;keyword&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">              <span class="nt">&#34;ignore_above&#34;</span> <span class="p">:</span> <span class="mi">256</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="更改-mapping-字段类型">更改 Mapping 字段类型</h3>
 <ol>
@@ -1260,52 +1254,52 @@
 </span><span class="lnt">45
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#默认Mapping支持dynamic，写入的文档中加入新的字段</span>
-<span class="err">PUT</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">1</span>
-<span class="p">{</span>
-  <span class="nt">&#34;newField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#该字段可以被搜索，数据也在_source中出现</span>
-<span class="err">POST</span> <span class="err">dynamic_mapping_test/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
-    <span class="nt">&#34;match&#34;</span><span class="p">:{</span>
-      <span class="nt">&#34;newField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;dynamic_mapping_test&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
-        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
-          <span class="nt">&#34;newField&#34;</span> <span class="p">:</span> <span class="s2">&#34;someValue&#34;</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#默认Mapping支持dynamic，写入的文档中加入新的字段</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;newField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#该字段可以被搜索，数据也在_source中出现</span>
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">dynamic_mapping_test/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;newField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;dynamic_mapping_test&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_score&#34;</span> <span class="p">:</span> <span class="mf">0.2876821</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;newField&#34;</span> <span class="p">:</span> <span class="s2">&#34;someValue&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1385,87 +1379,85 @@
 </span><span class="lnt">74
 </span><span class="lnt">75
 </span><span class="lnt">76
-</span><span class="lnt">77
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#修改为dynamic</span> <span class="kc">false</span>
-<span class="err">PUT</span> <span class="err">dynamic_mapping_test/_mapping</span>
-<span class="p">{</span>
-  <span class="nt">&#34;dynamic&#34;</span><span class="p">:</span> <span class="kc">false</span>
-<span class="p">}</span>
-
-<span class="err">#新增</span> <span class="err">anotherField</span>
-<span class="err">PUT</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">10</span>
-<span class="p">{</span>
-  <span class="nt">&#34;anotherField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;dynamic_mapping_test&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;10&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;_version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&#34;result&#34;</span> <span class="p">:</span> <span class="s2">&#34;created&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;_seq_no&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&#34;_primary_term&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-<span class="p">}</span>
-
-
-
-<span class="err">#该字段不可以被搜索，因为dynamic已经被设置为</span><span class="kc">false</span>
-<span class="err">POST</span> <span class="err">dynamic_mapping_test/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
-    <span class="nt">&#34;match&#34;</span><span class="p">:{</span>
-      <span class="nt">&#34;anotherField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">766</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#</span> <span class="err">但是文档可以被索引到</span>
-<span class="err">get</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">10</span>
-
-<span class="err">#</span> <span class="err">返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;dynamic_mapping_test&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;10&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;_version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&#34;_seq_no&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&#34;_primary_term&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-  <span class="nt">&#34;found&#34;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;anotherField&#34;</span> <span class="p">:</span> <span class="s2">&#34;someValue&#34;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#修改为dynamic</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">dynamic_mapping_test/_mapping</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dynamic&#34;</span><span class="p">:</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#新增</span> <span class="err">anotherField</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;anotherField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;dynamic_mapping_test&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;10&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;result&#34;</span> <span class="p">:</span> <span class="s2">&#34;created&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_seq_no&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_primary_term&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#该字段不可以被搜索，因为dynamic已经被设置为</span><span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">dynamic_mapping_test/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;query&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;match&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;anotherField&#34;</span><span class="p">:</span><span class="s2">&#34;someValue&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">766</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;eq&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">但是文档可以被索引到</span>
+</span></span><span class="line"><span class="cl"><span class="err">get</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#</span> <span class="err">返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_index&#34;</span> <span class="p">:</span> <span class="s2">&#34;dynamic_mapping_test&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_type&#34;</span> <span class="p">:</span> <span class="s2">&#34;_doc&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_id&#34;</span> <span class="p">:</span> <span class="s2">&#34;10&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_version&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_seq_no&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_primary_term&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;found&#34;</span> <span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_source&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;anotherField&#34;</span> <span class="p">:</span> <span class="s2">&#34;someValue&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1501,37 +1493,37 @@
 </span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json">
-
-<span class="err">#修改为strict</span>
-<span class="err">PUT</span> <span class="err">dynamic_mapping_test/_mapping</span>
-<span class="p">{</span>
-  <span class="nt">&#34;dynamic&#34;</span><span class="p">:</span> <span class="s2">&#34;strict&#34;</span>
-<span class="p">}</span>
-
-
-
-<span class="err">#写入数据出错，HTTP</span> <span class="err">Code</span> <span class="mi">400</span>
-<span class="err">PUT</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">12</span>
-<span class="p">{</span>
-  <span class="nt">&#34;lastField&#34;</span><span class="p">:</span><span class="s2">&#34;value&#34;</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;error&#34;</span><span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;root_cause&#34;</span><span class="p">:</span> <span class="p">[</span>
-      <span class="p">{</span>
-        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;strict_dynamic_mapping_exception&#34;</span><span class="p">,</span>
-        <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;mapping set to strict, dynamic introduction of [lastField] within [_doc] is not allowed&#34;</span>
-      <span class="p">}</span>
-    <span class="p">],</span>
-    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;strict_dynamic_mapping_exception&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;mapping set to strict, dynamic introduction of [lastField] within [_doc] is not allowed&#34;</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">400</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#修改为strict</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">dynamic_mapping_test/_mapping</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dynamic&#34;</span><span class="p">:</span> <span class="s2">&#34;strict&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#写入数据出错，HTTP</span> <span class="err">Code</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="cl"><span class="err">PUT</span> <span class="err">dynamic_mapping_test/_doc/</span><span class="mi">12</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;lastField&#34;</span><span class="p">:</span><span class="s2">&#34;value&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;error&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;root_cause&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;strict_dynamic_mapping_exception&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;mapping set to strict, dynamic introduction of [lastField] within [_doc] is not allowed&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;strict_dynamic_mapping_exception&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;reason&#34;</span><span class="p">:</span> <span class="s2">&#34;mapping set to strict, dynamic introduction of [lastField] within [_doc] is not allowed&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="mi">400</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
 <p><a href="https://time.geekbang.org/course/intro/100030501?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/course/intro/100030501?tab=catalog</a></p>
@@ -1571,7 +1563,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

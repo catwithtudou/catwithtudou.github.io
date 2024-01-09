@@ -180,10 +180,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">chan</span><span class="o">&lt;-</span> <span class="nx">dataType</span>
-<span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">dataType</span>
-<span class="kd">chan</span> <span class="nx">dataType</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">chan</span><span class="o">&lt;-</span> <span class="nx">dataType</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;-</span><span class="kd">chan</span> <span class="nx">dataType</span>
+</span></span><span class="line"><span class="cl"><span class="kd">chan</span> <span class="nx">dataType</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>channel根据设置容量分为 buffer chan 和 unbuffered chan。</p>
 <p>在 buffer chan 被阻塞时只有在容量已满的时候才会被阻塞，而 unbuffered chan 只有读写都准备好之后才不不会阻塞。</p>
@@ -199,14 +199,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// send the data
-</span><span class="c1"></span><span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">10</span>
-
-<span class="c1">// receive the data
-</span><span class="c1"></span><span class="nx">x</span><span class="p">,</span><span class="nx">ok</span><span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
-<span class="nx">x</span><span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
-<span class="o">&lt;-</span><span class="nx">ch</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// send the data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// receive the data
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">x</span><span class="p">,</span><span class="nx">ok</span><span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
+</span></span><span class="line"><span class="cl"><span class="nx">x</span><span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
+</span></span><span class="line"><span class="cl"><span class="o">&lt;-</span><span class="nx">ch</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>在使用 channel 中我们还可以将 channel 使用于 select 的 case clause，for-range中。</p>
 <div class="highlight"><div class="chroma">
@@ -220,14 +220,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="k">select</span><span class="p">{</span>
-	<span class="k">case</span> <span class="nx">ch</span><span class="o">&lt;-</span><span class="nx">i</span><span class="p">:</span>
-  <span class="k">case</span> <span class="nx">v</span><span class="o">:=&lt;-</span><span class="nx">ch</span><span class="p">:</span> 
-<span class="p">}</span>
-
-<span class="k">for</span> <span class="nx">v</span><span class="o">:=</span><span class="k">range</span> <span class="nx">ch</span><span class="p">{}</span>
-<span class="k">for</span> <span class="k">range</span> <span class="nx">ch</span><span class="p">{}</span> <span class="c1">// clean the chan
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">select</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">case</span> <span class="nx">ch</span><span class="o">&lt;-</span><span class="nx">i</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">  <span class="k">case</span> <span class="nx">v</span><span class="o">:=&lt;-</span><span class="nx">ch</span><span class="p">:</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">v</span><span class="o">:=</span><span class="k">range</span> <span class="nx">ch</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="k">range</span> <span class="nx">ch</span><span class="p">{}</span> <span class="c1">// clean the chan
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="channel的实现原理">Channel的实现原理</h2>
 <blockquote>
@@ -458,7 +458,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

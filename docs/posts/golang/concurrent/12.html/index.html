@@ -170,22 +170,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
-<span class="kd">var</span> <span class="nx">done</span> <span class="kt">bool</span>
-
-<span class="kd">func</span> <span class="nf">setup</span><span class="p">(){</span>
-  <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
-  <span class="nx">done</span> <span class="p">=</span> <span class="kc">true</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
-  <span class="k">go</span> <span class="nf">setup</span><span class="p">()</span>
-  <span class="k">for</span> <span class="p">!</span><span class="nx">done</span><span class="p">{</span>
-    
-  <span class="p">}</span>
-  <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">done</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">setup</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">done</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="k">go</span> <span class="nf">setup</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="p">!</span><span class="nx">done</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="nb">print</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>我们就需要了解<code>happens-before</code>概念，其用来描述两个时间的顺序关系，若操作之间能提供<code>happens-before</code>关系，那么我们就可以确定保证它们之间的顺序。</p>
 <h2 id="happens-before">happens-before</h2>
@@ -232,17 +232,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
-
-<span class="kd">func</span> <span class="nf">f</span><span class="p">(){</span>
-  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
-  <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
-  <span class="k">go</span> <span class="nf">f</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">a</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">go</span> <span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="channel">Channel</h3>
 <p>通用的 Channel happens before 关系保证有4条规则：</p>
@@ -268,21 +268,21 @@
 </span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">var</span> <span class="nx">ch</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span><span class="mi">10</span><span class="p">)</span>
-<span class="kd">var</span> <span class="nx">s</span> <span class="kt">string</span>
-
-<span class="kd">func</span> <span class="nf">f</span><span class="p">(){</span>
-  <span class="nx">s</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
-  <span class="c1">//ch&lt;-struct{}{}
-</span><span class="c1"></span>  <span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
-  <span class="k">go</span> <span class="nf">f</span><span class="p">()</span>
-  <span class="o">&lt;-</span><span class="nx">ch</span> <span class="c1">//能够在close之前保证取出零值
-</span><span class="c1"></span>  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">ch</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kd">struct</span><span class="p">{},</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">s</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">s</span> <span class="p">=</span> <span class="s">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//ch&lt;-struct{}{}
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">  <span class="k">go</span> <span class="nf">f</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">  <span class="o">&lt;-</span><span class="nx">ch</span> <span class="c1">//能够在close之前保证取出零值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>对于 unbuffered 的 Channel，读取数据的调用一定 happens before 往此 Channel 发送数据的调用完成。</li>
@@ -335,7 +335,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

@@ -157,8 +157,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">map</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span><span class="nx">v</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">map</span><span class="p">[</span><span class="nx">k</span><span class="p">]</span><span class="nx">v</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li><strong>Key类型的K必须是可比较的</strong>；</li>
@@ -196,11 +196,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="kd">type</span> <span class="nx">RWMap</span> <span class="kd">struct</span><span class="p">{</span>
-  <span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
-  <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">RWMap</span> <span class="kd">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="分片加锁">分片加锁</h3>
 <p>在并发编程中，我们会尽量减少锁的使用，因为在大量并发读写情况下锁的竞争会非常激烈，锁时性能下降的万恶之源之一。</p>
@@ -263,7 +263,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

@@ -1,0 +1,78 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Tags - 标签 - </title>
+        <link>https://zhengyua.cn/tags/</link>
+        <description>Tags - 标签 - </description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Thu, 24 Mar 2022 20:28:06 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>note</title>
+    <link>https://zhengyua.cn/tags/note/</link>
+    <pubDate>Thu, 24 Mar 2022 20:28:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/note/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>WIP</title>
+    <link>https://zhengyua.cn/tags/wip/</link>
+    <pubDate>Thu, 24 Mar 2022 20:28:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/wip/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>日常生活</title>
+    <link>https://zhengyua.cn/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/</link>
+    <pubDate>Thu, 24 Mar 2022 20:28:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/%E6%97%A5%E5%B8%B8%E7%94%9F%E6%B4%BB/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>哲学</title>
+    <link>https://zhengyua.cn/tags/%E5%93%B2%E5%AD%A6/</link>
+    <pubDate>Thu, 24 Mar 2022 20:28:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/%E5%93%B2%E5%AD%A6/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>es</title>
+    <link>https://zhengyua.cn/tags/es/</link>
+    <pubDate>Fri, 18 Mar 2022 15:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/es/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>search_engine</title>
+    <link>https://zhengyua.cn/tags/search_engine/</link>
+    <pubDate>Fri, 18 Mar 2022 15:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/search_engine/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>通用技术</title>
+    <link>https://zhengyua.cn/tags/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</link>
+    <pubDate>Sun, 13 Mar 2022 20:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/%E9%80%9A%E7%94%A8%E6%8A%80%E6%9C%AF/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>学习效率</title>
+    <link>https://zhengyua.cn/tags/%E5%AD%A6%E4%B9%A0%E6%95%88%E7%8E%87/</link>
+    <pubDate>Sun, 13 Mar 2022 20:00:06 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/%E5%AD%A6%E4%B9%A0%E6%95%88%E7%8E%87/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>os</title>
+    <link>https://zhengyua.cn/tags/os/</link>
+    <pubDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/os/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>汇编</title>
+    <link>https://zhengyua.cn/tags/%E6%B1%87%E7%BC%96/</link>
+    <pubDate>Sat, 05 Mar 2022 09:58:26 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/tags/%E6%B1%87%E7%BC%96/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
+</rss>

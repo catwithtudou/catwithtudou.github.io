@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/7.html\/"
-        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  1937 ,
+        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  1933 ,
         "url": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/7.html\/","datePublished": "2022-03-08T10:42:00+08:00","dateModified": "2022-03-08T10:42:00+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ElasticSearch聚合简介</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/search-engine/"><i class="far fa-folder fa-fw"></i>search engine</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-08">2022-03-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1937 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-08">2022-03-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1933 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -347,196 +347,194 @@ GROUP by band =&gt; Bucket：一组满足条件的文档</p>
 </span><span class="lnt">183
 </span><span class="lnt">184
 </span><span class="lnt">185
-</span><span class="lnt">186
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#价格统计信息+天气信息</span>
-<span class="err">GET</span> <span class="err">kibana_sample_data_flights/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
-    <span class="nt">&#34;flight_dest&#34;</span><span class="p">:{</span>
-      <span class="nt">&#34;terms&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;DestCountry&#34;</span>
-      <span class="p">},</span>
-      <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;stats_price&#34;</span><span class="p">:{</span>
-          <span class="nt">&#34;stats&#34;</span><span class="p">:{</span>
-            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;wather&#34;</span><span class="p">:{</span>
-          <span class="nt">&#34;terms&#34;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;DestWeather&#34;</span><span class="p">,</span>
-            <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">5</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;gte&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;aggregations&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;flight_dest&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;doc_count_error_upper_bound&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;sum_other_doc_count&#34;</span> <span class="p">:</span> <span class="mi">3187</span><span class="p">,</span>
-      <span class="nt">&#34;buckets&#34;</span> <span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;IT&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">2371</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1195.3363037109375</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.57646942138672</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">586.9627099618385</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;US&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1987</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.72900390625</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.14596557617188</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">595.7743908825026</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1096</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.4901123046875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.90382385253906</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">640.7101617033464</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CA&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">944</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.8525390625</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.5572509765625</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">648.7471090413757</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;JP&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">774</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.4913330078125</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">103.97209930419922</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.9203447346847</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;RU&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">739</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.7423095703125</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.0040054321289</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.9949632162009</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CH&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">691</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.496826171875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.3473129272461</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">575.1067587028537</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;GB&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">449</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.78564453125</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">111.34574890136719</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.5326856005696</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;AU&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">416</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.6326904296875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.2943115234375</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">669.5588319668403</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;PL&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">405</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1185.43701171875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">104.28328704833984</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.4497233072917</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#价格统计信息+天气信息</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">kibana_sample_data_flights/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;flight_dest&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;terms&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;DestCountry&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;stats_price&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;stats&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;wather&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;terms&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;field&#34;</span><span class="p">:</span> <span class="s2">&#34;DestWeather&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;gte&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aggregations&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;flight_dest&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;doc_count_error_upper_bound&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;sum_other_doc_count&#34;</span> <span class="p">:</span> <span class="mi">3187</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;buckets&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;IT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">2371</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1195.3363037109375</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.57646942138672</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">586.9627099618385</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;US&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1987</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.72900390625</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.14596557617188</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">595.7743908825026</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1096</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.4901123046875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.90382385253906</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">640.7101617033464</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CA&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">944</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.8525390625</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.5572509765625</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">648.7471090413757</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;JP&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">774</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.4913330078125</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">103.97209930419922</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.9203447346847</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;RU&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">739</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.7423095703125</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.0040054321289</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.9949632162009</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CH&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">691</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.496826171875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.3473129272461</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">575.1067587028537</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;GB&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">449</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.78564453125</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">111.34574890136719</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.5326856005696</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;AU&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">416</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.6326904296875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.2943115234375</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">669.5588319668403</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;PL&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">405</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1185.43701171875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">104.28328704833984</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.4497233072917</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="bucket">Bucket</h4>
 <p>Elasticsearch <strong>提供了很多类型的 Bucket，可以多种方式划分文档</strong>:</p>
@@ -632,91 +630,89 @@ GROUP by band =&gt; Bucket：一组满足条件的文档</p>
 </span><span class="lnt">78
 </span><span class="lnt">79
 </span><span class="lnt">80
-</span><span class="lnt">81
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#按照目的地进行分桶统计</span>
-<span class="err">GET</span> <span class="err">kibana_sample_data_flights/_search</span>
-<span class="p">{</span>
-    <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;flight_dest&#34;</span><span class="p">:{</span>
-            <span class="nt">&#34;terms&#34;</span><span class="p">:{</span>
-                <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;DestCountry&#34;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;gte&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;aggregations&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;flight_dest&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;doc_count_error_upper_bound&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;sum_other_doc_count&#34;</span> <span class="p">:</span> <span class="mi">3187</span><span class="p">,</span>
-      <span class="nt">&#34;buckets&#34;</span> <span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;IT&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">2371</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;US&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1987</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1096</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CA&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">944</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;JP&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">774</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;RU&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">739</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CH&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">691</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;GB&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">449</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;AU&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">416</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;PL&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">405</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#按照目的地进行分桶统计</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">kibana_sample_data_flights/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;flight_dest&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;terms&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;DestCountry&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;gte&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aggregations&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;flight_dest&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;doc_count_error_upper_bound&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;sum_other_doc_count&#34;</span> <span class="p">:</span> <span class="mi">3187</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;buckets&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;IT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">2371</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;US&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1987</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1096</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CA&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">944</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;JP&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">774</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;RU&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">739</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CH&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">691</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;GB&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">449</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;AU&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">416</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;PL&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">405</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="metric">Metric</h4>
 <p>Metric 会<strong>基于数据集计算结果，除了支持在字段上进行计算，同样支持在脚本（painless script）产生的结果之上进行计算</strong>：</p>
@@ -921,200 +917,196 @@ GROUP by band =&gt; Bucket：一组满足条件的文档</p>
 </span><span class="lnt">185
 </span><span class="lnt">186
 </span><span class="lnt">187
-</span><span class="lnt">188
-</span><span class="lnt">189
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#查看航班目的地的统计信息，增加平均，最高最低价格</span>
-<span class="err">GET</span> <span class="err">kibana_sample_data_flights/_search</span>
-<span class="p">{</span>
-  <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-  <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
-    <span class="nt">&#34;flight_dest&#34;</span><span class="p">:{</span>
-      <span class="nt">&#34;terms&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;DestCountry&#34;</span>
-      <span class="p">},</span>
-      <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
-        <span class="nt">&#34;avg_price&#34;</span><span class="p">:{</span>
-          <span class="nt">&#34;avg&#34;</span><span class="p">:{</span>
-            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;max_price&#34;</span><span class="p">:{</span>
-          <span class="nt">&#34;max&#34;</span><span class="p">:{</span>
-            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="nt">&#34;min_price&#34;</span><span class="p">:{</span>
-          <span class="nt">&#34;min&#34;</span><span class="p">:{</span>
-            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-<span class="err">#返回如下：</span>
-<span class="p">{</span>
-  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
-      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;gte&#34;</span>
-    <span class="p">},</span>
-    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
-    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
-  <span class="p">},</span>
-  <span class="nt">&#34;aggregations&#34;</span> <span class="p">:</span> <span class="p">{</span>
-    <span class="nt">&#34;flight_dest&#34;</span> <span class="p">:</span> <span class="p">{</span>
-      <span class="nt">&#34;doc_count_error_upper_bound&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;sum_other_doc_count&#34;</span> <span class="p">:</span> <span class="mi">3187</span><span class="p">,</span>
-      <span class="nt">&#34;buckets&#34;</span> <span class="p">:</span> <span class="p">[</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;IT&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">2371</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1195.3363037109375</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.57646942138672</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">586.9627099618385</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;US&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1987</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.72900390625</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.14596557617188</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">595.7743908825026</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1096</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.4901123046875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.90382385253906</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">640.7101617033464</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CA&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">944</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.8525390625</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.5572509765625</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">648.7471090413757</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;JP&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">774</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.4913330078125</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">103.97209930419922</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.9203447346847</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;RU&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">739</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.7423095703125</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.0040054321289</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.9949632162009</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CH&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">691</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.496826171875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.3473129272461</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">575.1067587028537</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;GB&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">449</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.78564453125</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">111.34574890136719</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.5326856005696</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;AU&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">416</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.6326904296875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.2943115234375</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">669.5588319668403</span>
-          <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="p">{</span>
-          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;PL&#34;</span><span class="p">,</span>
-          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">405</span><span class="p">,</span>
-          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1185.43701171875</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">104.28328704833984</span>
-          <span class="p">},</span>
-          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
-            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.4497233072917</span>
-          <span class="p">}</span>
-        <span class="p">}</span>
-      <span class="p">]</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#查看航班目的地的统计信息，增加平均，最高最低价格</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">kibana_sample_data_flights/_search</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;size&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;flight_dest&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;terms&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;DestCountry&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="p">},</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;aggs&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;avg_price&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;max_price&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;min_price&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min&#34;</span><span class="p">:{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;AvgTicketPrice&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">#返回如下：</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;took&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;timed_out&#34;</span> <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;_shards&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;successful&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;skipped&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;failed&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;total&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;relation&#34;</span> <span class="p">:</span> <span class="s2">&#34;gte&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;max_score&#34;</span> <span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;hits&#34;</span> <span class="p">:</span> <span class="p">[</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">},</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;aggregations&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;flight_dest&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;doc_count_error_upper_bound&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;sum_other_doc_count&#34;</span> <span class="p">:</span> <span class="mi">3187</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;buckets&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;IT&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">2371</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1195.3363037109375</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.57646942138672</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">586.9627099618385</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;US&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1987</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.72900390625</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.14596557617188</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">595.7743908825026</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">1096</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.4901123046875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.90382385253906</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">640.7101617033464</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CA&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">944</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1198.8525390625</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">100.5572509765625</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">648.7471090413757</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;JP&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">774</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1199.4913330078125</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">103.97209930419922</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.9203447346847</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;RU&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">739</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.7423095703125</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.0040054321289</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.9949632162009</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;CH&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">691</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1196.496826171875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">101.3473129272461</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">575.1067587028537</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;GB&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">449</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.78564453125</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">111.34574890136719</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">650.5326856005696</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;AU&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">416</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1197.6326904296875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">102.2943115234375</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">669.5588319668403</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;key&#34;</span> <span class="p">:</span> <span class="s2">&#34;PL&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;doc_count&#34;</span> <span class="p">:</span> <span class="mi">405</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;max_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">1185.43701171875</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;min_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">104.28328704833984</span>
+</span></span><span class="line"><span class="cl">          <span class="p">},</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&#34;avg_price&#34;</span> <span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;value&#34;</span> <span class="p">:</span> <span class="mf">662.4497233072917</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">      <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
 <p><a href="https://time.geekbang.org/course/intro/100030501?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/course/intro/100030501?tab=catalog</a></p>
@@ -1154,7 +1146,7 @@ GROUP by band =&gt; Bucket：一组满足条件的文档</p>
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

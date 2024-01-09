@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/5.html\/"
-        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  2074 ,
+        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  2073 ,
         "url": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/5.html\/","datePublished": "2022-01-29T02:28:06+08:00","dateModified": "2022-01-29T02:28:06+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Go并发编程实战课笔记—GroupOperation</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2074 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2073 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -163,15 +163,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 一旦有子任务返回错误或是Wait调用返回则该返回的context会被cancel
-</span><span class="c1">// 注意当传递ctx参数是一个可以cancel的Context的话则被cancel的时候并不会终止该正在执行的子任务
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">WithContext</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)(</span><span class="o">*</span><span class="nx">Group</span><span class="p">,</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span>
-<span class="c1">// 任务函数f若执行成功则返回nil，若不成功则返回error且会cancel那个新的Context
-</span><span class="c1">// Wait方法只会返回第一个错误
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span><span class="nf">Go</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span>
-<span class="c1">// 阻塞等待至等所有子任务执行完成后才会返回
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span><span class="nf">Wait</span><span class="p">()</span><span class="kt">error</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 一旦有子任务返回错误或是Wait调用返回则该返回的context会被cancel
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 注意当传递ctx参数是一个可以cancel的Context的话则被cancel的时候并不会终止该正在执行的子任务
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">WithContext</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)(</span><span class="o">*</span><span class="nx">Group</span><span class="p">,</span><span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 任务函数f若执行成功则返回nil，若不成功则返回error且会cancel那个新的Context
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Wait方法只会返回第一个错误
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span><span class="nf">Go</span><span class="p">(</span><span class="nx">f</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 阻塞等待至等所有子任务执行完成后才会返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span><span class="nf">Wait</span><span class="p">()</span><span class="kt">error</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="扩展库">扩展库</h3>
 <blockquote>
@@ -242,38 +242,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">
-<span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-    <span class="s">&#34;context&#34;</span>
-    <span class="s">&#34;fmt&#34;</span>
-    <span class="s">&#34;sync/atomic&#34;</span>
-    <span class="s">&#34;time&#34;</span>
-
-    <span class="s">&#34;github.com/go-pkgz/syncs&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// 设置goroutine数是10
-</span><span class="c1"></span>    <span class="nx">swg</span> <span class="o">:=</span> <span class="nx">syncs</span><span class="p">.</span><span class="nf">NewSizedGroup</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-    <span class="c1">// swg := syncs.NewSizedGroup(10, syncs.Preemptive)
-</span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">c</span> <span class="kt">uint32</span>
-
-    <span class="c1">// 执行1000个子任务，只会有10个goroutine去执行
-</span><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-        <span class="nx">swg</span><span class="p">.</span><span class="nf">Go</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
-            <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="p">})</span>
-    <span class="p">}</span>
-
-    <span class="c1">// 等待任务完成
-</span><span class="c1"></span>    <span class="nx">swg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-    <span class="c1">// 输出结果
-</span><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;context&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;sync/atomic&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;github.com/go-pkgz/syncs&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 设置goroutine数是10
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">swg</span> <span class="o">:=</span> <span class="nx">syncs</span><span class="p">.</span><span class="nf">NewSizedGroup</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// swg := syncs.NewSizedGroup(10, syncs.Preemptive)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">var</span> <span class="nx">c</span> <span class="kt">uint32</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 执行1000个子任务，只会有10个goroutine去执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">1000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">swg</span><span class="p">.</span><span class="nf">Go</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">c</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 等待任务完成
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">swg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 输出结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>ErrSizedGroup 为 SizedGroup 提供了 error 处理的功能，与 Go 官方扩展库的功能一样，如等待子任务完成并返回第一个出现的 error。实现的额外功能如下：</p>
 <ul>
@@ -286,29 +286,27 @@
 <p>提供的三个方法如下：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// 等待所有异步函数执行完才返回，且返回结果顺序和传入顺序一致
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">All</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">fns</span> <span class="o">...</span><span class="nx">AsyncFunc</span><span class="p">)([]</span><span class="kd">interface</span><span class="p">{},[]</span><span class="kt">error</span><span class="p">)</span>
-<span class="c1">// type AsyncFunc func(ctx context.Context) (interface{}, error)
-</span><span class="c1"></span>
-<span class="c1">// 与 All 方法类似，区别在于只要一个异步函数执行没有错误则立马返回，而不会返回所有子任务的信息
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Race</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">fns</span> <span class="o">...</span><span class="nx">AsyncFunc</span><span class="p">)(</span><span class="kd">interface</span><span class="p">{},</span><span class="kt">error</span><span class="p">)</span>
-
-<span class="c1">// 执行一个子任务，若执行失败会尝试一定的次数，若一直不成功就会返回失败错误，若执行成功会立即返回，若 retires 为 0 则会永远尝试直至成功
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Retry</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">retires</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">fn</span> <span class="nx">AsyncFunc</span><span class="p">)(</span><span class="kd">interface</span><span class="p">{},</span><span class="kt">error</span><span class="p">)</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 等待所有异步函数执行完才返回，且返回结果顺序和传入顺序一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">All</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">fns</span> <span class="o">...</span><span class="nx">AsyncFunc</span><span class="p">)([]</span><span class="kd">interface</span><span class="p">{},[]</span><span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// type AsyncFunc func(ctx context.Context) (interface{}, error)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 与 All 方法类似，区别在于只要一个异步函数执行没有错误则立马返回，而不会返回所有子任务的信息
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Race</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">fns</span> <span class="o">...</span><span class="nx">AsyncFunc</span><span class="p">)(</span><span class="kd">interface</span><span class="p">{},</span><span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 执行一个子任务，若执行失败会尝试一定的次数，若一直不成功就会返回失败错误，若执行成功会立即返回，若 retires 为 0 则会永远尝试直至成功
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Retry</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">retires</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">fn</span> <span class="nx">AsyncFunc</span><span class="p">)(</span><span class="kd">interface</span><span class="p">{},</span><span class="kt">error</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="hunch">Hunch</h2>
 <p>与 gollback 类似，不过提供的方法更多，且与 rollback 的方法也有一些不同。</p>
@@ -333,23 +331,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// type Executable func(context.Context) (interface{}, error)
-</span><span class="c1"></span>
-<span class="c1">// 会传入一组可执行的函数且返回子任务的执行结果，一旦一个子任务出现错误则会返回错误信息，执行结果为 nil
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">All</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">Executable</span><span class="p">)</span> <span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
-
-<span class="c1">// 只要有 num 个子任务正常执行完没有错误，该方法就会返回这几个子任务的结果。若出现错误与 All 方法类似
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Take</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">num</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">Executable</span><span class="err">）</span><span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
-
-<span class="c1">// 只返回最后 num 个正常执行的、没有错误的子任务的结果。若出现错误与 All 方法类似
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Last</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">num</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">Executable</span><span class="p">)</span> <span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
-
-<span class="c1">// 与 gollback Retry 方法一致
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Retry</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">retries</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">fn</span> <span class="nx">Executable</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
-
-<span class="c1">// 所有子任务是串行执行的，前一个子任务的执行结果会被当作参数传给下一个子任务，直至所有的任务都完成，返回最后的执行结果
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Waterfall</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">ExecutableInSequence</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// type Executable func(context.Context) (interface{}, error)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 会传入一组可执行的函数且返回子任务的执行结果，一旦一个子任务出现错误则会返回错误信息，执行结果为 nil
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">All</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">Executable</span><span class="p">)</span> <span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 只要有 num 个子任务正常执行完没有错误，该方法就会返回这几个子任务的结果。若出现错误与 All 方法类似
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Take</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">num</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">Executable</span><span class="err">）</span><span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 只返回最后 num 个正常执行的、没有错误的子任务的结果。若出现错误与 All 方法类似
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Last</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">num</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">Executable</span><span class="p">)</span> <span class="p">([]</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 与 gollback Retry 方法一致
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Retry</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">retries</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">fn</span> <span class="nx">Executable</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 所有子任务是串行执行的，前一个子任务的执行结果会被当作参数传给下一个子任务，直至所有的任务都完成，返回最后的执行结果
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">Waterfall</span><span class="p">(</span><span class="nx">parentCtx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">,</span> <span class="nx">execs</span> <span class="o">...</span><span class="nx">ExecutableInSequence</span><span class="p">)</span> <span class="p">(</span><span class="kd">interface</span><span class="p">{},</span> <span class="kt">error</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="schedgroup">schedgroup</h2>
 <p>该并发原语与时间处理相关，可为 worker pool 指定任务在某个时间或者某个时间之后执行。</p>
@@ -367,17 +365,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Group</span>
-  <span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="o">*</span><span class="nx">Group</span>
-<span class="c1">// 会在 time.Now()+delay 之后执行函数
-</span><span class="c1"></span>  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Delay</span><span class="p">(</span><span class="nx">delay</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">())</span>
-<span class="c1">// 指定明确的某个时间执行
-</span><span class="c1"></span>  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Schedule</span><span class="p">(</span><span class="nx">when</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">())</span>
-<span class="c1">// 阻塞调用者，直到之前安排的所有子任务都执行完才返回
-</span><span class="c1">// 调用了 Wait 方法则不能再调用上面两个方法，否则会panic
-</span><span class="c1">// Wait 方法只能调用一次，若多次调用则会 panic
-</span><span class="c1"></span>  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="kt">error</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Group</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">func</span> <span class="nf">New</span><span class="p">(</span><span class="nx">ctx</span> <span class="nx">context</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="o">*</span><span class="nx">Group</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 会在 time.Now()+delay 之后执行函数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Delay</span><span class="p">(</span><span class="nx">delay</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Duration</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 指定明确的某个时间执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Schedule</span><span class="p">(</span><span class="nx">when</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Time</span><span class="p">,</span> <span class="nx">fn</span> <span class="kd">func</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 阻塞调用者，直到之前安排的所有子任务都执行完才返回
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 调用了 Wait 方法则不能再调用上面两个方法，否则会panic
+</span></span></span><span class="line"><span class="cl"><span class="c1">// Wait 方法只能调用一次，若多次调用则会 panic
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">func</span> <span class="p">(</span><span class="nx">g</span> <span class="o">*</span><span class="nx">Group</span><span class="p">)</span> <span class="nf">Wait</span><span class="p">()</span> <span class="kt">error</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
@@ -415,7 +413,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

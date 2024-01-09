@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="Go并发编程实战课笔记—Atomic"/>
 <meta name="twitter:description" content="Go并发编程实战课笔记—Atomic 以下大多为鸟窝大佬的Go 并发编程实战课 中摘录的笔记 代码repo 原子操作基础 在并发编程中，很多场景中使用并"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/golang/concurrent/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/golang/concurrent/1.html/" /><link rel="next" href="https://zhengyua.cn/posts/common_tech/error/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/golang/concurrent/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/golang/concurrent/1.html/" /><link rel="next" href="https://zhengyua.cn/posts/distributed_structure/structure/2.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/0.html\/"
-        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  2481 ,
+        },"genre": "posts","keywords": "Go, 并发编程, note","wordcount":  2480 ,
         "url": "https:\/\/zhengyua.cn\/posts\/golang\/concurrent\/0.html\/","datePublished": "2022-01-29T02:28:06+08:00","dateModified": "2022-01-29T02:28:06+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">Go并发编程实战课笔记—Atomic</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/go/"><i class="far fa-folder fa-fw"></i>Go</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2481 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-29">2022-01-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2480 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -171,19 +171,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-
-<span class="c1">// 不同架构下相同的代码进行编译测试
-</span><span class="c1">// 观察其编译指令是否为原子操作
-</span><span class="c1"></span>
-<span class="kd">const</span> <span class="nx">x</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">33</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
-	<span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="nx">x</span>
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">i</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 不同架构下相同的代码进行编译测试
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 观察其编译指令是否为原子操作
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">x</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">33</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">i</span> <span class="p">=</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">_</span> <span class="p">=</span> <span class="nx">i</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>GOOS=linux GOARCH=386的架构编译</li>
@@ -256,41 +256,41 @@
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">BenchmarkMutex</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
-<span class="kd">var</span> <span class="nx">k</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
-<span class="nx">l</span><span class="o">:=&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{}</span>
-<span class="kd">var</span> <span class="nx">w</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-<span class="nx">w</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">{</span>
-<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="p">&lt;</span><span class="mi">10000</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">{</span>
-<span class="nx">l</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-<span class="nx">k</span> <span class="p">=</span> <span class="nx">k</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="nx">l</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-<span class="p">}</span>
-<span class="p">}()</span>
-<span class="p">}</span>
-<span class="nx">w</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">BenchmarkAtomic</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
-<span class="kd">var</span> <span class="nx">k</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
-<span class="kd">var</span> <span class="nx">w</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-<span class="nx">w</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
-<span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">{</span>
-<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-<span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-<span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="p">&lt;</span><span class="mi">10000</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">{</span>
-<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">k</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="p">}()</span>
-<span class="p">}</span>
-<span class="nx">w</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">BenchmarkMutex</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">k</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nx">l</span><span class="o">:=&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">w</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl"><span class="nx">w</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="p">&lt;</span><span class="mi">10000</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">l</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">k</span> <span class="p">=</span> <span class="nx">k</span> <span class="o">+</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="nx">l</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">w</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">BenchmarkAtomic</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">B</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">k</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">w</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
+</span></span><span class="line"><span class="cl"><span class="nx">w</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nx">b</span><span class="p">.</span><span class="nf">ResetTimer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="p">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">defer</span> <span class="nx">w</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">j</span><span class="o">:=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="p">&lt;</span><span class="mi">10000</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt64</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">k</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">w</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>通过性能评测后可以得到如下结果：</p>
 <p><img
@@ -314,8 +314,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go">	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">,^</span><span class="nb">uint32</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">	<span class="nx">atomic</span><span class="p">.</span><span class="nf">AddUint32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">i</span><span class="p">,^</span><span class="nb">uint32</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="cas">CAS</h3>
 <div class="highlight"><div class="chroma">
@@ -323,8 +323,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="nx">addr</span> <span class="o">*</span><span class="kt">int32</span><span class="p">,</span><span class="nx">old</span><span class="p">,</span><span class="nx">new</span> <span class="kt">int32</span><span class="p">)(</span><span class="nx">swapped</span> <span class="kt">bool</span><span class="p">)</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="nx">addr</span> <span class="o">*</span><span class="kt">int32</span><span class="p">,</span><span class="nx">old</span><span class="p">,</span><span class="nx">new</span> <span class="kt">int32</span><span class="p">)(</span><span class="nx">swapped</span> <span class="kt">bool</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>即判断相等才替换。</p>
 <h3 id="swap">Swap</h3>
@@ -387,61 +387,59 @@
 </span><span class="lnt">48
 </span><span class="lnt">49
 </span><span class="lnt">50
-</span><span class="lnt">51
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;fmt&#34;</span>
-	<span class="s">&#34;go.uber.org/atomic&#34;</span>
-	<span class="s">&#34;math/rand&#34;</span>
-	<span class="s">&#34;sync&#34;</span>
-	<span class="s">&#34;time&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span><span class="p">{</span>
-	<span class="nx">AddrName</span> <span class="kt">string</span>
-	<span class="nx">Addr</span> <span class="kt">string</span>
-	<span class="nx">Count</span> <span class="kt">int32</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">loadNewConfig</span><span class="p">()</span><span class="nx">Config</span><span class="p">{</span>
-	<span class="k">return</span> <span class="nx">Config</span><span class="p">{</span>
-		<span class="nx">AddrName</span><span class="p">:</span> <span class="s">&#34;北京&#34;</span><span class="p">,</span>
-		<span class="nx">Addr</span><span class="p">:</span>     <span class="s">&#34;0.0.0.1&#34;</span><span class="p">,</span>
-		<span class="nx">Count</span><span class="p">:</span>    <span class="nx">rand</span><span class="p">.</span><span class="nf">Int31</span><span class="p">(),</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
-	<span class="kd">var</span> <span class="nx">config</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
-	<span class="nx">config</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nf">loadNewConfig</span><span class="p">())</span>
-	<span class="kd">var</span> <span class="nx">cond</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nf">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{})</span>
-
-	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">for</span><span class="p">{</span>
-			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">5</span><span class="o">+</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Int63n</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-			<span class="nx">config</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nf">loadNewConfig</span><span class="p">())</span>
-			<span class="nx">cond</span><span class="p">.</span><span class="nf">Broadcast</span><span class="p">()</span>
-		<span class="p">}</span>
-	<span class="p">}()</span>
-	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-		<span class="k">for</span><span class="p">{</span>
-			<span class="nx">cond</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
-			<span class="nx">cond</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-			<span class="nx">c</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">Load</span><span class="p">().(</span><span class="nx">Config</span><span class="p">)</span>
-			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;new config:%+v\n&#34;</span><span class="p">,</span><span class="nx">c</span><span class="p">)</span>
-			<span class="nx">cond</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
-		<span class="p">}</span>
-	<span class="p">}()</span>
-
-	<span class="k">select</span> <span class="p">{</span>
-
-	<span class="p">}</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;go.uber.org/atomic&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;math/rand&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;sync&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Config</span> <span class="kd">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">AddrName</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Addr</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">Count</span> <span class="kt">int32</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">loadNewConfig</span><span class="p">()</span><span class="nx">Config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">Config</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">AddrName</span><span class="p">:</span> <span class="s">&#34;北京&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Addr</span><span class="p">:</span>     <span class="s">&#34;0.0.0.1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">Count</span><span class="p">:</span>    <span class="nx">rand</span><span class="p">.</span><span class="nf">Int31</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">config</span> <span class="nx">atomic</span><span class="p">.</span><span class="nx">Value</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">config</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nf">loadNewConfig</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">cond</span> <span class="p">=</span> <span class="nx">sync</span><span class="p">.</span><span class="nf">NewCond</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">Mutex</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Duration</span><span class="p">(</span><span class="mi">5</span><span class="o">+</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Int63n</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span><span class="o">*</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">config</span><span class="p">.</span><span class="nf">Store</span><span class="p">(</span><span class="nf">loadNewConfig</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">cond</span><span class="p">.</span><span class="nf">Broadcast</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">	<span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">for</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">cond</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">cond</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">c</span> <span class="o">:=</span> <span class="nx">config</span><span class="p">.</span><span class="nf">Load</span><span class="p">().(</span><span class="nx">Config</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;new config:%+v\n&#34;</span><span class="p">,</span><span class="nx">c</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">cond</span><span class="p">.</span><span class="nx">L</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">select</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="第三方库的扩展">第三方库的扩展</h2>
 <p>atomic的API较为简单，提供包一级的函数，函数调用起来较为麻烦。</p>
@@ -533,85 +531,85 @@
 </span><span class="lnt">78
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="p">(</span>
-	<span class="s">&#34;sync/atomic&#34;</span>
-	<span class="s">&#34;unsafe&#34;</span>
-<span class="p">)</span>
-
-<span class="kd">type</span> <span class="nx">LKQueue</span> <span class="kd">struct</span><span class="p">{</span>
-	<span class="nx">head</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-	<span class="nx">tail</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-<span class="p">}</span>
-
-<span class="kd">type</span> <span class="nx">node</span> <span class="kd">struct</span><span class="p">{</span>
-	<span class="nx">value</span> <span class="kd">interface</span><span class="p">{}</span>
-	<span class="nx">next</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
-<span class="p">}</span>
-
-
-<span class="kd">func</span> <span class="nf">NewLKQueue</span><span class="p">()</span><span class="o">*</span><span class="nx">LKQueue</span><span class="p">{</span>
-	<span class="nx">n</span><span class="o">:=</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">node</span><span class="p">{})</span>
-	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">LKQueue</span><span class="p">{</span>
-		<span class="nx">head</span><span class="p">:</span> <span class="nx">n</span><span class="p">,</span>
-		<span class="nx">tail</span><span class="p">:</span> <span class="nx">n</span><span class="p">,</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">LKQueue</span><span class="p">)</span><span class="nf">Enqueue</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{}){</span>
-	<span class="nx">n</span><span class="o">:=&amp;</span><span class="nx">node</span><span class="p">{</span><span class="nx">value</span><span class="p">:</span> <span class="nx">v</span><span class="p">}</span>
-	<span class="k">for</span><span class="p">{</span>
-		<span class="nx">tail</span><span class="o">:=</span><span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">)</span>
-		<span class="nx">next</span><span class="o">:=</span><span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">tail</span> <span class="o">==</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">){</span>
-			<span class="k">if</span> <span class="nx">next</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">{</span> <span class="c1">//尾为空即没有数据入队
-</span><span class="c1"></span>				<span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span><span class="p">,</span><span class="nx">next</span><span class="p">,</span><span class="nx">n</span><span class="p">){</span> <span class="c1">//增加到队尾
-</span><span class="c1"></span>					<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">n</span><span class="p">)</span> <span class="c1">//入队成功，移动尾巴指针
-</span><span class="c1"></span>					<span class="k">return</span>
-				<span class="p">}</span>
-			<span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">//尾不为空则需要移动尾指针
-</span><span class="c1"></span>				<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">next</span><span class="p">)</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">LKQueue</span><span class="p">)</span><span class="nf">Dequeue</span><span class="p">()</span><span class="kd">interface</span><span class="p">{}{</span>
-	<span class="k">for</span><span class="p">{</span>
-		<span class="nx">head</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">)</span>
-		<span class="nx">tail</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">)</span>
-		<span class="nx">next</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">head</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span>
-		<span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">){</span>
-			<span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="nx">tail</span><span class="p">{</span>
-				<span class="k">if</span> <span class="nx">next</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">{</span> <span class="c1">//说明为空队列
-</span><span class="c1"></span>					<span class="k">return</span> <span class="kc">nil</span>
-				<span class="p">}</span>
-				<span class="c1">// 只是尾指针还没调整，尝试调整它指向下一个
-</span><span class="c1"></span>				<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">next</span><span class="p">)</span>
-			<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-				<span class="c1">//读取出队的数据
-</span><span class="c1"></span>				<span class="nx">v</span><span class="o">:=</span><span class="nx">next</span><span class="p">.</span><span class="nx">value</span>
-				<span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">,</span><span class="nx">head</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
-					<span class="k">return</span> <span class="nx">v</span>
-				<span class="p">}</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-
-
-<span class="p">}</span>
-
-
-<span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">node</span><span class="p">){</span>
-	<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">node</span><span class="p">)(</span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadPointer</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span>
-<span class="p">}</span>
-
-<span class="kd">func</span> <span class="nf">cas</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span><span class="nx">old</span><span class="p">,</span><span class="nx">new</span> <span class="o">*</span><span class="nx">node</span><span class="p">)(</span><span class="nx">ok</span> <span class="kt">bool</span><span class="p">){</span>
-	<span class="k">return</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapPointer</span><span class="p">(</span>
-		<span class="nx">p</span><span class="p">,</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">old</span><span class="p">),</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">new</span><span class="p">))</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;sync/atomic&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;unsafe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">LKQueue</span> <span class="kd">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">head</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">tail</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">node</span> <span class="kd">struct</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">value</span> <span class="kd">interface</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">next</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">NewLKQueue</span><span class="p">()</span><span class="o">*</span><span class="nx">LKQueue</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span><span class="o">:=</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">node</span><span class="p">{})</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">LKQueue</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">head</span><span class="p">:</span> <span class="nx">n</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">tail</span><span class="p">:</span> <span class="nx">n</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">LKQueue</span><span class="p">)</span><span class="nf">Enqueue</span><span class="p">(</span><span class="nx">v</span> <span class="kd">interface</span><span class="p">{}){</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span><span class="o">:=&amp;</span><span class="nx">node</span><span class="p">{</span><span class="nx">value</span><span class="p">:</span> <span class="nx">v</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">tail</span><span class="o">:=</span><span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">next</span><span class="o">:=</span><span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">tail</span> <span class="o">==</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">next</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">{</span> <span class="c1">//尾为空即没有数据入队
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">tail</span><span class="p">.</span><span class="nx">next</span><span class="p">,</span><span class="nx">next</span><span class="p">,</span><span class="nx">n</span><span class="p">){</span> <span class="c1">//增加到队尾
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>					<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">n</span><span class="p">)</span> <span class="c1">//入队成功，移动尾巴指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>					<span class="k">return</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">//尾不为空则需要移动尾指针
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">next</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">q</span> <span class="o">*</span><span class="nx">LKQueue</span><span class="p">)</span><span class="nf">Dequeue</span><span class="p">()</span><span class="kd">interface</span><span class="p">{}{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">head</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">tail</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">next</span> <span class="o">:=</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">head</span><span class="p">.</span><span class="nx">next</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="nf">load</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">head</span> <span class="o">==</span> <span class="nx">tail</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="nx">next</span> <span class="o">==</span> <span class="kc">nil</span><span class="p">{</span> <span class="c1">//说明为空队列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>					<span class="k">return</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">// 只是尾指针还没调整，尝试调整它指向下一个
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">tail</span><span class="p">,</span><span class="nx">tail</span><span class="p">,</span><span class="nx">next</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">				<span class="c1">//读取出队的数据
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>				<span class="nx">v</span><span class="o">:=</span><span class="nx">next</span><span class="p">.</span><span class="nx">value</span>
+</span></span><span class="line"><span class="cl">				<span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">q</span><span class="p">.</span><span class="nx">head</span><span class="p">,</span><span class="nx">head</span><span class="p">,</span><span class="nx">next</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">					<span class="k">return</span> <span class="nx">v</span>
+</span></span><span class="line"><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="cl">			<span class="p">}</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">load</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)(</span><span class="nx">n</span> <span class="o">*</span><span class="nx">node</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="nx">node</span><span class="p">)(</span><span class="nx">atomic</span><span class="p">.</span><span class="nf">LoadPointer</span><span class="p">(</span><span class="nx">p</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">cas</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span><span class="nx">old</span><span class="p">,</span><span class="nx">new</span> <span class="o">*</span><span class="nx">node</span><span class="p">)(</span><span class="nx">ok</span> <span class="kt">bool</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapPointer</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">p</span><span class="p">,</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">old</span><span class="p">),</span><span class="nx">unsafe</span><span class="p">.</span><span class="nf">Pointer</span><span class="p">(</span><span class="nx">new</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="atomic-vs-">Atomic Vs &amp;</h2>
 <p>我们可能会遇到一个疑问：对一个地址的赋值操作是否为原子操作？</p>
@@ -646,7 +644,7 @@
     </div>
 
     <div class="post-nav"><a href="/posts/golang/concurrent/1.html/" class="prev" rel="prev" title="Go并发编程实战课笔记—Channel"><i class="fas fa-angle-left fa-fw"></i>Go并发编程实战课笔记—Channel</a>
-            <a href="/posts/common_tech/error/0.html/" class="next" rel="next" title="程序中的错误处理note">程序中的错误处理note<i class="fas fa-angle-right fa-fw"></i></a></div>
+            <a href="/posts/distributed_structure/structure/2.html/" class="next" rel="next" title="服务限流的通用方案">服务限流的通用方案<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
@@ -656,7 +654,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

@@ -1,13 +1,14 @@
 ---
-title: "（WIP）Rust学习笔记"
+title: "《Rust 实战课》学习笔记"
 date: 2022-01-28T20:59:26+08:00
+lastmod: 2022-02-23T22:07:00+08:00
 draft: false
-tags: ["rust","WIP","note"]
+tags: ["rust","note"]
 categories: ["rust"]
 slug: /rust/0
 ---
 
-# （WIP）Rust学习笔记
+# 《Rust 实战课》学习笔记
 
 > 以下是学习张汉东大神的[Rust课程](https://time.geekbang.org/course/intro/100060601) 中摘录的笔记
 > 

@@ -307,33 +307,33 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#查看索引相关信息</span>
-GET movies
-
-<span class="c1">#查看索引的文档总数</span>
-GET movies/_count
-
-<span class="c1">#查看前10条文档，了解文档格式</span>
-POST movies/_search
-<span class="o">{</span>
-<span class="o">}</span>
-
-<span class="c1">#_cat indices API</span>
-<span class="c1">#查看indices</span>
-GET /_cat/indices/kibana*?v<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>index
-
-<span class="c1">#查看状态为绿的索引</span>
-GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">health</span><span class="o">=</span>green
-
-<span class="c1">#按照文档个数排序</span>
-GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>docs.count:desc
-
-<span class="c1">#查看具体的字段</span>
-GET /_cat/indices/kibana*?pri<span class="p">&amp;</span>v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>health,index,pri,rep,docs.count,mt
-
-<span class="c1">#How much memory is used per index?</span>
-GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>i,tm<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>tm:desc
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl"><span class="c1">#查看索引相关信息</span>
+</span></span><span class="line"><span class="cl">GET movies
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看索引的文档总数</span>
+</span></span><span class="line"><span class="cl">GET movies/_count
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看前10条文档，了解文档格式</span>
+</span></span><span class="line"><span class="cl">POST movies/_search
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#_cat indices API</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#查看indices</span>
+</span></span><span class="line"><span class="cl">GET /_cat/indices/kibana*?v<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>index
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看状态为绿的索引</span>
+</span></span><span class="line"><span class="cl">GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">health</span><span class="o">=</span>green
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#按照文档个数排序</span>
+</span></span><span class="line"><span class="cl">GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>docs.count:desc
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#查看具体的字段</span>
+</span></span><span class="line"><span class="cl">GET /_cat/indices/kibana*?pri<span class="p">&amp;</span>v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>health,index,pri,rep,docs.count,mt
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#How much memory is used per index?</span>
+</span></span><span class="line"><span class="cl">GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>i,tm<span class="p">&amp;</span><span class="nv">s</span><span class="o">=</span>tm:desc
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="分布式架构">分布式架构</h2>
 <p>常见的分布式架构一般会带来以下好处：</p>
@@ -521,27 +521,27 @@ GET /_cat/indices?v<span class="p">&amp;</span><span class="nv">h</span><span cl
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">GET _cat/nodes?v
-GET /_nodes/es7_01,es7_02
-GET /_cat/nodes?v
-GET /_cat/nodes?v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>id,ip,port,v,m
-
-
-GET _cluster/health
-GET _cluster/health?level<span class="o">=</span>shards
-GET /_cluster/health/kibana_sample_data_ecommerce
-GET /_cluster/health/kibana_sample_data_ecommerce?level<span class="o">=</span>shards
-
-<span class="c1">#### cluster state</span>
-GET /_cluster/state
-
-<span class="c1">#cluster get settings</span>
-GET /_cluster/settings
-GET /_cluster/settings?include_defaults<span class="o">=</span><span class="nb">true</span>
-
-GET _cat/shards
-GET _cat/shards?h<span class="o">=</span>index,shard,prirep,state,unassigned.reason
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">GET _cat/nodes?v
+</span></span><span class="line"><span class="cl">GET /_nodes/es7_01,es7_02
+</span></span><span class="line"><span class="cl">GET /_cat/nodes?v
+</span></span><span class="line"><span class="cl">GET /_cat/nodes?v<span class="p">&amp;</span><span class="nv">h</span><span class="o">=</span>id,ip,port,v,m
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GET _cluster/health
+</span></span><span class="line"><span class="cl">GET _cluster/health?level<span class="o">=</span>shards
+</span></span><span class="line"><span class="cl">GET /_cluster/health/kibana_sample_data_ecommerce
+</span></span><span class="line"><span class="cl">GET /_cluster/health/kibana_sample_data_ecommerce?level<span class="o">=</span>shards
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#### cluster state</span>
+</span></span><span class="line"><span class="cl">GET /_cluster/state
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#cluster get settings</span>
+</span></span><span class="line"><span class="cl">GET /_cluster/settings
+</span></span><span class="line"><span class="cl">GET /_cluster/settings?include_defaults<span class="o">=</span><span class="nb">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">GET _cat/shards
+</span></span><span class="line"><span class="cl">GET _cat/shards?h<span class="o">=</span>index,shard,prirep,state,unassigned.reason
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -589,7 +589,7 @@ GET _cat/shards?h<span class="o">=</span>index,shard,prirep,state,unassigned.rea
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

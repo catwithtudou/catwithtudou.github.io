@@ -5,30 +5,30 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
-        <title>（WIP）Rust学习笔记 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="（WIP）Rust学习笔记" />
-<meta property="og:description" content="（WIP）Rust学习笔记 以下是学习张汉东大神的Rust课程 中摘录的笔记 后续会持续更新 Rust语言版本说明 Rust语言的版本包括以下三个相互" />
+        <title>《Rust 实战课》学习笔记 - </title><meta name="Description" content="一直是阵雨🌦️&#39;s blog"><meta property="og:title" content="《Rust 实战课》学习笔记" />
+<meta property="og:description" content="《Rust 实战课》学习笔记 以下是学习张汉东大神的Rust课程 中摘录的笔记 后续会持续更新 Rust语言版本说明 Rust语言的版本包括以下三个相互" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://zhengyua.cn/posts/rust/0.html/" /><meta property="og:image" content="https://zhengyua.cn/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-01-28T20:59:26+08:00" />
-<meta property="article:modified_time" content="2022-01-28T20:59:26+08:00" />
+<meta property="article:modified_time" content="2022-02-23T22:07:00+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://zhengyua.cn/logo.png"/>
 
-<meta name="twitter:title" content="（WIP）Rust学习笔记"/>
-<meta name="twitter:description" content="（WIP）Rust学习笔记 以下是学习张汉东大神的Rust课程 中摘录的笔记 后续会持续更新 Rust语言版本说明 Rust语言的版本包括以下三个相互"/>
+<meta name="twitter:title" content="《Rust 实战课》学习笔记"/>
+<meta name="twitter:description" content="《Rust 实战课》学习笔记 以下是学习张汉东大神的Rust课程 中摘录的笔记 后续会持续更新 Rust语言版本说明 Rust语言的版本包括以下三个相互"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="canonical" href="https://zhengyua.cn/posts/rust/0.html/" /><link rel="prev" href="https://zhengyua.cn/posts/os/common/0.html/" /><link rel="next" href="https://zhengyua.cn/posts/golang/pprof/0.html/" /><link rel="stylesheet" href="/lib/normalize/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "（WIP）Rust学习笔记",
+        "headline": "《Rust 实战课》学习笔记",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/rust\/0.html\/"
-        },"genre": "posts","keywords": "rust, WIP, note","wordcount":  4325 ,
-        "url": "https:\/\/zhengyua.cn\/posts\/rust\/0.html\/","datePublished": "2022-01-28T20:59:26+08:00","dateModified": "2022-01-28T20:59:26+08:00","publisher": {
+        },"genre": "posts","keywords": "rust, note","wordcount":  4802 ,
+        "url": "https:\/\/zhengyua.cn\/posts\/rust\/0.html\/","datePublished": "2022-01-28T20:59:26+08:00","dateModified": "2022-02-23T22:07:00+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
                 "@type": "Person",
@@ -103,10 +103,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animated flipInX">（WIP）Rust学习笔记</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animated flipInX">《Rust 实战课》学习笔记</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/rust/"><i class="far fa-folder fa-fw"></i>rust</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-28">2022-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4325 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-01-28">2022-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4802 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -114,7 +114,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#wiprust学习笔记">（WIP）Rust学习笔记</a>
+    <li><a href="#rust-实战课学习笔记">《Rust 实战课》学习笔记</a>
       <ul>
         <li><a href="#rust语言版本说明">Rust语言版本说明</a></li>
         <li><a href="#rust词法结构">Rust词法结构</a>
@@ -181,7 +181,7 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="wiprust学习笔记">（WIP）Rust学习笔记</h1>
+            </div><div class="content" id="content"><h1 id="rust-实战课学习笔记">《Rust 实战课》学习笔记</h1>
 <blockquote>
 <p>以下是学习张汉东大神的<a href="https://time.geekbang.org/course/intro/100060601" target="_blank" rel="noopener noreffer">Rust课程</a> 中摘录的笔记</p>
 <p>后续会持续更新</p>
@@ -417,22 +417,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="p">()</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="p">();</span><span class="w">
-</span><span class="w">        </span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">vec</span>::<span class="nb">Vec</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="p">();</span><span class="w">
-</span><span class="w">    </span><span class="o">&amp;</span><span class="p">{;};</span><span class="w"> </span><span class="c1">// -&gt; &amp;()
-</span><span class="c1"></span><span class="w">    </span><span class="p">;</span><span class="w">     </span><span class="c1">// -&gt; ()
-</span><span class="c1"></span><span class="w">    </span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-Rust" data-lang="Rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">vec</span>::<span class="nb">Vec</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">&amp;</span><span class="p">{;};</span><span class="w"> </span><span class="c1">// -&gt; &amp;()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">;</span><span class="w">     </span><span class="c1">// -&gt; ()
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li><strong>另一种划分方式</strong></li>
@@ -486,13 +486,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">42</span><span class="p">,).</span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">AN</span>:<span class="kt">i32</span> <span class="o">=</span><span class="w"> </span><span class="n">an</span><span class="p">;</span><span class="w"> </span><span class="c1">// Error: attempt to use a non-constant value in a constant
-</span><span class="c1"></span><span class="w">    </span><span class="c1">// fixed error:
-</span><span class="c1"></span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">AN</span>:<span class="kt">i32</span> <span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">42</span><span class="p">,).</span><span class="mi">0</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">42</span><span class="p">,).</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="no">AN</span>:<span class="kt">i32</span> <span class="o">=</span><span class="w"> </span><span class="n">an</span><span class="p">;</span><span class="w"> </span><span class="c1">// Error: attempt to use a non-constant value in a constant
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="c1">// fixed error:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="no">AN</span>:<span class="kt">i32</span> <span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">42</span><span class="p">,).</span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>**常量上下文（const context）**包含：</p>
 <ol>
@@ -519,9 +519,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">const</span><span class="w"> </span><span class="n">X</span>:<span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="c1">// CTFE
-</span><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">x</span>:<span class="nc">uew</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="c1">// 不是 CTFE，但可能会被常量传播优化，因为它不在常量上下文
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">const</span><span class="w"> </span><span class="n">X</span>:<span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="c1">// CTFE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">x</span>:<span class="nc">uew</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="c1">// 不是 CTFE，但可能会被常量传播优化，因为它不在常量上下文
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="常量安全const-safe">常量安全（Const Safe）</h4>
 <ol>
@@ -550,24 +550,24 @@
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span>:<span class="kt">u32</span><span class="p">,</span><span class="n">b</span>:<span class="kt">u32</span><span class="p">)</span>-&gt;<span class="kt">u32</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="mi">0</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gcd</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="w">
-</span><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">gcd</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="w">
-</span><span class="w">
-</span><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">gcd</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">x</span><span class="p">),</span><span class="w">
-</span><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">gcd</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">GCD</span><span class="w"> </span>: <span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="n">gcd</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">GCD</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span>:<span class="kt">u32</span><span class="p">,</span><span class="n">b</span>:<span class="kt">u32</span><span class="p">)</span>-&gt;<span class="kt">u32</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">|</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="mi">0</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">gcd</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">y</span><span class="o">/</span><span class="mi">2</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">gcd</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">gcd</span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">x</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">gcd</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">y</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="no">GCD</span><span class="w"> </span>: <span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="n">gcd</span><span class="p">(</span><span class="mi">21</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="no">GCD</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -589,23 +589,23 @@
 </span><span class="lnt">16
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span>:<span class="kt">u128</span><span class="p">)</span>-&gt;<span class="kt">u128</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">helper</span><span class="p">(</span><span class="n">n</span>:<span class="kt">u128</span><span class="p">,</span><span class="n">a</span>:<span class="kt">u128</span><span class="p">,</span><span class="n">b</span>:<span class="kt">u128</span><span class="p">,</span><span class="n">i</span>:<span class="kt">u128</span><span class="p">)</span>-&gt;<span class="kt">u128</span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">helper</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">b</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="n">helper</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">X</span>:<span class="kt">u128</span> <span class="o">=</span><span class="w"> </span><span class="n">fib</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">GCD</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span>:<span class="kt">u128</span><span class="p">)</span>-&gt;<span class="kt">u128</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">helper</span><span class="p">(</span><span class="n">n</span>:<span class="kt">u128</span><span class="p">,</span><span class="n">a</span>:<span class="kt">u128</span><span class="p">,</span><span class="n">b</span>:<span class="kt">u128</span><span class="p">,</span><span class="n">i</span>:<span class="kt">u128</span><span class="p">)</span>-&gt;<span class="kt">u128</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">helper</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="k">else</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">helper</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">X</span>:<span class="kt">u128</span> <span class="o">=</span><span class="w"> </span><span class="n">fib</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="no">GCD</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>常量安全子类型系统</strong>：</p>
 <ol>
@@ -642,27 +642,27 @@
 </span><span class="lnt">20
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// Error
-</span><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">hello</span><span class="p">()</span>-&gt;<span class="nb">String</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="s">&#34;Hello&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// Error
-</span><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="n">S</span><span class="w"> </span>: <span class="nb">String</span> <span class="o">=</span><span class="w"> </span><span class="n">hello</span><span class="p">();</span><span class="w">
-</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// Correct
-</span><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">hello</span><span class="p">()</span>-&gt;<span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span> <span class="kt">str</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="s">&#34;Hello&#34;</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// Correct
-</span><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="n">Y</span>: <span class="kp">&amp;</span><span class="kt">str</span> <span class="o">=</span><span class="w"> </span><span class="n">hello</span><span class="p">();</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{:?}&#34;</span><span class="p">,</span><span class="n">S</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">hello</span><span class="p">()</span>-&gt;<span class="nb">String</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;Hello&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="n">S</span><span class="w"> </span>: <span class="nb">String</span> <span class="o">=</span><span class="w"> </span><span class="n">hello</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Correct
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">hello</span><span class="p">()</span>-&gt;<span class="kp">&amp;</span><span class="nb">&#39;static</span> <span class="kt">str</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;Hello&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// Correct
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">const</span><span class="w"> </span><span class="n">Y</span>: <span class="kp">&amp;</span><span class="kt">str</span> <span class="o">=</span><span class="w"> </span><span class="n">hello</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">S</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -676,15 +676,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#[derive(Debug)]</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">struct</span> <span class="nc">Answer</span><span class="p">(</span><span class="kt">u32</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">A</span>:<span class="nc">Answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Answer</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">A</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#[derive(Debug)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">struct</span> <span class="nc">Answer</span><span class="p">(</span><span class="kt">u32</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">A</span>:<span class="nc">Answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Answer</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">A</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="编译期计算如何实现">编译期计算如何实现</h4>
 <ul>
@@ -711,14 +711,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">answer</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="mi">42</span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">A</span>:<span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="n">answer</span><span class="p">();</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">answer</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="mi">42</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">A</span>:<span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="n">answer</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -753,16 +753,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="kc">true</span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// Error
-</span><span class="c1"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="kc">true</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">a</span><span class="p">);</span><span class="w"> </span><span class="c1">// Error
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -776,15 +776,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="k">loop</span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">a</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">loop</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">a</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>关于编译期为什么不识别 while true 主要有以下原因：</p>
 <ul>
@@ -807,17 +807,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![feature(min_const_generics)]</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">core</span>::<span class="n">mem</span>::<span class="n">MaybeUninit</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">X</span>:<span class="kt">u128</span> <span class="o">=</span><span class="w"> </span><span class="n">fib</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">N</span>: <span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">items</span>: <span class="p">[</span><span class="n">MaybeUninit</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="n">N</span><span class="p">],</span><span class="w">
-</span><span class="w">    </span><span class="n">length</span>: <span class="kt">usize</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#![feature(min_const_generics)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">core</span>::<span class="n">mem</span>::<span class="n">MaybeUninit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">const</span><span class="w"> </span><span class="n">X</span>:<span class="kt">u128</span> <span class="o">=</span><span class="w"> </span><span class="n">fib</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">N</span>: <span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">items</span>: <span class="p">[</span><span class="n">MaybeUninit</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="n">N</span><span class="p">],</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">length</span>: <span class="kt">usize</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>目前存在的缺陷：</p>
 <ol>
@@ -866,38 +866,38 @@
 </span><span class="lnt">31
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#![feature(min_const_generics)]</span><span class="w">
-</span><span class="w"></span><span class="cp">#![feature(const_in_array_repeat_expressions)]</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">core</span>::<span class="n">mem</span>::<span class="n">MaybeUninit</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="cp">#[derive(Debug)]</span><span class="w">
-</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">N</span>: <span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">items</span>: <span class="p">[</span><span class="n">MaybeUninit</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="n">N</span><span class="p">],</span><span class="w">
-</span><span class="w">    </span><span class="n">length</span>: <span class="kt">usize</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="k">const</span><span class="w"> </span><span class="n">N</span>:<span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,{</span><span class="n">N</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">new</span><span class="p">()</span>-&gt;<span class="nc">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,{</span><span class="n">N</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="w">
-</span><span class="w">        </span><span class="n">ArrayVec</span><span class="p">{</span><span class="w">
-</span><span class="w">            </span><span class="n">items</span>:<span class="p">[</span><span class="n">MaybeUninit</span>::<span class="n">uninit</span><span class="p">();</span><span class="n">N</span><span class="p">],</span><span class="w">
-</span><span class="w">            </span><span class="n">length</span>:<span class="mi">0</span><span class="p">,</span><span class="w">
-</span><span class="w">        </span><span class="p">}</span><span class="w">
-</span><span class="w">    </span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
-</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">len</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">usize</span> <span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">length</span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
-</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">is_empty</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
-</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">capacity</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">usize</span> <span class="p">{</span><span class="w"> </span><span class="n">N</span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
-</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">is_full</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">capacity</span><span class="p">()}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">#![feature(min_const_generics)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#![feature(const_in_array_repeat_expressions)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">core</span>::<span class="n">mem</span>::<span class="n">MaybeUninit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cp">#[derive(Debug)]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">N</span>: <span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">items</span>: <span class="p">[</span><span class="n">MaybeUninit</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">;</span><span class="w"> </span><span class="n">N</span><span class="p">],</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">length</span>: <span class="kt">usize</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="k">const</span><span class="w"> </span><span class="n">N</span>:<span class="kt">usize</span><span class="o">&gt;</span><span class="w"> </span><span class="n">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,{</span><span class="n">N</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">new</span><span class="p">()</span>-&gt;<span class="nc">ArrayVec</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,{</span><span class="n">N</span><span class="p">}</span><span class="o">&gt;</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">ArrayVec</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">items</span>:<span class="p">[</span><span class="n">MaybeUninit</span>::<span class="n">uninit</span><span class="p">();</span><span class="n">N</span><span class="p">],</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">length</span>:<span class="mi">0</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">len</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">usize</span> <span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">length</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">is_empty</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">capacity</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">usize</span> <span class="p">{</span><span class="w"> </span><span class="n">N</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cp">#[inline]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="k">fn</span> <span class="nf">is_full</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">capacity</span><span class="p">()}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="从表达式的分类角度来看-rust-的变量绑定和引用">从表达式的分类角度来看 Rust 的变量绑定和引用</h2>
 <h3 id="rust-中表达式的分类">Rust 中表达式的分类</h3>
@@ -972,9 +972,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="n">a</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">a</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li>一元借用和解引用操作中的操作数所在区域；</li>
@@ -986,10 +986,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">*</span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li>字段表达式的操作数所在区域</li>
@@ -1004,13 +1004,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="n">name</span>:<span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span> <span class="kt">str</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">{</span><span class="n">name</span>:<span class="s">&#34;Alex&#34;</span><span class="p">};</span><span class="w">
-</span><span class="w"></span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">name</span>:<span class="kp">&amp;</span><span class="nb">&#39;static</span> <span class="kt">str</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">{</span><span class="n">name</span>:<span class="s">&#34;Alex&#34;</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li>数组索引表达式的操作数所在区域</li>
@@ -1022,10 +1022,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span><span class="w">
-</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="5">
 <li>任意隐式借用操作数所在区域</li>
@@ -1036,9 +1036,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span><span class="w">
-</span><span class="w"></span><span class="n">v</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">v</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="6">
 <li>let 语句初始化</li>
@@ -1049,9 +1049,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">a</span>:<span class="kt">i32</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">a</span>:<span class="kt">i32</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="7">
 <li>if let / while let / match 的匹配表达式所在区域</li>
@@ -1070,17 +1070,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">dish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;Ham&#34;</span><span class="p">,</span><span class="s">&#34;Eggs&#34;</span><span class="p">};</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="s">&#34;Bacon&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dish</span><span class="p">{</span><span class="w"> </span><span class="c1">// 匹配表达式所在区域就是位置上下文
-</span><span class="c1"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Bacon is serverd with {}&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;No bacon will be served&#34;</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// while let (位置上下文) = ... { ... }
-</span><span class="c1">// match (位置上下文) { ... }
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">dish</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;Ham&#34;</span><span class="p">,</span><span class="s">&#34;Eggs&#34;</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="s">&#34;Bacon&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dish</span><span class="p">{</span><span class="w"> </span><span class="c1">// 匹配表达式所在区域就是位置上下文
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Bacon is serverd with </span><span class="si">{}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">b</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;No bacon will be served&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// while let (位置上下文) = ... { ... }
+</span></span></span><span class="line"><span class="cl"><span class="c1">// match (位置上下文) { ... }
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="8">
 <li>结构体更新语法中的 base 表达式（ <code>..</code>操作符后面的操作数区域）</li>
@@ -1092,10 +1092,10 @@
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point3d</span><span class="p">{</span><span class="n">x</span>:<span class="mi">1</span><span class="p">,</span><span class="n">y</span>:<span class="mi">2</span><span class="p">,</span><span class="n">z</span>:<span class="mi">3</span><span class="p">};</span><span class="w">
-</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">y_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">base</span><span class="p">.</span><span class="n">y</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="n">Point3d</span><span class="p">{</span><span class="n">y</span>:<span class="mi">0</span><span class="p">,</span><span class="n">z</span>:<span class="mi">10</span><span class="p">,</span><span class="o">..</span><span class="n">base</span><span class="p">};</span><span class="w"> </span><span class="c1">// 得到 base.x
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">base</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point3d</span><span class="p">{</span><span class="n">x</span>:<span class="mi">1</span><span class="p">,</span><span class="n">y</span>:<span class="mi">2</span><span class="p">,</span><span class="n">z</span>:<span class="mi">3</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">y_ref</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">base</span><span class="p">.</span><span class="n">y</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Point3d</span><span class="p">{</span><span class="n">y</span>:<span class="mi">0</span><span class="p">,</span><span class="n">z</span>:<span class="mi">10</span><span class="p">,</span><span class="o">..</span><span class="n">base</span><span class="p">};</span><span class="w"> </span><span class="c1">// 得到 base.x
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="rust-所有权语义在表达式上的体现">Rust 所有权语义在表达式上的体现</h3>
 <ul>
@@ -1148,12 +1148,12 @@
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">44</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// 这种方式也叫变量遮蔽
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">44</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 这种方式也叫变量遮蔽
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可变绑定使用 mut 修饰符：</p>
 <p><img
@@ -1185,11 +1185,11 @@
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">answer</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="o">*</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">43</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{:?}&#34;</span><span class="p">,</span><span class="n">answer</span><span class="p">);</span><span class="w"> </span><span class="c1">// 43
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">answer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">42</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="n">answer</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">*</span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">43</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">answer</span><span class="p">);</span><span class="w"> </span><span class="c1">// 43
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>可变引用也叫独占引用：</p>
 <p><img
@@ -1311,26 +1311,26 @@
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// 具名结构体，包含了字段
-</span><span class="c1"></span><span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="n">x</span>: <span class="kt">f32</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">y</span>: <span class="kt">f32</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// 元组结构体
-</span><span class="c1"></span><span class="k">struct</span> <span class="nc">Pair</span><span class="p">(</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// 单元结构体
-</span><span class="c1"></span><span class="k">struct</span> <span class="nc">Unit</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">{</span><span class="n">x</span>:<span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>:<span class="mf">2.0</span><span class="p">};</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">pair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">pair</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">unit1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uint</span><span class="p">;</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">unit2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Unit</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="c1">// 具名结构体，包含了字段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Point</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">x</span>: <span class="kt">f32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">y</span>: <span class="kt">f32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 元组结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Pair</span><span class="p">(</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">f32</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 单元结构体
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">struct</span> <span class="nc">Unit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">{</span><span class="n">x</span>:<span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>:<span class="mf">2.0</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">pair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Pair</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">pair</span><span class="p">.</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">unit1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Uint</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">unit2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Unit</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>当元组结构体只包含一个成员时：</p>
 <div class="highlight"><div class="chroma">
@@ -1349,19 +1349,19 @@
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">Score</span><span class="p">(</span><span class="kt">u32</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Score</span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="k">fn</span> <span class="nf">pass</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;=</span><span class="mi">60</span><span class="w">
-</span><span class="w">  </span><span class="p">}</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Score</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">pass</span><span class="p">(),</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">Score</span><span class="p">(</span><span class="kt">u32</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Score</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">fn</span> <span class="nf">pass</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="bp">self</span><span class="p">.</span><span class="mi">0</span><span class="o">&gt;=</span><span class="mi">60</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Score</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">pass</span><span class="p">(),</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>对于结构体内存布局方面，编译器会对结构体进行内存对齐，以此提升 CPU 的访问效率。使用内存布局属性可以指定 C 内存布局，防止编译器重排。</p>
 <div class="highlight"><div class="chroma">
@@ -1395,34 +1395,34 @@
 </span><span class="lnt">27
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="n">a</span>: <span class="kt">u8</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">b</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">c</span>: <span class="kt">u16</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w"> 
-</span><span class="w">
-</span><span class="w"></span><span class="c1">// 编译器重排字段，优化内存占用
-</span><span class="c1">//struct A{
-</span><span class="c1">//  a: u32,
-</span><span class="c1">//  b: u16,
-</span><span class="c1">//  c: u8,
-</span><span class="c1">//} 
-</span><span class="c1">// 8
-</span><span class="c1"></span><span class="w">
-</span><span class="w"></span><span class="c1">//#[repr(C)]
-</span><span class="c1">//struct A{
-</span><span class="c1">//  a: u8,
-</span><span class="c1">//  b: u32,
-</span><span class="c1">//  c: u16,
-</span><span class="c1">//} 
-</span><span class="c1">// 12
-</span><span class="c1"></span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{:?}&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 8
-</span><span class="c1"></span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">{</span><span class="n">a</span>:<span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>:<span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">c</span>:<span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">A</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">a</span>: <span class="kt">u8</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">b</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">c</span>: <span class="kt">u16</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// 编译器重排字段，优化内存占用
+</span></span></span><span class="line"><span class="cl"><span class="c1">//struct A{
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  a: u32,
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  b: u16,
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  c: u8,
+</span></span></span><span class="line"><span class="cl"><span class="c1">//} 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//#[repr(C)]
+</span></span></span><span class="line"><span class="cl"><span class="c1">//struct A{
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  a: u8,
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  b: u32,
+</span></span></span><span class="line"><span class="cl"><span class="c1">//  c: u16,
+</span></span></span><span class="line"><span class="cl"><span class="c1">//} 
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 12
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">A</span><span class="p">{</span><span class="n">a</span>:<span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>:<span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">c</span>:<span class="mi">3</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>枚举体与联合体内存布局中，以枚举类型成员最大的对齐值为准不需要为每个枚举值都对齐。</p>
 <div class="highlight"><div class="chroma">
@@ -1451,29 +1451,29 @@
 </span><span class="lnt">22
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">enum</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="n">One</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">Two</span><span class="p">,</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">enum</span> <span class="nc">E</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="n">N</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">H</span><span class="p">(</span><span class="kt">u32</span><span class="p">),</span><span class="w">
-</span><span class="w">  </span><span class="n">M</span><span class="p">(</span><span class="nb">Box</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">union</span> <span class="nc">U</span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="n">u</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">v</span>: <span class="kt">u64</span>
-<span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;E: {:?}&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 1
-</span><span class="c1"></span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Box&lt;u32&gt;: {:?}&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 8
-</span><span class="c1"></span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;U: {:?}&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 16
-</span><span class="c1"></span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;U: {:?}&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 8
-</span><span class="c1"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">enum</span> <span class="nc">A</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">One</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">Two</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">enum</span> <span class="nc">E</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">N</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">H</span><span class="p">(</span><span class="kt">u32</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">M</span><span class="p">(</span><span class="nb">Box</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">union</span> <span class="nc">U</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">u</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">v</span>: <span class="kt">u64</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;E: </span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">A</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Box&lt;u32&gt;: </span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="nb">Box</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;U: </span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 16
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;U: </span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="n">std</span>::<span class="n">mem</span>::<span class="n">size_of</span>::<span class="o">&lt;</span><span class="n">U</span><span class="o">&gt;</span><span class="p">());</span><span class="w"> </span><span class="c1">// 8
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="容器类型">容器类型</h3>
 <p><img
@@ -1513,25 +1513,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">Cell</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="k">struct</span> <span class="nc">Foo</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="n">x</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
-</span><span class="w">  </span><span class="n">y</span>: <span class="nc">Cell</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span><span class="n">x</span>: <span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>: <span class="nc">Cell</span>::<span class="n">new</span><span class="p">(</span><span class="mi">3</span><span class="p">)};</span><span class="w">
-</span><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">x</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">get</span><span class="p">());</span><span class="w">
-</span><span class="w">  </span><span class="n">foo</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">get</span><span class="p">());</span><span class="w">
-</span><span class="w">  
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">();</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cell</span>::<span class="n">new</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bar</span><span class="p">.</span><span class="n">into_inner</span><span class="p">();</span><span class="w">
-</span><span class="w">  </span><span class="c1">// bar; // error: use of moved value: `bar`
-</span><span class="c1"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">Cell</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">struct</span> <span class="nc">Foo</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">x</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">y</span>: <span class="nc">Cell</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">foo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Foo</span><span class="w"> </span><span class="p">{</span><span class="n">x</span>: <span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>: <span class="nc">Cell</span>::<span class="n">new</span><span class="p">(</span><span class="mi">3</span><span class="p">)};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">x</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">get</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">foo</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">foo</span><span class="p">.</span><span class="n">y</span><span class="p">.</span><span class="n">get</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">.</span><span class="n">to_string</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">bar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cell</span>::<span class="n">new</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bar</span><span class="p">.</span><span class="n">into_inner</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// bar; // error: use of moved value: `bar`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1545,15 +1545,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">RefCell</span><span class="p">;</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]);</span><span class="w">
-</span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">borrow</span><span class="p">());</span><span class="w">
-</span><span class="w">  </span><span class="n">x</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">().</span><span class="n">push</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">borrow</span><span class="p">());</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">cell</span>::<span class="n">RefCell</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">RefCell</span>::<span class="n">new</span><span class="p">(</span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">borrow</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">x</span><span class="p">.</span><span class="n">borrow_mut</span><span class="p">().</span><span class="n">push</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{:?}</span><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">borrow</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>运行时借用检查</li>
@@ -1580,15 +1580,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span>: <span class="nc">T</span><span class="p">)</span>-&gt;<span class="nc">T</span><span class="p">{</span><span class="w">
-</span><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">foo</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span>: <span class="nc">T</span><span class="p">)</span>-&gt;<span class="nc">T</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">foo</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">),</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>静态分发</li>
@@ -1607,17 +1607,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span><span class="w">  </span><span class="k">fn</span> <span class="nf">foo_1</span><span class="p">(</span><span class="n">x</span>: <span class="kt">i32</span><span class="p">)</span>-&gt;<span class="kt">i32</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
-</span><span class="w">  </span><span class="p">}</span><span class="w">
-</span><span class="w">  </span><span class="k">fn</span> <span class="nf">foo_2</span><span class="p">(</span><span class="n">x</span>:<span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span><span class="o">&#39;</span> <span class="kt">str</span><span class="p">)</span>-&gt;<span class="kp">&amp;</span><span class="o">&#39;</span><span class="nb">static</span> <span class="kt">str</span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
-</span><span class="w">  </span><span class="p">}</span><span class="w">
-</span><span class="w">  </span><span class="n">foo_1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">  </span><span class="n">foo_2</span><span class="p">(</span><span class="s">&#34;2&#34;</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">fn</span> <span class="nf">foo_1</span><span class="p">(</span><span class="n">x</span>: <span class="kt">i32</span><span class="p">)</span>-&gt;<span class="kt">i32</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">fn</span> <span class="nf">foo_2</span><span class="p">(</span><span class="n">x</span>:<span class="kp">&amp;</span><span class="nb">&#39;static</span><span class="na">&#39;</span> <span class="kt">str</span><span class="p">)</span>-&gt;<span class="kp">&amp;</span><span class="nb">&#39;static</span> <span class="kt">str</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">foo_1</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">foo_2</span><span class="p">(</span><span class="s">&#34;2&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>当类型推断失效，需要手工指定类型的时候使用</li>
@@ -1633,14 +1633,14 @@
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="c1">//=
-</span><span class="c1"></span><span class="n">foo</span>::<span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
-</span><span class="w">
-</span><span class="w"></span><span class="n">foo</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
-</span><span class="w"></span><span class="c1">//=
-</span><span class="c1"></span><span class="n">foo</span>::<span class="o">&lt;&amp;&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="n">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//=
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">foo</span>::<span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">foo</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">//=
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">foo</span>::<span class="o">&lt;&amp;</span><span class="nb">&#39;static</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="特定类型">特定类型</h3>
 <p>所谓特定类型，是指专门有特殊用途的类型</p>
@@ -1652,7 +1652,7 @@
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>更新于 2022-01-28</span>
+                <span>更新于 2022-02-23</span>
             </div>
             <div class="post-info-license"></div>
         </div>
@@ -1661,13 +1661,13 @@
                             <a class="link-to-markdown" href="/posts/rust/0.html/index.md" target="_blank">阅读原始文档</a>
                         </span></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="（WIP）Rust学习笔记" data-hashtags="rust,WIP,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/rust/0.html/" data-hashtag="rust"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="（WIP）Rust学习笔记" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="（WIP）Rust学习笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="（WIP）Rust学习笔记"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="（WIP）Rust学习笔记" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="（WIP）Rust学习笔记" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="（WIP）Rust学习笔记"><i class="fab fa-evernote fa-fw"></i></a></span>
+                <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="《Rust 实战课》学习笔记" data-hashtags="rust,note"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://zhengyua.cn/posts/rust/0.html/" data-hashtag="rust"><i class="fab fa-facebook-square fa-fw"></i></a><a href="javascript:void(0);" title="分享到 WhatsApp" data-sharer="whatsapp" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="《Rust 实战课》学习笔记" data-web><i class="fab fa-whatsapp fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="《Rust 实战课》学习笔记"><i data-svg-src="/lib/simple-icons/icons/line.min.svg"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="《Rust 实战课》学习笔记"><i class="fab fa-weibo fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Myspace" data-sharer="myspace" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="《Rust 实战课》学习笔记" data-description=""><i data-svg-src="/lib/simple-icons/icons/myspace.min.svg"></i></a><a href="javascript:void(0);" title="分享到 Blogger" data-sharer="blogger" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="《Rust 实战课》学习笔记" data-description=""><i class="fab fa-blogger fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Evernote" data-sharer="evernote" data-url="https://zhengyua.cn/posts/rust/0.html/" data-title="《Rust 实战课》学习笔记"><i class="fab fa-evernote fa-fw"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/rust/">rust</a>,&nbsp;<a href="/tags/wip/">WIP</a>,&nbsp;<a href="/tags/note/">note</a></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw"></i>&nbsp;<a href="/tags/rust/">rust</a>,&nbsp;<a href="/tags/note/">note</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
         </section>
@@ -1684,7 +1684,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

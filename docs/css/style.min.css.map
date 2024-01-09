@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "D:/code/golang/src/catwithtudou.github.io",
+	"sourceRoot": "/Users/bytedance/work/blog/catwithtudou.github.io",
 	"sources": [
 		"themes/LoveIt/assets/css/style.scss",
 		"themes/LoveIt/assets/css/_variables.scss",

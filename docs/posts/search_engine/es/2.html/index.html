@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/2.html\/"
-        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  3745 ,
+        },"genre": "posts","keywords": "search_engine, note, es","wordcount":  3741 ,
         "url": "https:\/\/zhengyua.cn\/posts\/search_engine\/es\/2.html\/","datePublished": "2022-03-05T14:38:00+08:00","dateModified": "2022-03-05T14:38:00+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">ElasticSearch倒排索引&amp;Analysis分词</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/search-engine/"><i class="far fa-folder fa-fw"></i>search engine</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-05">2022-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3745 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-05">2022-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3741 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -226,25 +226,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">/_analyze</span> 
-<span class="p">{</span>
-    <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span><span class="s2">&#34;standard&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;text&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span>
-<span class="p">}</span>
-
-<span class="err">POST</span> <span class="err">index/_analyze</span> 
-<span class="p">{</span>
-    <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;text&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span>
-<span class="p">}</span>
-
-<span class="err">POST</span> <span class="err">/_analyze</span> 
-<span class="p">{</span>
-    <span class="nt">&#34;tokenizer&#34;</span><span class="p">:</span><span class="s2">&#34;standard&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;filter&#34;</span><span class="p">:[</span><span class="s2">&#34;lowercase&#34;</span><span class="p">],</span>
-    <span class="nt">&#34;text&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">/_analyze</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span><span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;text&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">index/_analyze</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;field&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;text&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">/_analyze</span> 
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;tokenizer&#34;</span><span class="p">:</span><span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;filter&#34;</span><span class="p">:[</span><span class="s2">&#34;lowercase&#34;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;text&#34;</span><span class="p">:</span><span class="s2">&#34;xxx&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="analyzer-类型">Analyzer 类型</h3>
 <h4 id="standard-analyzer">Standard Analyzer</h4>
@@ -365,110 +365,110 @@
 </span><span class="lnt">103
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#standard</span>
-<span class="err">GET</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
-<span class="p">}</span>
-
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;NUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;foxes&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">12</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#standard</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;NUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;foxes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="simple-analyzer">Simple Analyzer</h4>
 <ul>
@@ -575,105 +575,103 @@
 </span><span class="lnt">92
 </span><span class="lnt">93
 </span><span class="lnt">94
-</span><span class="lnt">95
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;simple&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
-<span class="p">}</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;foxes&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;simple&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;foxes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="whitespace-analyzer">Whitespace Analyzer</h4>
 <ul>
@@ -795,102 +793,102 @@
 </span><span class="lnt">95
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#stop</span>
-<span class="err">GET</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;whitespace&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
-<span class="p">}</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;Quick&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown-foxes&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening.&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">70</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#stop</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;whitespace&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;Quick&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown-foxes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">70</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="keyword-analyzer">Keyword Analyzer</h4>
 <ul>
@@ -1015,108 +1013,108 @@
 </span><span class="lnt">101
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">GET</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;pattern&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
-<span class="p">}</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;foxes&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">12</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;pattern&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;running&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;foxes&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazy&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dogs&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;in&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">9</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;the&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">51</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">54</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;evening&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;word&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="language-analyzer">Language Analyzer</h4>
 <p>支持按不同国家语言进行分词。</p>
@@ -1212,95 +1210,95 @@
 </span><span class="lnt">88
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">#english</span>
-<span class="err">GET</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;english&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
-<span class="p">}</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;NUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;run&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;fox&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazi&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dog&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;even&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">12</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">#english</span>
+</span></span><span class="line"><span class="cl"><span class="err">GET</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;english&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;2 running Quick brown-foxes leap over lazy dogs in the summer evening.&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;NUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;run&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">9</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;quick&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;brown&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">16</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;fox&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">22</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">27</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;leap&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;over&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">33</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">37</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;lazi&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">38</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">7</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;dog&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">43</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">47</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">8</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;summer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">55</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">61</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">11</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;even&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">62</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">69</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;ALPHANUM&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h4 id="中文分词">中文分词</h4>
 <p>中文分词难点较多，如需要切分成词、没有像英文自然的空格作为分隔、不同上下文分词理解不同等。</p>
@@ -1470,154 +1468,154 @@
 </span><span class="lnt">147
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;icu_analyzer&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;他说的确实在理”&#34;</span>
-<span class="p">}</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;他&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;说的&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;确实&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;在&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;理&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-
-
-<span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;他说的确实在理”&#34;</span>
-<span class="p">}</span>
-
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;他&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;说&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;的&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;确&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;实&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;在&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;理&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;icu_analyzer&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;这个苹果不大好吃&#34;</span>
-<span class="p">}</span>
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;这个&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;苹果&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;不大&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;好吃&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;icu_analyzer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;他说的确实在理”&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;他&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;说的&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;确实&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;在&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;理&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;standard&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;他说的确实在理”&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;他&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;说&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;的&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;确&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;实&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;在&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">5</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;理&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">6</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;icu_analyzer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;这个苹果不大好吃&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;这个&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;苹果&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;不大&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;好吃&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;&lt;IDEOGRAPHIC&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>更多的中文分词器：</p>
 <ul>
@@ -1721,100 +1719,94 @@
 </span><span class="lnt">83
 </span><span class="lnt">84
 </span><span class="lnt">85
-</span><span class="lnt">86
-</span><span class="lnt">87
-</span><span class="lnt">88
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;他说的确实在理”&#34;</span>
-<span class="p">}</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;他&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;说&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;的确&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;实&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;在理&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-
-<span class="err">POST</span> <span class="err">_analyze</span>
-<span class="p">{</span>
-  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
-  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;这个苹果不大好吃&#34;</span>
-<span class="p">}</span>
-
-<span class="p">{</span>
-  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;这个&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;苹果&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;不大&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
-    <span class="p">},</span>
-    <span class="p">{</span>
-      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;好吃&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
-      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
-      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
-    <span class="p">}</span>
-  <span class="p">]</span>
-<span class="p">}</span>
-
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;他说的确实在理”&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;他&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;说&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;的确&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;实&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_CHAR&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;在理&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">POST</span> <span class="err">_analyze</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;analyzer&#34;</span><span class="p">:</span> <span class="s2">&#34;ik_smart&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;text&#34;</span><span class="p">:</span> <span class="s2">&#34;这个苹果不大好吃&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;tokens&#34;</span> <span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;这个&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;苹果&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;不大&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;token&#34;</span> <span class="p">:</span> <span class="s2">&#34;好吃&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;start_offset&#34;</span> <span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;end_offset&#34;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span> <span class="p">:</span> <span class="s2">&#34;CN_WORD&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;position&#34;</span> <span class="p">:</span> <span class="mi">3</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
 <p><a href="https://time.geekbang.org/course/intro/100030501?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/course/intro/100030501?tab=catalog</a></p>
@@ -1854,7 +1846,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

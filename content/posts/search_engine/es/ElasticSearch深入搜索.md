@@ -1,7 +1,7 @@
 ﻿---
 title: "ElasticSearch深入搜索"
 date: 2022-03-18T15:00:00+08:00
-draft: true
+draft: false
 tags: ["search_engine","note","es"]
 categories: ["search engine"]
 slug: /search_engine/es/9

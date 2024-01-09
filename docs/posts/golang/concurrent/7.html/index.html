@@ -202,39 +202,39 @@
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// CAS操作，当时还没有抽象出atomic包
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">cas</span><span class="p">(</span><span class="nx">val</span> <span class="o">*</span><span class="kt">int32</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span> <span class="kt">int32</span><span class="p">)</span> <span class="kt">bool</span>
-<span class="kd">func</span> <span class="nf">semacquire</span><span class="p">(</span><span class="o">*</span><span class="kt">int32</span><span class="p">)</span>
-<span class="kd">func</span> <span class="nf">semrelease</span><span class="p">(</span><span class="o">*</span><span class="kt">int32</span><span class="p">)</span>
-<span class="c1">// 互斥锁的结构，包含两个字段
-</span><span class="c1"></span><span class="kd">type</span> <span class="nx">Mutex</span> <span class="kd">struct</span> <span class="p">{</span>
-<span class="nx">key</span> <span class="kt">int32</span> <span class="c1">// 锁是否被持有的标识
-</span><span class="c1"></span><span class="nx">sema</span> <span class="kt">int32</span> <span class="c1">// 信号量专用，用以阻塞/唤醒goroutine
-</span><span class="c1"></span><span class="p">}</span>
-<span class="c1">// 保证成功在val上增加delta的值
-</span><span class="c1"></span><span class="kd">func</span> <span class="nf">xadd</span><span class="p">(</span><span class="nx">val</span> <span class="o">*</span><span class="kt">int32</span><span class="p">,</span> <span class="nx">delta</span> <span class="kt">int32</span><span class="p">)</span> <span class="p">(</span><span class="nx">new</span> <span class="kt">int32</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">for</span> <span class="p">{</span>
-<span class="nx">v</span> <span class="o">:=</span> <span class="o">*</span><span class="nx">val</span>
-<span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">v</span><span class="o">+</span><span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span> <span class="nx">v</span> <span class="o">+</span> <span class="nx">delta</span>
-<span class="p">}</span>
-<span class="p">}</span>
-<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;unreached&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="c1">// 请求锁
-</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
-<span class="k">if</span> <span class="nf">xadd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">key</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span> <span class="c1">//标识加1，如果等于1，成功获取到锁
-</span><span class="c1"></span><span class="k">return</span>
-<span class="p">}</span>
-<span class="nf">semacquire</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 否则阻塞等待
-</span><span class="c1"></span><span class="p">}</span>
-<span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span>
-<span class="k">if</span> <span class="nf">xadd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">key</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 将标识减去1，如果等于0，则没有其它等待者
-</span><span class="c1"></span><span class="k">return</span>
-<span class="p">}</span>
-<span class="nf">semrelease</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 唤醒其它阻塞的goroutine
-</span><span class="c1"></span><span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// CAS操作，当时还没有抽象出atomic包
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">cas</span><span class="p">(</span><span class="nx">val</span> <span class="o">*</span><span class="kt">int32</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span> <span class="kt">int32</span><span class="p">)</span> <span class="kt">bool</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">semacquire</span><span class="p">(</span><span class="o">*</span><span class="kt">int32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">semrelease</span><span class="p">(</span><span class="o">*</span><span class="kt">int32</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 互斥锁的结构，包含两个字段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">type</span> <span class="nx">Mutex</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">key</span> <span class="kt">int32</span> <span class="c1">// 锁是否被持有的标识
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">sema</span> <span class="kt">int32</span> <span class="c1">// 信号量专用，用以阻塞/唤醒goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 保证成功在val上增加delta的值
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="nf">xadd</span><span class="p">(</span><span class="nx">val</span> <span class="o">*</span><span class="kt">int32</span><span class="p">,</span> <span class="nx">delta</span> <span class="kt">int32</span><span class="p">)</span> <span class="p">(</span><span class="nx">new</span> <span class="kt">int32</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">v</span> <span class="o">:=</span> <span class="o">*</span><span class="nx">val</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">cas</span><span class="p">(</span><span class="nx">val</span><span class="p">,</span> <span class="nx">v</span><span class="p">,</span> <span class="nx">v</span><span class="o">+</span><span class="nx">delta</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span> <span class="nx">v</span> <span class="o">+</span> <span class="nx">delta</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">panic</span><span class="p">(</span><span class="s">&#34;unreached&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 请求锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">xadd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">key</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span> <span class="c1">//标识加1，如果等于1，成功获取到锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">semacquire</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 否则阻塞等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">xadd</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">key</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 将标识减去1，如果等于0，则没有其它等待者
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">semrelease</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 唤醒其它阻塞的goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img
         class="lazyload"
@@ -293,33 +293,33 @@
 </span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
-<span class="c1">// Fast path: 幸运case，能够直接获取到锁
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">mutexLocked</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span>
-<span class="p">}</span>
-<span class="nx">awoke</span> <span class="o">:=</span> <span class="kc">false</span>
-<span class="k">for</span> <span class="p">{</span>
-<span class="nx">old</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">state</span>
-<span class="nx">new</span> <span class="o">:=</span> <span class="nx">old</span> <span class="p">|</span> <span class="nx">mutexLocked</span> <span class="c1">// 新状态加锁
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-<span class="nx">new</span> <span class="p">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nx">mutexWaiterShift</span> <span class="c1">//等待者数量加一
-</span><span class="c1"></span><span class="p">}</span>
-<span class="k">if</span> <span class="nx">awoke</span> <span class="p">{</span>
-<span class="c1">// goroutine是被唤醒的，
-</span><span class="c1">// 新状态清除唤醒标志
-</span><span class="c1"></span><span class="nx">new</span> <span class="o">&amp;^=</span> <span class="nx">mutexWoken</span>
-<span class="p">}</span>
-<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span><span class="p">)</span> <span class="p">{</span><span class="c1">//设置新状态
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 锁原状态未加锁
-</span><span class="c1"></span><span class="k">break</span>
-<span class="p">}</span>
-<span class="nx">runtime</span><span class="p">.</span><span class="nf">Semacquire</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 请求信号量
-</span><span class="c1"></span><span class="nx">awoke</span> <span class="p">=</span> <span class="kc">true</span>
-<span class="p">}</span>
-<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Fast path: 幸运case，能够直接获取到锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">mutexLocked</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">awoke</span> <span class="o">:=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">old</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">state</span>
+</span></span><span class="line"><span class="cl"><span class="nx">new</span> <span class="o">:=</span> <span class="nx">old</span> <span class="p">|</span> <span class="nx">mutexLocked</span> <span class="c1">// 新状态加锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">new</span> <span class="p">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nx">mutexWaiterShift</span> <span class="c1">//等待者数量加一
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">awoke</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// goroutine是被唤醒的，
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 新状态清除唤醒标志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">new</span> <span class="o">&amp;^=</span> <span class="nx">mutexWoken</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span><span class="p">)</span> <span class="p">{</span><span class="c1">//设置新状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 锁原状态未加锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">break</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">runtime</span><span class="p">.</span><span class="nf">Semacquire</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 请求信号量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">awoke</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>Fast Path：首先通过CAS检测state字段的标志，判断是否持有锁，若没有则直接获得锁；</li>
@@ -355,25 +355,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span>
-<span class="c1">// Fast path: drop lock bit.
-</span><span class="c1"></span><span class="nx">new</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="o">-</span><span class="nx">mutexLocked</span><span class="p">)</span> <span class="c1">//去掉锁标志
-</span><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">new</span><span class="o">+</span><span class="nx">mutexLocked</span><span class="p">)</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">//本来就没有加锁
-</span><span class="c1"></span><span class="nb">panic</span><span class="p">(</span><span class="s">&#34;concurrent_programming: unlock of unlocked mutex&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="nx">old</span> <span class="o">:=</span> <span class="nx">new</span>
-<span class="k">for</span> <span class="p">{</span>
-<span class="k">if</span> <span class="nx">old</span><span class="o">&gt;&gt;</span><span class="nx">mutexWaiterShift</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">old</span><span class="o">&amp;</span><span class="p">(</span><span class="nx">mutexLocked</span><span class="p">|</span><span class="nx">mutexWoken</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
-<span class="k">return</span>
-<span class="p">}</span>
-<span class="nx">new</span> <span class="p">=</span> <span class="p">(</span><span class="nx">old</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nx">mutexWaiterShift</span><span class="p">)</span> <span class="p">|</span> <span class="nx">mutexWoken</span> <span class="c1">// 新状态，准备唤醒goroutine
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span><span class="p">)</span> <span class="p">{</span>
-<span class="nx">runtime</span><span class="p">.</span><span class="nf">Semrelease</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span>
-<span class="k">return</span>
-<span class="p">}</span>
-<span class="nx">old</span> <span class="p">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">state</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Unlock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Fast path: drop lock bit.
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">new</span> <span class="o">:=</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">AddInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="o">-</span><span class="nx">mutexLocked</span><span class="p">)</span> <span class="c1">//去掉锁标志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">new</span><span class="o">+</span><span class="nx">mutexLocked</span><span class="p">)</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">//本来就没有加锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nb">panic</span><span class="p">(</span><span class="s">&#34;concurrent_programming: unlock of unlocked mutex&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">old</span> <span class="o">:=</span> <span class="nx">new</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">old</span><span class="o">&gt;&gt;</span><span class="nx">mutexWaiterShift</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">old</span><span class="o">&amp;</span><span class="p">(</span><span class="nx">mutexLocked</span><span class="p">|</span><span class="nx">mutexWoken</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">new</span> <span class="p">=</span> <span class="p">(</span><span class="nx">old</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nx">mutexWaiterShift</span><span class="p">)</span> <span class="p">|</span> <span class="nx">mutexWoken</span> <span class="c1">// 新状态，准备唤醒goroutine
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nx">runtime</span><span class="p">.</span><span class="nf">Semrelease</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">old</span> <span class="p">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">state</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>若没有锁的情况下进行Unlock则直接panic；</li>
@@ -428,44 +428,44 @@
 </span><span class="lnt">37
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
-<span class="c1">// Fast path: 幸运之路，正好获取到锁
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">mutexLocked</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">return</span>
-<span class="p">}</span>
-<span class="nx">awoke</span> <span class="o">:=</span> <span class="kc">false</span>
-<span class="nx">iter</span> <span class="o">:=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="p">{</span> <span class="c1">// 不管是新来的请求锁的goroutine, 还是被唤醒的goroutine，都不断尝试请求锁
-</span><span class="c1"></span><span class="nx">old</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">state</span> <span class="c1">// 先保存当前锁的状态
-</span><span class="c1"></span><span class="nx">new</span> <span class="o">:=</span> <span class="nx">old</span> <span class="p">|</span> <span class="nx">mutexLocked</span> <span class="c1">// 新状态设置加锁标志
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 锁还没被释放
-</span><span class="c1"></span><span class="k">if</span> <span class="nf">runtime_canSpin</span><span class="p">(</span><span class="nx">iter</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 还可以自旋
-</span><span class="c1"></span><span class="k">if</span> <span class="p">!</span><span class="nx">awoke</span> <span class="o">&amp;&amp;</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexWoken</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">old</span><span class="o">&gt;&gt;</span><span class="nx">mutexWaiterShift</span>
-<span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">old</span><span class="p">|</span><span class="nx">mutexWok</span>
-<span class="nx">awoke</span> <span class="p">=</span> <span class="kc">true</span>
-<span class="p">}</span>
-<span class="nf">runtime_doSpin</span><span class="p">()</span>
-<span class="nx">iter</span><span class="o">++</span>
-<span class="k">continue</span> <span class="c1">// 自旋，再次尝试请求锁
-</span><span class="c1"></span><span class="p">}</span>
-<span class="nx">new</span> <span class="p">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nx">mutexWaiterShift</span>
-<span class="p">}</span>
-<span class="k">if</span> <span class="nx">awoke</span> <span class="p">{</span> <span class="c1">// 唤醒状态
-</span><span class="c1"></span><span class="k">if</span> <span class="nx">new</span><span class="o">&amp;</span><span class="nx">mutexWoken</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-<span class="nb">panic</span><span class="p">(</span><span class="s">&#34;concurrent_programming: inconsistent mutex state&#34;</span><span class="p">)</span>
-<span class="p">}</span>
-<span class="nx">new</span> <span class="o">&amp;^=</span> <span class="nx">mutexWoken</span> <span class="c1">// 新状态清除唤醒标记
-</span><span class="c1"></span><span class="p">}</span>
-<span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span><span class="p">)</span> <span class="p">{</span>
-<span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 旧状态锁已释放，新状态成功持有了锁，直接返回
-</span><span class="c1"></span><span class="k">break</span>
-<span class="p">}</span>
-<span class="nf">runtime_Semacquire</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 阻塞等待
-</span><span class="c1"></span><span class="nx">awoke</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// 被唤醒
-</span><span class="c1"></span><span class="nx">iter</span> <span class="p">=</span> <span class="mi">0</span>
-<span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">m</span> <span class="o">*</span><span class="nx">Mutex</span><span class="p">)</span> <span class="nf">Lock</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// Fast path: 幸运之路，正好获取到锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">mutexLocked</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">return</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">awoke</span> <span class="o">:=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl"><span class="nx">iter</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">{</span> <span class="c1">// 不管是新来的请求锁的goroutine, 还是被唤醒的goroutine，都不断尝试请求锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">old</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">state</span> <span class="c1">// 先保存当前锁的状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">new</span> <span class="o">:=</span> <span class="nx">old</span> <span class="p">|</span> <span class="nx">mutexLocked</span> <span class="c1">// 新状态设置加锁标志
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 锁还没被释放
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nf">runtime_canSpin</span><span class="p">(</span><span class="nx">iter</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 还可以自旋
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">!</span><span class="nx">awoke</span> <span class="o">&amp;&amp;</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexWoken</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">old</span><span class="o">&gt;&gt;</span><span class="nx">mutexWaiterShift</span>
+</span></span><span class="line"><span class="cl"><span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">old</span><span class="p">|</span><span class="nx">mutexWok</span>
+</span></span><span class="line"><span class="cl"><span class="nx">awoke</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">runtime_doSpin</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nx">iter</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl"><span class="k">continue</span> <span class="c1">// 自旋，再次尝试请求锁
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">new</span> <span class="p">=</span> <span class="nx">old</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;&lt;</span><span class="nx">mutexWaiterShift</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">awoke</span> <span class="p">{</span> <span class="c1">// 唤醒状态
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="nx">new</span><span class="o">&amp;</span><span class="nx">mutexWoken</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="nb">panic</span><span class="p">(</span><span class="s">&#34;concurrent_programming: inconsistent mutex state&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">new</span> <span class="o">&amp;^=</span> <span class="nx">mutexWoken</span> <span class="c1">// 新状态清除唤醒标记
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">atomic</span><span class="p">.</span><span class="nf">CompareAndSwapInt32</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">state</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="nx">old</span><span class="o">&amp;</span><span class="nx">mutexLocked</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span> <span class="c1">// 旧状态锁已释放，新状态成功持有了锁，直接返回
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">break</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">runtime_Semacquire</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">.</span><span class="nx">sema</span><span class="p">)</span> <span class="c1">// 阻塞等待
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">awoke</span> <span class="p">=</span> <span class="kc">true</span> <span class="c1">// 被唤醒
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">iter</span> <span class="p">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ul>
 <li>对于临界区代码执行非常短的场景来说这是一个很好的优化，因为临界区的代码耗时较短，锁很快就能释放，而抢夺锁的goroutine不用通过休眠唤醒方式等待调度，直接通过自旋可能就获取到了锁。</li>
@@ -558,7 +558,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

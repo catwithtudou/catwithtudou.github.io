@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/1.html\/"
-        },"genre": "posts","keywords": "ai, machine_learning, note","wordcount":  263 ,
+        },"genre": "posts","keywords": "ai, machine_learning, note","wordcount":  266 ,
         "url": "https:\/\/zhengyua.cn\/posts\/ai\/machine_learning\/1.html\/","datePublished": "2019-06-23T11:53:03+08:00","dateModified": "2019-06-23T11:53:03+08:00","publisher": {
             "@type": "Organization",
             "name": "一直是阵雨🌦️"},"author": {
@@ -105,7 +105,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animated flipInX">MachineLearning(AndrewNg)Notes-Week1-Week5总结</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/catwithtudou" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw"></i>一直是阵雨🌦️</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/machine-learning/"><i class="far fa-folder fa-fw"></i>machine learning</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-06-23">2019-06-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 263 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2019-06-23">2019-06-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 266 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -209,7 +209,7 @@ If α is too large: may not decrease on every iteration and thus may not converg
 <ul>
 <li>
 <p>$h=g(X\theta)$</p>
-<p>$J(\theta)=\frac{1}{m}(-y&rsquo;log(h)-(1-y)&lsquo;log(1-h))$</p>
+<p>$J(\theta)=\frac{1}{m}(-y&rsquo;log(h)-(1-y)&rsquo;log(1-h))$</p>
 </li>
 <li>
 <p>$\theta:=\theta-\frac{\alpha}{m}X^T(g(\theta X) -y)$</p>
@@ -230,15 +230,15 @@ If α is too large: may not decrease on every iteration and thus may not converg
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="k">function</span><span class="w"> </span>[jVal, gradient] <span class="p">=</span><span class="w"> </span><span class="nf">costFunction</span><span class="p">(</span>theta<span class="p">)</span><span class="w">
-</span><span class="w"></span><span class="n">jVal</span> <span class="p">=</span> <span class="p">[</span><span class="c">...code to compute J(theta)...];</span>
-<span class="n">gradient</span> <span class="p">=</span> <span class="p">[</span><span class="c">...code to compute derivative of J(theta)...];</span>
-<span class="k">end</span>
-
-<span class="n">options</span> <span class="p">=</span> <span class="n">optimset</span><span class="p">(</span><span class="s">&#39;GradObj&#39;</span><span class="p">,</span> <span class="s">&#39;on&#39;</span><span class="p">,</span> <span class="s">&#39;MaxIter&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
-<span class="n">initialTheta</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">[</span><span class="n">optTheta</span><span class="p">,</span> <span class="n">functionVal</span><span class="p">,</span> <span class="n">exitFlag</span><span class="p">]</span> <span class="p">=</span> <span class="n">fminunc</span><span class="p">(@</span><span class="n">costFunction</span><span class="p">,</span> <span class="n">initialTheta</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab"><span class="line"><span class="cl"><span class="k">function</span><span class="w"> </span>[jVal, gradient] <span class="p">=</span><span class="w"> </span><span class="nf">costFunction</span><span class="p">(</span>theta<span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">jVal</span> <span class="p">=</span> <span class="p">[</span><span class="c">...code to compute J(theta)...];</span>
+</span></span><span class="line"><span class="cl"><span class="n">gradient</span> <span class="p">=</span> <span class="p">[</span><span class="c">...code to compute derivative of J(theta)...];</span>
+</span></span><span class="line"><span class="cl"><span class="k">end</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">options</span> <span class="p">=</span> <span class="n">optimset</span><span class="p">(</span><span class="s">&#39;GradObj&#39;</span><span class="p">,</span> <span class="s">&#39;on&#39;</span><span class="p">,</span> <span class="s">&#39;MaxIter&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">initialTheta</span> <span class="p">=</span> <span class="nb">zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="n">optTheta</span><span class="p">,</span> <span class="n">functionVal</span><span class="p">,</span> <span class="n">exitFlag</span><span class="p">]</span> <span class="p">=</span> <span class="n">fminunc</span><span class="p">(@</span><span class="n">costFunction</span><span class="p">,</span> <span class="n">initialTheta</span><span class="p">,</span> <span class="n">options</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div></li>
 <li>
@@ -410,7 +410,7 @@ K = number of output units/classes</p>
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>

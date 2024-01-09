@@ -210,22 +210,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">data</span> <span class="no">SEGMENT</span> <span class="c">;定义一个数据段存放Hello World!
-</span><span class="c"></span>    <span class="no">hello</span>  <span class="no">DB</span> <span class="err">&#39;</span><span class="no">Hello</span> <span class="no">World</span><span class="p">!</span><span class="no">$</span><span class="err">&#39;</span> <span class="c">;注意要以$结束
-</span><span class="c"></span><span class="no">data</span> <span class="no">ENDS</span>
-<span class="nf">code</span> <span class="no">SEGMENT</span> <span class="c">;定义一个代码段存放程序指令
-</span><span class="c"></span>    <span class="no">ASSUME</span> <span class="no">CS</span><span class="p">:</span><span class="no">CODE</span><span class="p">,</span><span class="no">DS</span><span class="p">:</span><span class="no">DATA</span> <span class="c">;告诉汇编程序，DS指向数据段，CS指向代码段
-</span><span class="c"></span><span class="no">start</span><span class="p">:</span>
-    <span class="nf">MOV</span> <span class="no">AX</span><span class="p">,</span><span class="no">data</span>  <span class="c">;将data段首地址赋值给AX                
-</span><span class="c"></span>    <span class="no">MOV</span> <span class="no">DS</span><span class="p">,</span><span class="no">AX</span>    <span class="c">;将AX赋值给DS，使DS指向data段
-</span><span class="c"></span>    <span class="no">LEA</span> <span class="no">DX</span><span class="p">,</span><span class="no">hello</span> <span class="c">;使DX指向hello首地址
-</span><span class="c"></span>    <span class="no">MOV</span> <span class="no">AH</span><span class="p">,</span><span class="mi">09</span><span class="no">h</span>   <span class="c">;给AH设置参数09H，AH是AX高8位，AL是AX低8位，其它类似
-</span><span class="c"></span>    <span class="no">INT</span> <span class="mi">21</span><span class="no">h</span>      <span class="c">;执行DOS中断输出DS指向的DX指向的字符串hello
-</span><span class="c"></span>    <span class="no">MOV</span> <span class="no">AX</span><span class="p">,</span><span class="mi">4</span><span class="no">C00h</span> <span class="c">;给AX设置参数4C00h
-</span><span class="c"></span>    <span class="no">INT</span> <span class="mi">21</span><span class="no">h</span>      <span class="c">;调用4C00h号功能，结束程序
-</span><span class="c"></span><span class="no">code</span> <span class="no">ENDS</span>
-<span class="nf">END</span> <span class="no">start</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">data</span> <span class="no">SEGMENT</span> <span class="c1">;定义一个数据段存放Hello World!
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">hello</span>  <span class="no">DB</span> <span class="err">&#39;</span><span class="no">Hello</span> <span class="no">World</span><span class="p">!</span><span class="no">$</span><span class="err">&#39;</span> <span class="c1">;注意要以$结束
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">data</span> <span class="no">ENDS</span>
+</span></span><span class="line"><span class="cl"><span class="nf">code</span> <span class="no">SEGMENT</span> <span class="c1">;定义一个代码段存放程序指令
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">ASSUME</span> <span class="no">CS</span><span class="p">:</span><span class="no">CODE</span><span class="p">,</span><span class="no">DS</span><span class="p">:</span><span class="no">DATA</span> <span class="c1">;告诉汇编程序，DS指向数据段，CS指向代码段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">start:</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">MOV</span> <span class="no">AX</span><span class="p">,</span><span class="no">data</span>  <span class="c1">;将data段首地址赋值给AX                
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">MOV</span> <span class="no">DS</span><span class="p">,</span><span class="no">AX</span>    <span class="c1">;将AX赋值给DS，使DS指向data段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">LEA</span> <span class="no">DX</span><span class="p">,</span><span class="no">hello</span> <span class="c1">;使DX指向hello首地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">MOV</span> <span class="no">AH</span><span class="p">,</span><span class="mi">09</span><span class="no">h</span>   <span class="c1">;给AH设置参数09H，AH是AX高8位，AL是AX低8位，其它类似
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">INT</span> <span class="mi">21</span><span class="no">h</span>      <span class="c1">;执行DOS中断输出DS指向的DX指向的字符串hello
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">MOV</span> <span class="no">AX</span><span class="p">,</span><span class="mi">4</span><span class="no">C00h</span> <span class="c1">;给AX设置参数4C00h
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="nf">INT</span> <span class="mi">21</span><span class="no">h</span>      <span class="c1">;调用4C00h号功能，结束程序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">code</span> <span class="no">ENDS</span>
+</span></span><span class="line"><span class="cl"><span class="nf">END</span> <span class="no">start</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="实模式中断">实模式中断</h3>
 <p>实模式下的中断实现过程是<strong>先保存 CS 和 IP 寄存器，然后装载新的 CS 和 IP 寄存器</strong>。</p>
@@ -360,32 +360,32 @@
 </span><span class="lnt">25
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">
-<span class="nl">GDT_START:</span>
-<span class="nl">knull_dsc:</span> <span class="nf">dq</span> <span class="mi">0</span>
-<span class="c">;第一个段描述符CPU硬件规定必须为0
-</span><span class="c"></span><span class="nl">kcode_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf9e000000ffff</span>
-<span class="c">;段基地址=0，段长度=0xfffff
-</span><span class="c">;G=1,D/B=1,L=0,AVL=0 
-</span><span class="c">;P=1,DPL=0,S=1
-</span><span class="c">;T=1,C=1,R=1,A=0
-</span><span class="c">;（段基址31:24） 0000 0000
-</span><span class="c">;（G、D/B、L、AVL）1100
-</span><span class="c">;（段长度19:16）1111
-</span><span class="c">;（P、DPL、DPL、S、T、C、R、A）1001 1110
-</span><span class="c">;（段基址23:0）0000 0000 0000 0000 0000 0000
-</span><span class="c">;（段长度15:0）1111 1111 1111 1111
-</span><span class="c"></span><span class="nl">kdata_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf92000000ffff</span>
-<span class="c">;段基地址=0，段长度=0xfffff
-</span><span class="c">;G=1,D/B=1,L=0,AVL=0 
-</span><span class="c">;P=1,DPL=0,S=1
-</span><span class="c">;T=0,C=0,R=1,A=0
-</span><span class="c"></span><span class="nl">GDT_END:</span>
-
-<span class="nl">GDT_PTR:</span>
-<span class="nf">GDTLEN</span>  <span class="no">dw</span> <span class="no">GDT_END-GDT_START-1</span>
-<span class="nf">GDTBASE</span>  <span class="no">dd</span> <span class="no">GDT_START</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">GDT_START:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">knull_dsc:</span> <span class="nf">dq</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;第一个段描述符CPU硬件规定必须为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">kcode_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf9e000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;段基地址=0，段长度=0xfffff
+</span></span></span><span class="line"><span class="cl"><span class="c1">;G=1,D/B=1,L=0,AVL=0 
+</span></span></span><span class="line"><span class="cl"><span class="c1">;P=1,DPL=0,S=1
+</span></span></span><span class="line"><span class="cl"><span class="c1">;T=1,C=1,R=1,A=0
+</span></span></span><span class="line"><span class="cl"><span class="c1">;（段基址31:24） 0000 0000
+</span></span></span><span class="line"><span class="cl"><span class="c1">;（G、D/B、L、AVL）1100
+</span></span></span><span class="line"><span class="cl"><span class="c1">;（段长度19:16）1111
+</span></span></span><span class="line"><span class="cl"><span class="c1">;（P、DPL、DPL、S、T、C、R、A）1001 1110
+</span></span></span><span class="line"><span class="cl"><span class="c1">;（段基址23:0）0000 0000 0000 0000 0000 0000
+</span></span></span><span class="line"><span class="cl"><span class="c1">;（段长度15:0）1111 1111 1111 1111
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">kdata_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf92000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;段基地址=0，段长度=0xfffff
+</span></span></span><span class="line"><span class="cl"><span class="c1">;G=1,D/B=1,L=0,AVL=0 
+</span></span></span><span class="line"><span class="cl"><span class="c1">;P=1,DPL=0,S=1
+</span></span></span><span class="line"><span class="cl"><span class="c1">;T=0,C=0,R=1,A=0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">GDT_END:</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">GDT_PTR:</span>
+</span></span><span class="line"><span class="cl"><span class="nf">GDTLEN</span>  <span class="no">dw</span> <span class="no">GDT_END-GDT_START-1</span>
+</span></span><span class="line"><span class="cl"><span class="nf">GDTBASE</span>  <span class="no">dd</span> <span class="no">GDT_START</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="保护模式中断">保护模式中断</h3>
 <ul>
@@ -443,15 +443,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">GDT_START:</span>
-<span class="nl">knull_dsc:</span> <span class="nf">dq</span> <span class="mi">0</span>
-<span class="nl">kcode_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf9e000000ffff</span>
-<span class="nl">kdata_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf92000000ffff</span>
-<span class="nl">GDT_END:</span>
-<span class="nl">GDT_PTR:</span>
-<span class="nf">GDTLEN</span>  <span class="no">dw</span> <span class="no">GDT_END-GDT_START-1</span>
-<span class="nf">GDTBASE</span>  <span class="no">dd</span> <span class="no">GDT_START</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">GDT_START:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">knull_dsc:</span> <span class="nf">dq</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nl">kcode_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf9e000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="nl">kdata_dsc:</span> <span class="nf">dq</span> <span class="mi">0x00cf92000000ffff</span>
+</span></span><span class="line"><span class="cl"><span class="nl">GDT_END:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">GDT_PTR:</span>
+</span></span><span class="line"><span class="cl"><span class="nf">GDTLEN</span>  <span class="no">dw</span> <span class="no">GDT_END-GDT_START-1</span>
+</span></span><span class="line"><span class="cl"><span class="nf">GDTBASE</span>  <span class="no">dd</span> <span class="no">GDT_START</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li><strong>加载设置 GDTR 寄存器，使之指向全局段描述符表</strong></li>
@@ -461,8 +461,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">lgdt</span> <span class="p">[</span><span class="no">GDT_PTR</span><span class="p">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">lgdt</span> <span class="p">[</span><span class="no">GDT_PTR</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="3">
 <li><strong>设置 CR0 寄存器，开启保护模式</strong></li>
@@ -479,15 +479,15 @@
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="c">;开启 PE
-</span><span class="c"></span><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr0</span>
-<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span>                      
-<span class="c">;CR0.PE =1
-</span><span class="c">;bts指令的意思是 bit test and set 位测试并设置
-</span><span class="c">;判断 eax 与0，若 eax == 0，bts 会将 CF = 1，并将eax置位（即设置为1）
-</span><span class="c">;然后把 CR0 的最低位设为1之后，即开启了保护模式
-</span><span class="c"></span><span class="no">mov</span> <span class="no">cr0</span><span class="p">,</span> <span class="no">eax</span>         
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c1">;开启 PE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span>                      
+</span></span><span class="line"><span class="cl"><span class="c1">;CR0.PE =1
+</span></span></span><span class="line"><span class="cl"><span class="c1">;bts指令的意思是 bit test and set 位测试并设置
+</span></span></span><span class="line"><span class="cl"><span class="c1">;判断 eax 与0，若 eax == 0，bts 会将 CF = 1，并将eax置位（即设置为1）
+</span></span></span><span class="line"><span class="cl"><span class="c1">;然后把 CR0 的最低位设为1之后，即开启了保护模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">cr0</span><span class="p">,</span> <span class="no">eax</span>         
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li><strong>进行长跳转，加载 CS 段寄存器，即段选择子</strong></li>
@@ -499,9 +499,9 @@
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">jmp</span> <span class="no">dword</span> <span class="mi">0x8</span> <span class="p">:</span><span class="no">_32bits_mode</span>
-<span class="c">;_32bits_mode为32位代码标号即段偏移
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">jmp</span> <span class="no">dword</span> <span class="mi">0x8</span> <span class="p">:</span><span class="no">_32bits_mode</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;_32bits_mode为32位代码标号即段偏移
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>这里填入CS的值是0x8，根据段选择子的格式定义：</p>
@@ -565,22 +565,22 @@
 </span><span class="lnt">15
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nl">ex64_GDT:</span>
-<span class="nl">null_dsc:</span>  <span class="nf">dq</span> <span class="mi">0</span>
-<span class="c">;第一个段描述符CPU硬件规定必须为0
-</span><span class="c"></span><span class="nl">c64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0020980000000000</span>  <span class="c">;64位代码段
-</span><span class="c">;无效位填0
-</span><span class="c">;D/B=0,L=1,AVL=0 
-</span><span class="c">;P=1,DPL=0,S=1
-</span><span class="c">;T=1,C=0,R=0,A=0
-</span><span class="c"></span><span class="no">d64_dsc</span><span class="p">:</span><span class="no">dq</span> <span class="mi">0x0000920000000000</span>  <span class="c">;64位数据段
-</span><span class="c">;无效位填0
-</span><span class="c">;P=1,DPL=0,S=1
-</span><span class="c">;T=0,C/E=0,R/W=1,A=0
-</span><span class="c"></span><span class="no">eGdtLen</span>   <span class="no">equ</span> <span class="no">$</span> <span class="p">-</span> <span class="no">null_dsc</span>  <span class="c">;GDT长度
-</span><span class="c"></span><span class="no">eGdtPtr</span><span class="p">:</span><span class="no">dw</span> <span class="no">eGdtLen</span> <span class="p">-</span> <span class="mi">1</span>  <span class="c">;GDT界限
-</span><span class="c"></span>     <span class="no">dq</span> <span class="no">ex64_GDT</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nl">ex64_GDT:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">null_dsc:</span>  <span class="nf">dq</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;第一个段描述符CPU硬件规定必须为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">c64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0020980000000000</span>  <span class="c1">;64位代码段
+</span></span></span><span class="line"><span class="cl"><span class="c1">;无效位填0
+</span></span></span><span class="line"><span class="cl"><span class="c1">;D/B=0,L=1,AVL=0 
+</span></span></span><span class="line"><span class="cl"><span class="c1">;P=1,DPL=0,S=1
+</span></span></span><span class="line"><span class="cl"><span class="c1">;T=1,C=0,R=0,A=0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">d64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0000920000000000</span>  <span class="c1">;64位数据段
+</span></span></span><span class="line"><span class="cl"><span class="c1">;无效位填0
+</span></span></span><span class="line"><span class="cl"><span class="c1">;P=1,DPL=0,S=1
+</span></span></span><span class="line"><span class="cl"><span class="c1">;T=0,C/E=0,R/W=1,A=0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">eGdtLen</span>   <span class="no">equ</span> <span class="no">$</span> <span class="p">-</span> <span class="no">null_dsc</span>  <span class="c1">;GDT长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">eGdtPtr:</span><span class="nf">dw</span> <span class="no">eGdtLen</span> <span class="p">-</span> <span class="mi">1</span>  <span class="c1">;GDT界限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>     <span class="nf">dq</span> <span class="no">ex64_GDT</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>段描述符的 DPL=0，这说明需要最高权限即 CPL=0 才能访问。
@@ -619,16 +619,16 @@
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">
-<span class="nl">ex64_GDT:</span>
-<span class="nl">null_dsc:</span>  <span class="nf">dq</span> <span class="mi">0</span>
-<span class="c">;第一个段描述符CPU硬件规定必须为0
-</span><span class="c"></span><span class="nl">c64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0020980000000000</span>  <span class="c">;64位代码段
-</span><span class="c"></span><span class="no">d64_dsc</span><span class="p">:</span><span class="no">dq</span> <span class="mi">0x0000920000000000</span>  <span class="c">;64位数据段
-</span><span class="c"></span><span class="no">eGdtLen</span>   <span class="no">equ</span> <span class="no">$</span> <span class="p">-</span> <span class="no">null_dsc</span>  <span class="c">;GDT长度
-</span><span class="c"></span><span class="no">eGdtPtr</span><span class="p">:</span><span class="no">dw</span> <span class="no">eGdtLen</span> <span class="p">-</span> <span class="mi">1</span>  <span class="c">;GDT界限
-</span><span class="c"></span>     <span class="no">dq</span> <span class="no">ex64_GDT</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nl">ex64_GDT:</span>
+</span></span><span class="line"><span class="cl"><span class="nl">null_dsc:</span>  <span class="nf">dq</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;第一个段描述符CPU硬件规定必须为0
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">c64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0020980000000000</span>  <span class="c1">;64位代码段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">d64_dsc:</span><span class="nf">dq</span> <span class="mi">0x0000920000000000</span>  <span class="c1">;64位数据段
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">eGdtLen</span>   <span class="no">equ</span> <span class="no">$</span> <span class="p">-</span> <span class="no">null_dsc</span>  <span class="c1">;GDT长度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nl">eGdtPtr:</span><span class="nf">dw</span> <span class="no">eGdtLen</span> <span class="p">-</span> <span class="mi">1</span>  <span class="c1">;GDT界限
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>     <span class="nf">dq</span> <span class="no">ex64_GDT</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="2">
 <li><strong>准备 MMU 页表开启分页</strong></li>
@@ -643,13 +643,13 @@
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm">
-<span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr4</span>
-<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">5</span>   <span class="c">;CR4.PAE = 1
-</span><span class="c"></span><span class="no">mov</span> <span class="no">cr4</span><span class="p">,</span> <span class="no">eax</span> <span class="c">;开启 PAE
-</span><span class="c"></span><span class="no">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">PAGE_TLB_BADR</span> <span class="c">;页表物理地址
-</span><span class="c"></span><span class="no">mov</span> <span class="no">cr3</span><span class="p">,</span> <span class="no">eax</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr4</span>
+</span></span><span class="line"><span class="cl"><span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">5</span>   <span class="c1">;CR4.PAE = 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">cr4</span><span class="p">,</span> <span class="no">eax</span> <span class="c1">;开启 PAE
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">PAGE_TLB_BADR</span> <span class="c1">;页表物理地址
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">cr3</span><span class="p">,</span> <span class="no">eax</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>长模式下内存地址空间的保护交给了 MMU，MMU 依赖页表对地址进行转换，页表有特定的格式存放在内存中，其地址由 CPU 的 CR3 寄存器指向</p>
@@ -662,8 +662,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">lgdt</span> <span class="p">[</span><span class="no">eGdtPtr</span><span class="p">]</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">lgdt</span> <span class="p">[</span><span class="no">eGdtPtr</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="4">
 <li><strong>开启长模式同时开启保护模式和分页模式</strong></li>
@@ -682,17 +682,17 @@
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="c">;开启 64位长模式
-</span><span class="c"></span><span class="nf">mov</span> <span class="no">ecx</span><span class="p">,</span> <span class="no">IA32_EFER</span>
-<span class="nf">rdmsr</span>
-<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">8</span>  <span class="c">;IA32_EFER.LME =1
-</span><span class="c"></span><span class="no">wrmsr</span>
-<span class="c">;开启 保护模式和分页模式
-</span><span class="c"></span><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr0</span>
-<span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span>    <span class="c">;CR0.PE =1
-</span><span class="c"></span><span class="no">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">31</span>
-<span class="nf">mov</span> <span class="no">cr0</span><span class="p">,</span> <span class="no">eax</span> 
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="c1">;开启 64位长模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">ecx</span><span class="p">,</span> <span class="no">IA32_EFER</span>
+</span></span><span class="line"><span class="cl"><span class="nf">rdmsr</span>
+</span></span><span class="line"><span class="cl"><span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">8</span>  <span class="c1">;IA32_EFER.LME =1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">wrmsr</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;开启 保护模式和分页模式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">mov</span> <span class="no">eax</span><span class="p">,</span> <span class="no">cr0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">0</span>    <span class="c1">;CR0.PE =1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nf">bts</span> <span class="no">eax</span><span class="p">,</span> <span class="mi">31</span>
+</span></span><span class="line"><span class="cl"><span class="nf">mov</span> <span class="no">cr0</span><span class="p">,</span> <span class="no">eax</span> 
+</span></span></code></pre></td></tr></table>
 </div>
 </div><blockquote>
 <p>在实现长模式时定义了 MSR 寄存器，需要用专用的指令 rdmsr、wrmsr 进行读写，IA32_EFER 寄存器的地址为 0xC0000080，它的第 8 位决定了是否开启长模式。</p>
@@ -705,8 +705,8 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="nf">jmp</span> <span class="mi">08</span><span class="p">:</span><span class="no">entry64</span> <span class="c">;entry64为程序标号即64位偏移地址
-</span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">jmp</span> <span class="mi">08</span><span class="p">:</span><span class="no">entry64</span> <span class="c1">;entry64为程序标号即64位偏移地址
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="参考">参考</h2>
 <p><a href="https://time.geekbang.org/column/intro/100078401?tab=catalog" target="_blank" rel="noopener noreffer">https://time.geekbang.org/column/intro/100078401?tab=catalog</a></p>
@@ -746,7 +746,7 @@
             </div>
             <span id="busuanzi_container_site_pv">
                 本站访问量：<span id="busuanzi_value_site_pv"></span>次
-            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+            </span><div class="footer-line"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="https://github.com/catwithtudou" target="_blank">一直是阵雨🌦️</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp">渝ICP备19012006号-1</span></div>
         </div>
     </footer></div>
