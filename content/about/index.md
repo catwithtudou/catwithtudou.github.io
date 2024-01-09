@@ -3,8 +3,6 @@ title: "About Me"
 date: 2024-01-09T11:00:00+08:00
 ---
 
-{{< figure src="/images/aboutMe.jpeg"  >}}
-
 ## Ever doesn't mean forever
 
 Hope to realize what I really want
