@@ -151,7 +151,8 @@ publishdir = "./docs"
   [params.social]
     GitHub = "catwithtudou"
     Email = "yu949812478@gmail.com"
-    RSS = false
+    Twitter = "catwithtudou"
+    RSS = true
 
 # LoveIt 更改 | 0.2.0 文章页面配置
   [params.page]
