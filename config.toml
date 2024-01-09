@@ -4,6 +4,10 @@ languageCode = "zh-CN"
 hasCJKLanguage = true
 theme = "LoveIt"
 publishdir = "./docs"
+# 是否使用 git 信息
+enableGitInfo = true
+# 是否使用 emoji 代码
+enableEmoji = true
 
 [permalinks]
   posts = "/posts/:slug.html"
@@ -50,7 +54,7 @@ publishdir = "./docs"
     # 文章内容最长索引长度
     contentLength = 4000
     # 搜索框的占位提示语
-    placeholder = ""
+    placeholder = "请输入你想要搜索的内容"
     # LoveIt 新增 | 0.2.1 最大结果数目
     maxResultLength = 10
     # LoveIt 新增 | 0.2.3 结果内容片段长度
@@ -161,7 +165,7 @@ publishdir = "./docs"
     # LoveIt 新增 | 0.2.0 是否在搜索结果中隐藏一篇文章
     hiddenFromSearch = false
     # LoveIt 新增 | 0.2.0 是否使用 twemoji
-    twemoji = true
+    twemoji = false
     # 是否使用 lightgallery
     lightgallery = true
     # LoveIt 新增 | 0.2.0 是否使用 ruby 扩展语法
@@ -221,7 +225,7 @@ publishdir = "./docs"
     [params.page.share]
       enable = true
       Twitter = true
-      Facebook = true
+      Facebook = false
       Linkedin = false
       Whatsapp = true
       Pinterest = false
@@ -239,9 +243,9 @@ publishdir = "./docs"
       Flipboard = false
       Weibo = true
       Renren = false
-      Myspace = true
-      Blogger = true
-      Baidu = false
+      Myspace = false
+      Blogger = false
+      Baidu = true
       Odnoklassniki = false
       Evernote = true
       Skype = false
@@ -309,6 +313,14 @@ publishdir = "./docs"
     url = "/categories/"
     title = ""
     weight = 30
+  [[menu.main]]
+  identifier = "about"
+  pre = ""
+  post = ""
+  name = "关于"
+  url = "/about/"
+  title = ""
+  weight = 40
 
 # Hugo 解析文档的配置
 [markup]
