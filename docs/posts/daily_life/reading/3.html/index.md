@@ -1,9 +1,10 @@
-# 《哲学-死亡》notes
+# 学习清单
 
 
-> 以下为耶鲁大学[公开课](https://www.bilibili.com/video/BV1V3411k7Q1/?spm_id_from=333.999.0.0&vd_source=4093135839ad2123d61b9fae1ecd7a8f)「哲学——死亡」的笔记记录。
+> 把这段时间看的相关书籍和后续计划看的书籍进行整理，汇总到该[文档](https://jih9axn4gg.feishu.cn/wiki/wikcnhlcSHrdxsvpvFBOyb5vSKf?table=tbllDiuFb2ADS9CB&view=vewEDXHdbq)中并保持持续更新....
 
-对于死亡的普遍观点：
+
+：
 
 - 我们拥有灵魂，这是比肉体更重要的事物，精神上的非物质的。死亡只能毁灭肉体，而不能摧毁灵魂。通过灵魂得到永生，以此面对死亡的可怕和恐惧；
 

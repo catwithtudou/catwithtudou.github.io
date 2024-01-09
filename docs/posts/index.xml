@@ -4,13 +4,27 @@
         <link>https://zhengyua.cn/posts/</link>
         <description>所有文章 | </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Tue, 26 Dec 2023 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Wed, 10 Jan 2024 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>学习清单</title>
+    <link>https://zhengyua.cn/posts/daily_life/reading/3.html/</link>
+    <pubDate>Wed, 10 Jan 2024 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/daily_life/reading/3.html/</guid>
+    <description><![CDATA[把这段时间看的相关书籍和后续计划看的书籍进行整理，汇总到该文档中并保持持续更新&hellip;.]]></description>
+</item><item>
     <title>《Rust语言圣经》高阶部分阅读笔记</title>
     <link>https://zhengyua.cn/posts/rust/1.html/</link>
     <pubDate>Tue, 26 Dec 2023 00:00:00 &#43;0800</pubDate>
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/rust/1.html/</guid>
     <description><![CDATA[以下是《Rust 语言圣经》高阶部分的阅读笔记（👷施工中） 具体内容请看飞书文档]]></description>
+</item><item>
+    <title>初识🐣Rust🦀️</title>
+    <link>https://zhengyua.cn/posts/rust/2.html/</link>
+    <pubDate>Mon, 13 Nov 2023 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/rust/2.html/</guid>
+    <description><![CDATA[具体内容请看飞书文档]]></description>
 </item><item>
     <title>《哲学-死亡》notes</title>
     <link>https://zhengyua.cn/posts/daily_life/reading/3.html/</link>
@@ -60,19 +74,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/search_engine/es/5.html/</guid>
     <description><![CDATA[多字段特性 以不同的特性索引字段来实现不同的需求，即多字段的特性。 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 PUT products { &#34;mappings&#34;:{ &#34;properties&#34;:{ &#34;company&#34;:{ &#34;type&#34;:&#34;text&#34;, &#34;fields&#34;:{ &#34;keyword&#34;:{ &#34;type&#34;:&#34;keyword&#34;, &#34;ignore_above&#34;:256, }]]></description>
-</item><item>
-    <title>ElasticSearchMapping</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/4.html/</link>
-    <pubDate>Mon, 07 Mar 2022 20:34:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/4.html/</guid>
-    <description><![CDATA[字段的数据类型 字段的数据类型主要如下： 简单类型 Text/Keyword Date Integer/Floating Boolean IPv4&amp;IPv6 复杂类型-对象和嵌套对象 对象类型/嵌套类型 特殊类型 geo_point&amp;geo_shape/percolator Mapping Mapping 类似数据库中的 Schema 的定义，作用]]></description>
-</item><item>
-    <title>ElasticSearchSearchAPI</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/3.html/</link>
-    <pubDate>Mon, 07 Mar 2022 20:20:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/3.html/</guid>
-    <description><![CDATA[Search API 概览 主要包含两部分： URL Search 在 URL 中使用查询参数 Request Body Search 使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的QueryDomainSpecificLanguag]]></description>
 </item></channel>
 </rss>
