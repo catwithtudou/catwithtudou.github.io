@@ -4,9 +4,16 @@
         <link>https://zhengyua.cn/</link>
         <description>一直是阵雨🌦️&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Thu, 24 Mar 2022 20:28:06 &#43;0800</lastBuildDate>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Tue, 26 Dec 2023 00:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://zhengyua.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>《Rust语言圣经》高阶部分阅读笔记</title>
+    <link>https://zhengyua.cn/posts/rust/1.html/</link>
+    <pubDate>Tue, 26 Dec 2023 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/rust/1.html/</guid>
+    <description><![CDATA[以下是《Rust 语言圣经》高阶部分的阅读笔记（👷施工中） 具体内容请看飞书文档]]></description>
+</item><item>
     <title>《哲学-死亡》notes</title>
     <link>https://zhengyua.cn/posts/daily_life/reading/3.html/</link>
     <pubDate>Thu, 24 Mar 2022 20:28:06 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/search_engine/es/3.html/</guid>
     <description><![CDATA[Search API 概览 主要包含两部分： URL Search 在 URL 中使用查询参数 Request Body Search 使用 Elasticsearch 提供的，基于 JSON 格式的更加完备的QueryDomainSpecificLanguag]]></description>
-</item><item>
-    <title>os中的内核</title>
-    <link>https://zhengyua.cn/posts/os/common/2.html/</link>
-    <pubDate>Mon, 07 Mar 2022 10:50:26 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/os/common/2.html/</guid>
-    <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 计算机中的资源管理——内核 计算机中资源主要分为： 硬件资源（如总线、CPU、内存、硬盘、网卡、显卡]]></description>
 </item></channel>
 </rss>

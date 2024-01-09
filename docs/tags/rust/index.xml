@@ -4,7 +4,14 @@
         <link>https://zhengyua.cn/tags/rust/</link>
         <description>rust - 标签 - </description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 28 Jan 2022 20:59:26 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/rust/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Tue, 26 Dec 2023 00:00:00 &#43;0800</lastBuildDate><atom:link href="https://zhengyua.cn/tags/rust/" rel="self" type="application/rss+xml" /><item>
+    <title>《Rust语言圣经》高阶部分阅读笔记</title>
+    <link>https://zhengyua.cn/posts/rust/1.html/</link>
+    <pubDate>Tue, 26 Dec 2023 00:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/rust/1.html/</guid>
+    <description><![CDATA[以下是《Rust 语言圣经》高阶部分的阅读笔记（👷施工中） 具体内容请看飞书文档]]></description>
+</item><item>
     <title>《Rust 实战课》学习笔记</title>
     <link>https://zhengyua.cn/posts/rust/0.html/</link>
     <pubDate>Fri, 28 Jan 2022 20:59:26 &#43;0800</pubDate>
