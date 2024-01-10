@@ -17,3 +17,5 @@ Hope to realize what I really want
 ## List of recently read books
 
 [See the doc](https://jih9axn4gg.feishu.cn/wiki/wikcnhlcSHrdxsvpvFBOyb5vSKf?from=from_copylink) 
+
+{{< figure src="/images/mood.jpeg"  >}}
