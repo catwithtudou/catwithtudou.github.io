@@ -4,9 +4,16 @@
         <link>https://zhengyua.cn/</link>
         <description>一直是阵雨🌦️&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 21 Jan 2024 01:14:00 &#43;0800</lastBuildDate>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 21 Jan 2024 18:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://zhengyua.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>🔬Build A Parser By Rust（上）</title>
+    <link>https://zhengyua.cn/posts/rust/3.html/</link>
+    <pubDate>Sun, 21 Jan 2024 18:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/rust/3.html/</guid>
+    <description><![CDATA[此文档内容为飞书文档复制过来作为搜索，存在内容格式不兼容情况，建议看原飞书文档 背景 最近在跟着 mbrubeck 大佬写的 Robinson 学习用 Rust 来编写一个简单的浏览器引擎（]]></description>
+</item><item>
     <title>今晚停下来后的一些想法</title>
     <link>https://zhengyua.cn/posts/daily_life/life_record/2.html/</link>
     <pubDate>Sun, 21 Jan 2024 01:14:00 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/search_engine/es/7.html/</guid>
     <description><![CDATA[简介 聚合是 Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析功能。通过聚合，我们可以得到数据的概览，是分析和总结全套的数据，而不是寻找单个文档。 Elasticsearch 的]]></description>
-</item><item>
-    <title>ElasticSearchTemplate使用</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/6.html/</link>
-    <pubDate>Tue, 08 Mar 2022 09:59:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/6.html/</guid>
-    <description><![CDATA[Index Template Index Template 可以设定 Mappings 和 Settings，并按照一定的规则自动匹配到新创建的索引上。 这里需要注意的是： 模板仅在一个索引被新创建时才会生效 修改模板]]></description>
 </item></channel>
 </rss>
