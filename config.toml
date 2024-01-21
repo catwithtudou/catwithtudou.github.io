@@ -266,7 +266,7 @@ enableEmoji = true
     enable = true
     # Google Analytics
     [params.analytics.google]
-      id = "G-J45YPF1TLY"
+      id = "G-R5979CFCX0"
       # 是否匿名化用户 IP
       anonymizeIP = true
     # Fathom Analytics
