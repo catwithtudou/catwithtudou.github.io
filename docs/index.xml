@@ -4,9 +4,16 @@
         <link>https://zhengyua.cn/</link>
         <description>一直是阵雨🌦️&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Sun, 21 Jan 2024 18:00:00 &#43;0800</lastBuildDate>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Wed, 24 Jan 2024 02:11:00 &#43;0800</lastBuildDate>
             <atom:link href="https://zhengyua.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>基于 Go 实现的推文自动分割脚本</title>
+    <link>https://zhengyua.cn/posts/project/common/0.html/</link>
+    <pubDate>Wed, 24 Jan 2024 02:11:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/project/common/0.html/</guid>
+    <description><![CDATA[此文档内容为飞书文档复制过来作为搜索，存在内容格式不兼容情况，建议看原飞书文档 背景 作为时常在推特发布推文的免费用户，经常会遇到在想要发布稍微]]></description>
+</item><item>
     <title>🔬Build A Parser By Rust（上）</title>
     <link>https://zhengyua.cn/posts/rust/3.html/</link>
     <pubDate>Sun, 21 Jan 2024 18:00:00 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/os/common/3.html/</guid>
     <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 按照 CPU 功能升级迭代的顺序，CPU 的工作模式有： 实模式 保护模式 长模式 实模式 实模式又称实地址模式： 运]]></description>
-</item><item>
-    <title>ElasticSearch聚合简介</title>
-    <link>https://zhengyua.cn/posts/search_engine/es/7.html/</link>
-    <pubDate>Tue, 08 Mar 2022 10:42:00 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/search_engine/es/7.html/</guid>
-    <description><![CDATA[简介 聚合是 Elasticsearch 除搜索以外，提供的针对 ES 数据进行统计分析功能。通过聚合，我们可以得到数据的概览，是分析和总结全套的数据，而不是寻找单个文档。 Elasticsearch 的]]></description>
 </item></channel>
 </rss>
