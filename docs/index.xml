@@ -4,9 +4,16 @@
         <link>https://zhengyua.cn/</link>
         <description>一直是阵雨🌦️&#39;s blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>yu949812478@gmail.com (一直是阵雨🌦️)</managingEditor>
-            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Wed, 24 Jan 2024 02:11:00 &#43;0800</lastBuildDate>
+            <webMaster>yu949812478@gmail.com (一直是阵雨🌦️)</webMaster><lastBuildDate>Fri, 26 Jan 2024 21:00:00 &#43;0800</lastBuildDate>
             <atom:link href="https://zhengyua.cn/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>🔬Build A Parser By Rust（下）</title>
+    <link>https://zhengyua.cn/posts/rust/4.html/</link>
+    <pubDate>Fri, 26 Jan 2024 21:00:00 &#43;0800</pubDate>
+    <author>作者</author>
+    <guid>https://zhengyua.cn/posts/rust/4.html/</guid>
+    <description><![CDATA[此文档内容为飞书文档复制过来作为搜索，存在内容格式不兼容情况，建议看原飞书文档 背景 通过上文（Build A Parser By Rust（上） ）我们已经基本了解]]></description>
+</item><item>
     <title>基于 Go 实现的推文自动分割脚本</title>
     <link>https://zhengyua.cn/posts/project/common/0.html/</link>
     <pubDate>Wed, 24 Jan 2024 02:11:00 &#43;0800</pubDate>
@@ -69,12 +76,5 @@
     <author>作者</author>
     <guid>https://zhengyua.cn/posts/common_tech/study_way/0.html/</guid>
     <description><![CDATA[为了小焦 她真的 我哭死 在讲述如何使用思维导图之前，我们不妨先思考为什么在一开始我们需要思维导图？ 带着这一问题，我们首先来简单了解下思维导图的本]]></description>
-</item><item>
-    <title>cpu工作模式</title>
-    <link>https://zhengyua.cn/posts/os/common/3.html/</link>
-    <pubDate>Sun, 13 Mar 2022 11:58:26 &#43;0800</pubDate>
-    <author>作者</author>
-    <guid>https://zhengyua.cn/posts/os/common/3.html/</guid>
-    <description><![CDATA[以下主要来自 LMOS 大佬的操作系统课程中记录的笔记 按照 CPU 功能升级迭代的顺序，CPU 的工作模式有： 实模式 保护模式 长模式 实模式 实模式又称实地址模式： 运]]></description>
 </item></channel>
 </rss>
