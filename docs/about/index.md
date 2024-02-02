@@ -5,7 +5,7 @@
 
 Hope to realize what I really want
 
-> updated in 20231030
+> updated in 20231101
 
 - 👨‍💻 As **a server engineer** in Bytedance (202207-~)
 - 🫣 The most important thing at present is to **maintain a stable mentality and return to the original intention**
