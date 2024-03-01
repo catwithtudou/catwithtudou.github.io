@@ -135,9 +135,9 @@ enableEmoji = true
       # LoveIt 更改 | 0.2.7 主页显示的网站标题 (支持 HTML 格式)
       title = "一直是阵雨🌦️"
       # 主页显示的网站副标题
-      subtitle = "好信不好学，其蔽也贼；好直不好学，其蔽也绞"
+      subtitle = "目前该博客不再更新，最新内容已请在新博客 zhengyua.cn/new_blog 中查看，暂不考虑迁移兼容"
       # 是否为副标题显示打字机动画
-      typeit = true
+      typeit = false
       # 是否显示社交账号
       social = true
       # LoveIt 新增 | 0.2.0 免责声明 (支持 HTML 格式)
