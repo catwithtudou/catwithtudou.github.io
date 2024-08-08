@@ -101,7 +101,7 @@ enableEmoji = true
     # 网站创立年份
     since = 2022
     # ICP 备案信息，仅在中国使用 (支持 HTML 格式)
-    icp = "渝ICP备19012006号-1"
+    icp = '<a href="https://beian.miit.gov.cn/" target="_blank">渝ICP备19012006号-1</a>'
 
 # LoveIt 新增 | 0.2.0 Section (所有文章) 页面配置
   [params.section]
